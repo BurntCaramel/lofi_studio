@@ -13,7 +13,7 @@ defmodule LofiPlayWeb.ScreenView do
 
   defp has_flag_tag(tags, name) do
     case tags do
-      %{ ^name => {:flag, true} } -> true
+      %{^name => {:flag, true}} -> true
       _ -> false
     end
   end
@@ -25,7 +25,7 @@ defmodule LofiPlayWeb.ScreenView do
     |> Enum.join(" ")
   end
 
-  defp preview_line_element(%Lofi.Element{ texts: texts, tags: %{ "button" => {:flag, true} } }, %Lofi.Element{ tags: tags }) do
+  defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"button" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
     class = flatten_classes [
       {"btn", true},
       {"btn-primary", has_flag_tag(tags, "primary")}
@@ -34,15 +34,15 @@ defmodule LofiPlayWeb.ScreenView do
     Tag.content_tag(:button, Enum.join(texts, ""), class: class)
   end
 
-  defp preview_line_element(%Lofi.Element{ texts: texts, tags: %{ "primary" => {:flag, true} } }, element) do
+  defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"primary" => {:flag, true}}}, element) do
     Tag.content_tag(:h1, Enum.join(texts, ""))
   end
 
-  defp preview_line_element(%Lofi.Element{ texts: texts, tags: %{ "secondary" => {:flag, true} } }, element) do
+  defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"secondary" => {:flag, true}}}, element) do
     Tag.content_tag(:h2, Enum.join(texts, ""))
   end
 
-  defp preview_line_element(%Lofi.Element{ texts: texts }, element) do
+  defp preview_line_element(%Lofi.Element{texts: texts}, element) do
     Tag.content_tag(:p, Enum.join(texts, ""))
   end
 
