@@ -1,3 +1,7 @@
+<nav>
+<%= link "Screens", to: screen_path(@conn, :index) %>
+</nav>
+
 <h2><%= @screen.name %></h2>
 
 <pre>
@@ -8,5 +12,4 @@
 
 <nav>
 <%= link "Edit", to: screen_path(@conn, :edit, @screen) %>
-<%= link "Screens", to: screen_path(@conn, :index) %>
 </nav>

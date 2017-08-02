@@ -25,6 +25,9 @@ defmodule LofiPlayWeb.ScreenView do
     |> Enum.join(" ")
   end
 
+  @doc """
+  #button -> <button>
+  """
   defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"button" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
     class = flatten_classes [
       {"btn", true},
@@ -34,6 +37,27 @@ defmodule LofiPlayWeb.ScreenView do
     Tag.content_tag(:button, Enum.join(texts, ""), class: class)
   end
 
+  @doc """
+  #field -> <input>
+  """
+  defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"field" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
+    type = cond do
+      has_flag_tag(tags, "password") ->
+        "password"
+      true ->
+        "text"
+    end
+
+    Tag.content_tag(:label, [
+      Enum.join(texts, ""),
+      " ",
+      Tag.tag(:input, type: type)
+    ])
+  end
+
+  @doc """
+  #primary -> <h1>
+  """
   defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"primary" => {:flag, true}}}, element) do
     Tag.content_tag(:h1, Enum.join(texts, ""))
   end
@@ -50,7 +74,7 @@ defmodule LofiPlayWeb.ScreenView do
     lines = String.split(block, "\n", trim: true)
     html_lines = Enum.map(lines, &preview_line/1)
 
-    Tag.content_tag(:div, HTML.html_escape(html_lines))
+    Tag.content_tag(:div, html_lines)
   end
 
   def preview_body(body) do
