@@ -1,0 +1,9 @@
+/* This file is for your main application css. */
+
+body {
+  font-size: 16px !important;
+}
+
+pre {
+  white-space: pre-wrap;
+}

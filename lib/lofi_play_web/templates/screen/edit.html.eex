@@ -1,0 +1,5 @@
+<h2>Edit Screen</h2>
+
+<%= render "form.html", Map.put(assigns, :action, screen_path(@conn, :update, @screen)) %>
+
+<span><%= link "Back", to: screen_path(@conn, :index) %></span>

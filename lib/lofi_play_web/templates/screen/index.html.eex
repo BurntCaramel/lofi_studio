@@ -1,0 +1,28 @@
+<h2>Listing Screens</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for screen <- @screens do %>
+    <tr>
+      <td><strong><%= screen.name %></strong></td>
+      <td><pre><%= screen.body %></pre></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: screen_path(@conn, :show, screen), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: screen_path(@conn, :edit, screen), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: screen_path(@conn, :delete, screen), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Screen", to: screen_path(@conn, :new) %></span>

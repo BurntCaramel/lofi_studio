@@ -1,0 +1,12 @@
+<h2><%= @screen.name %></h2>
+
+<pre>
+  <%= @screen.body %>
+</pre>
+
+<%= preview_body @screen.body %>
+
+<nav>
+<%= link "Edit", to: screen_path(@conn, :edit, @screen) %>
+<%= link "Screens", to: screen_path(@conn, :index) %>
+</nav>
