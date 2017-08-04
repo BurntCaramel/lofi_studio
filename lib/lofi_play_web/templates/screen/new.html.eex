@@ -1,5 +1,12 @@
-<h2>New Screen</h2>
+<%= container do %>
+  <h1>
+    New
+    <small><%= link "#screen", to: screen_path(@conn, :index) %></small>
+  </h1>
 
-<%= render "form.html", Map.put(assigns, :action, screen_path(@conn, :create)) %>
+  <%= render "form.html", Map.put(assigns, :action, screen_path(@conn, :create)) %>
 
-<span><%= link "Back", to: screen_path(@conn, :index) %></span>
+  <nav>
+    <%= link "Back", to: screen_path(@conn, :index) %>
+  </nav>
+<% end %>

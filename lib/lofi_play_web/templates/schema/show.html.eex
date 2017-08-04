@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col col-xs-12 col-sm-4 col-md-4">
         <nav>
-        <%= link "Edit", to: schema_path(@conn, :edit, @schema), class: "btn btn-primary" %>
+          <%= link "Edit", to: schema_path(@conn, :edit, @schema), class: "btn btn-primary" %>
         </nav>
         <pre><%= @schema.body %></pre>
       </div>

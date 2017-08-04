@@ -1,5 +1,12 @@
-<h2>New Schema</h2>
+<%= container do %>
+  <h1>
+    New
+    <small><%= link "#schema", to: schema_path(@conn, :index) %></small>
+  </h1>
 
-<%= render "form.html", Map.put(assigns, :action, schema_path(@conn, :create)) %>
-
-<span><%= link "Back", to: schema_path(@conn, :index) %></span>
+  <%= render "form.html", Map.put(assigns, :action, schema_path(@conn, :create)) %>
+  
+  <nav>
+    <%= link "Back", to: schema_path(@conn, :index) %>
+  </nav>
+<% end %>

@@ -1,5 +1,11 @@
-<h2>Edit Schema</h2>
+<%= container do %>
+  <h1>
+    Edit Schema
+  </h1>
 
-<%= render "form.html", Map.put(assigns, :action, schema_path(@conn, :update, @schema)) %>
+  <%= render "form.html", Map.put(assigns, :action, schema_path(@conn, :update, @schema)) %>
 
-<span><%= link "Back", to: schema_path(@conn, :index) %></span>
+  <nav>
+    <%= link "Cancel", to: schema_path(@conn, :index) %>
+  </nav>
+<% end %>

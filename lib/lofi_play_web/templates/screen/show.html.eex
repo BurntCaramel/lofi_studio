@@ -8,14 +8,14 @@
 <section class="screen-body">
   <div class="row">
     <div class="col col-xs-12 col-sm-6 col-md-4">
+      <nav>
+        <%= link "Edit", to: screen_path(@conn, :edit, @screen), class: "btn btn-primary" %>
+      </nav>
       <pre><%= @screen.body %></pre>
     </div>
     <div class="col col-xs-12 col-sm-6 col-md-8">
+      <h2>Bootstrap preview</h2>
       <%= preview_body @screen.body %>
     </div>
   </div>
 </section>
-
-<nav>
-<%= link "Edit", to: screen_path(@conn, :edit, @screen) %>
-</nav>
