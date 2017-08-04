@@ -198,6 +198,38 @@ defmodule LofiPlay.Preview.Bootstrap do
     ])
   end
 
+  defp nav_item(%Lofi.Element{texts: texts, tags: tags}) do
+    class = flatten_classes [
+      {"active", has_flag_tag(tags, "active")}
+    ]
+
+    href = get_content_tag(tags, "link")
+    
+    Tag.content_tag(:li, class: class) do
+      Tag.content_tag(:a, Enum.join(texts, ""), href: href)
+    end
+  end
+
+  defp nav(items) do
+
+  end
+
+  @doc """
+  #nav
+  - Australia
+  - India
+  - New Zealand
+  """
+  defp preview(%Lofi.Element{tags: %{"nav" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags, children: children}) do
+    Tag.content_tag(:nav, [
+      Enum.join(texts, ""),
+      " ",
+      Tag.content_tag(:div, class: "nav nav-pills") do
+        Enum.map(children, &nav_item/1)
+      end
+    ])
+  end
+
   @doc """
       Hello #primary
       <h1>Hello</h1>
