@@ -18,7 +18,11 @@ defmodule LofiPlay.Content do
 
   """
   def list_screens do
-    Repo.all(Screen)
+    Repo.all(
+      Screen
+      #|> order_by(asc: :inserted_at)
+      |> order_by(desc: :updated_at)
+    )
   end
 
   @doc """
