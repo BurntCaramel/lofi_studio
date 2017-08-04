@@ -190,7 +190,7 @@ defmodule LofiPlay.Preview.Bootstrap do
     Tag.content_tag(:label, [
       Enum.join(texts, ""),
       " ",
-      Tag.content_tag(:select) do
+      Tag.content_tag(:select, class: "form-control") do
         Enum.map(children, fn (%Lofi.Element{texts: texts}) ->
           Tag.content_tag(:option, Enum.join(texts, ""))
         end)
