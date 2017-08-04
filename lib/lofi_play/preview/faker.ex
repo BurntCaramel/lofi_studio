@@ -150,20 +150,32 @@ defmodule LofiPlay.Preview.Faker do
   end
 
   defp generate_for_section(lines) do
-    map = List.foldl(lines, %{}, &generate_for_element/2)
-
-    json_string = Poison.encode!(map, pretty: true)
-
-    Tag.content_tag(:pre, json_string)
+    List.foldl(lines, %{}, &generate_for_element/2)
   end
 
-  defp preview_section(lines) do
-    Tag.content_tag(:pre, generate_for_section(lines))
+  defp html_for_section(lines) do
+    map = generate_for_section(lines)
+    json_string = Poison.encode!(map, pretty: true)
+    Tag.content_tag(:pre, json_string)
   end
 
   def preview_text(text) do
     sections = Lofi.Parse.parse_sections(text)
 
-    Enum.map(sections, &generate_for_section/1)
+    Enum.map(sections, &html_for_section/1)
+  end
+
+  def json_for_text(text) do
+    sections = Lofi.Parse.parse_sections(text)
+
+    case Enum.map(sections, &generate_for_section/1) do
+      # Extract single section
+      [ single | [] ] ->
+        single
+      
+      # Array of sections
+      multiple ->
+        multiple
+    end
   end
 end

@@ -22,10 +22,12 @@ defmodule LofiPlayWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", LofiPlayWeb do
+  scope "/api", LofiPlayWeb, as: :api do
     pipe_through :api
 
     resources "/screens", API.ScreenController, only: [:index, :show]
-    resources "/schemas", API.SchemaController, only: [:index, :show]
+    resources "/schemas", API.SchemaController, only: [:index, :show] do
+      resources "/faker", API.SchemaFakerController, only: [:show], singleton: true, as: :faker
+    end
   end
 end

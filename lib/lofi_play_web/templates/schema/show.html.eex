@@ -20,6 +20,9 @@
       </div>
       <div class="col col-xs-12 col-sm-4 col-md-4">
         <h2>Fake data</h2>
+        <nav>
+          <%= link "JSON", to: api_schema_faker_path(@conn, :show, @schema), class: "btn btn-primary" %>
+        </nav>
         <%= preview_body_faker @schema.body %>
       </div>
     </div>
