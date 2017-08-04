@@ -1,11 +1,14 @@
 <%= container do %>
   <h1>
-    Edit Schema
+    Editing
+    <%= link to: schema_path(@conn, :show, @schema) do %>
+      <%= @schema.name %> <small>Cancel</small>
+    <% end %>
   </h1>
 
   <%= render "form.html", Map.put(assigns, :action, schema_path(@conn, :update, @schema)) %>
 
   <nav>
-    <%= link "Cancel", to: schema_path(@conn, :index) %>
+    <%= link "Cancel", to: schema_path(@conn, :show, @schema), class: "btn btn-default" %>
   </nav>
 <% end %>

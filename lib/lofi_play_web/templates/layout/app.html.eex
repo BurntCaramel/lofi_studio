@@ -17,9 +17,11 @@
       <header class="header">
         <nav role="navigation">
           <ul class="nav nav-pills">
+            <li><%= link "Journeys", to: screen_path(@conn, :index) %></li>
             <li><%= link "Screens", to: screen_path(@conn, :index) %></li>
             <li><%= link "Schemas", to: schema_path(@conn, :index) %></li>
             <li><%= link "Promos", to: '#' %></li>
+            <li><%= link "Chatter (Convos)", to: '#' %></li>
             <li><%= link "Ingredients (Components)", to: '#' %></li>
           </ul>
         </nav>

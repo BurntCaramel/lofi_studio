@@ -40,6 +40,10 @@ h2 > a:only-child {
   margin-left: -1rem;
 }
 
+a small {
+  color: inherit;
+}
+
 pre {
   white-space: pre-wrap;
   word-wrap: normal;

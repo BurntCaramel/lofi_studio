@@ -1,9 +1,14 @@
 <%= container do %>
-  <h1>Edit Screen</h1>
+  <h1>
+    Editing
+    <%= link to: screen_path(@conn, :show, @screen) do %>
+      <%= @screen.name %> <small>Cancel</small>
+    <% end %>
+  </h1>
 
   <%= render "form.html", Map.put(assigns, :action, screen_path(@conn, :update, @screen)) %>
 
   <nav>
-    <%= link "Cancel", to: screen_path(@conn, :index) %>
+    <%= link "Cancel", to: screen_path(@conn, :show, @screen), class: "btn btn-default" %>
   </nav>
 <% end %>

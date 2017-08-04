@@ -3,6 +3,8 @@
     <%= @screen.name %>
     <small><%= link "#screen", to: screen_path(@conn, :index) %></small>
   </h1>
+
+  <h5>Used in journeys: …</h5>
 <% end %>
 
 <section class="screen-body">
