@@ -76,6 +76,55 @@ defmodule LofiPlay.Preview.Bootstrap do
     Tag.content_tag(:button, Enum.join(texts, ""), class: class)
   end
 
+  defp input(type, texts) do
+    Tag.content_tag(:div, class: "form-group") do
+      Tag.content_tag(:label, [
+        Enum.join(texts, ""),
+        " ",
+        Tag.tag(:input, type: type, class: "form-control")
+      ])
+    end
+  end
+
+  defp textarea(texts, lines \\ 1) do
+    Tag.content_tag(:div, class: "form-group") do
+      Tag.content_tag(:label, [
+        Enum.join(texts, ""),
+        " ",
+        Tag.content_tag(:textarea, '', class: "form-control", rows: lines)
+      ])
+    end
+  end
+
+  @doc """
+  Enter email #email
+  """
+  defp preview(%Lofi.Element{tags: %{"email" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+    input("email", texts)
+  end
+
+  @doc """
+  Enter password #password
+  """
+  defp preview(%Lofi.Element{tags: %{"password" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+    input("password", texts)
+  end
+
+  @doc """
+  Enter message #text #lines: 6
+  """
+  defp preview(%Lofi.Element{tags: %{"text" => {:flag, true}, "lines" => {:content, lines_element}}}, %Lofi.Element{texts: texts, tags: tags}) do
+    %{texts: [lines_string]} = lines_element
+    textarea(texts, lines_string)
+  end
+
+  @doc """
+  Enter message #text
+  """
+  defp preview(%Lofi.Element{tags: %{"text" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+    input("text", texts)
+  end
+
   @doc """
   #field
   
@@ -91,13 +140,7 @@ defmodule LofiPlay.Preview.Bootstrap do
         "text"
     end
 
-    Tag.content_tag(:div, class: "form-group") do
-      Tag.content_tag(:label, [
-        Enum.join(texts, ""),
-        " ",
-        Tag.tag(:input, type: type, class: "form-control")
-      ])
-    end
+    input(type, texts)
   end
 
   @doc """

@@ -9,3 +9,7 @@ pre {
   word-wrap: normal;
   word-break: normal !important;
 }
+
+label {
+  display: block !important;
+}
