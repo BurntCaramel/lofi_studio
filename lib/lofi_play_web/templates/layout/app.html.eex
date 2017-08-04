@@ -18,8 +18,8 @@
         <nav role="navigation">
           <ul class="nav nav-pills">
             <li><%= link "Screens", to: screen_path(@conn, :index) %></li>
+            <li><%= link "Schemas", to: schema_path(@conn, :index) %></li>
             <li><%= link "Promos", to: '#' %></li>
-            <li><%= link "Forms (Schemas)", to: schema_path(@conn, :index) %></li>
             <li><%= link "Ingredients (Components)", to: '#' %></li>
           </ul>
         </nav>
