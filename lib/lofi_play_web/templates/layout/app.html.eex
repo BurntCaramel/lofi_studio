@@ -19,14 +19,18 @@
           <ul class="nav nav-pills">
             <li><%= link "Screens", to: screen_path(@conn, :index) %></li>
             <li><%= link "Promos", to: '#' %></li>
-            <li><%= link "Forms (Schemas)", to: '#' %></li>
+            <li><%= link "Forms (Schemas)", to: schema_path(@conn, :index) %></li>
             <li><%= link "Ingredients (Components)", to: '#' %></li>
           </ul>
         </nav>
       </header>
       
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <div class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></div>
+      <% if get_flash(@conn, :info) != "" do %>
+        <div class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></div>
+      <% end %>
+      <% if get_flash(@conn, :error) != "" do %>
+        <div class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></div>
+      <% end %>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
