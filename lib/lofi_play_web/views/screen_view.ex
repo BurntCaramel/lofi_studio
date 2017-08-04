@@ -18,12 +18,50 @@ defmodule LofiPlayWeb.ScreenView do
   end
 
   @doc """
-  #button -> <button>
+  #button
+  
+  <button>
+  """
+  defp preview_line_element(%Lofi.Element{texts: [""], tags: %{"button" => {:flag, true}}}, %Lofi.Element{children: children, tags: tags}) do
+    class = flatten_classes [
+      {"btn", true},
+      {
+        cond do
+          has_flag_tag(tags, "primary") -> "btn-primary"
+          true -> "btn-default"
+        end,
+        true
+      }
+    ]
+
+    #Tag.content_tag(:button, Enum.join([""], ""), class: class)
+    Tag.content_tag(:div, class: "btn-group") do
+      children
+      #|> Enum.map(&preview_line/1)
+      |> Enum.map(fn (element) ->
+        element = Map.update!(element, :tags, fn (child_tags) -> Map.merge(tags, child_tags) end)
+        #|> &Map.update!(&1, :tags, &Map.merge(tags, &1))
+        preview_line(element)
+      end)
+    end
+  end
+
+  @doc """
+  #button
+  
+  <button>
   """
   defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"button" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
     class = flatten_classes [
       {"btn", true},
-      {"btn-primary", has_flag_tag(tags, "primary")}
+      {"active", has_flag_tag(tags, "active")},
+      {
+        cond do
+          has_flag_tag(tags, "primary") -> "btn-primary"
+          true -> "btn-default"
+        end,
+        true
+      }
     ]
 
     Tag.content_tag(:button, Enum.join(texts, ""), class: class)
