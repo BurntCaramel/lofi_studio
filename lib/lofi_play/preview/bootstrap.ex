@@ -77,7 +77,9 @@ defmodule LofiPlay.Preview.Bootstrap do
   end
 
   @doc """
-  #field -> <input>
+  #field
+  
+  <input>
   """
   defp preview(%Lofi.Element{tags: %{"field" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
     type = cond do
@@ -89,11 +91,13 @@ defmodule LofiPlay.Preview.Bootstrap do
         "text"
     end
 
-    Tag.content_tag(:label, [
-      Enum.join(texts, ""),
-      " ",
-      Tag.tag(:input, type: type)
-    ])
+    Tag.content_tag(:div, class: "form-group") do
+      Tag.content_tag(:label, [
+        Enum.join(texts, ""),
+        " ",
+        Tag.tag(:input, type: type, class: "form-control")
+      ])
+    end
   end
 
   @doc """
