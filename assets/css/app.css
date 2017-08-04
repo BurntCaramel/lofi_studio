@@ -1,7 +1,14 @@
 /* This file is for your main application css. */
 
+html {
+  font-size: 16px;
+}
 body {
-  font-size: 16px !important;
+  font-size: 100%;
+}
+
+main {
+  padding-bottom: 1rem;
 }
 
 pre {
@@ -12,4 +19,10 @@ pre {
 
 label {
   display: block !important;
+}
+
+
+.screen-body {
+  border-top: 1px solid #777;
+  border-bottom: 1px solid #777;
 }
