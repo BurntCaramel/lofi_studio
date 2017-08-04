@@ -1,5 +1,4 @@
 defmodule LofiPlay.Preview.Bootstrap do
-  alias Phoenix.HTML
   alias Phoenix.HTML.Tag
 
   defp has_flag_tag(tags, name) do
@@ -61,7 +60,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   
   <button>Click me</button>
   """
-  defp preview(%Lofi.Element{texts: texts, tags: %{"button" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
+  defp preview(%Lofi.Element{tags: %{"button" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
     class = flatten_classes [
       {"btn", true},
       {"active", has_flag_tag(tags, "active")},
@@ -80,10 +79,12 @@ defmodule LofiPlay.Preview.Bootstrap do
   @doc """
   #field -> <input>
   """
-  defp preview(%Lofi.Element{texts: texts, tags: %{"field" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
+  defp preview(%Lofi.Element{tags: %{"field" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
     type = cond do
       has_flag_tag(tags, "password") ->
         "password"
+      has_flag_tag(tags, "email") ->
+        "email"
       true ->
         "text"
     end
@@ -100,7 +101,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   
   <label><input type="checkbox"> Accept terms</label>
   """
-  defp preview(%Lofi.Element{texts: texts, children: [], tags: %{"choice" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
+  defp preview(%Lofi.Element{children: [], tags: %{"choice" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
     Tag.content_tag(:label, [
       Tag.tag(:input, type: "checkbox"),
       " ",
@@ -116,7 +117,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   
   <label>Multiple choice <select><option>Australia</option><option>India</option><option>New Zealand</option></select></label>
   """
-  defp preview(%Lofi.Element{texts: texts, tags: %{"choice" => {:flag, true}}}, %Lofi.Element{children: children, tags: tags}) do
+  defp preview(%Lofi.Element{tags: %{"choice" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags, children: children}) do
     Tag.content_tag(:label, [
       Enum.join(texts, ""),
       " ",
@@ -129,18 +130,54 @@ defmodule LofiPlay.Preview.Bootstrap do
   end
 
   @doc """
-  #primary -> <h1>
+      Hello #primary
+      <h1>Hello</h1>
+
+      Hello #secondary
+      <h2>Hello</h2>
+
+      Hello
+      <p>Hello</p>
   """
-  defp preview(%Lofi.Element{texts: texts, tags: %{"primary" => {:flag, true}}}, element) do
-    Tag.content_tag(:h1, Enum.join(texts, ""))
+  defp preview(%Lofi.Element{children: []}, %Lofi.Element{texts: texts, tags: tags}) do
+    tag = cond do
+      has_flag_tag(tags, "primary") ->
+        :h1
+      has_flag_tag(tags, "secondary") ->
+        :h2
+      true ->
+        :p
+    end
+    
+    Tag.content_tag(tag, Enum.join(texts, ""))
   end
 
-  defp preview(%Lofi.Element{texts: texts, tags: %{"secondary" => {:flag, true}}}, element) do
-    Tag.content_tag(:h2, Enum.join(texts, ""))
-  end
+  @doc """
+  - Australia
+  - India
+  - New Zealand
+  
+  <ul>
+    <li>Australia</li>
+    <li>India</li>
+    <li>New Zealand</li>
+  </ul>
+  """
+  defp preview(%Lofi.Element{texts: texts, tags: %{}}, %Lofi.Element{children: children, tags: tags}) do
+    tag = cond do
+      Map.get(tags, "ordered") == {:flag, true} -> :ol
+      true -> :ul
+    end
 
-  defp preview(%Lofi.Element{texts: texts}, element) do
-    Tag.content_tag(:p, Enum.join(texts, ""))
+    Tag.content_tag(:div, [
+      Enum.join(texts, ""), # Ignore text?
+      " ",
+      Tag.content_tag(tag) do
+        Enum.map(children, fn (element) ->
+          Tag.content_tag(:li, preview_element(element))
+        end)
+      end
+    ])
   end
 
   defp preview_element(element) do
