@@ -64,7 +64,7 @@ defmodule LofiPlay.Preview.Faker do
         |> DateTime.to_unix
 
       true ->
-        Faker.DateTime.before(100)
+        Faker.DateTime.backward(100)
         |> DateTime.to_unix
     end
 
