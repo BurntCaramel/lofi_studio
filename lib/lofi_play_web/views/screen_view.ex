@@ -3,14 +3,6 @@ defmodule LofiPlayWeb.ScreenView do
   alias Phoenix.HTML
   alias Phoenix.HTML.Tag
 
-  @line_separators ~r/\r\n?|\n/
-  @block_separators ~r/(\r\n?|\n){3,}/ # TODO? why 3, not 2,
-
-  defp preview_line(line) do
-    element = Lofi.Parse.parse_element(line)
-    preview_line_element(element, element)
-  end
-
   defp has_flag_tag(tags, name) do
     case tags do
       %{^name => {:flag, true}} -> true
@@ -70,17 +62,19 @@ defmodule LofiPlayWeb.ScreenView do
     Tag.content_tag(:p, Enum.join(texts, ""))
   end
 
-  defp preview_block(block) do
-    lines = String.split(block, "\n", trim: true)
+  defp preview_line(element) do
+    preview_line_element(element, element)
+  end
+
+  defp preview_section(lines) do
     html_lines = Enum.map(lines, &preview_line/1)
 
     Tag.content_tag(:div, html_lines)
   end
 
   def preview_body(body) do
-    blocks = String.split(body, @block_separators, trim: true)
+    sections = Lofi.Parse.parse_sections(body)
 
-    Enum.map(blocks, &preview_block/1)
-    #element = (body)
+    Enum.map(sections, &preview_section/1)
   end
 end
