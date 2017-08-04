@@ -5,7 +5,7 @@ defmodule LofiPlay.Preview.Faker do
   @doc """
   Enter email #email
   """
-  defp preview(%Lofi.Element{tags: %{"email" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+  defp generate(%Lofi.Element{tags: %{"email" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
     {
       Enum.join(texts, ""),
       Faker.Internet.safe_email
@@ -15,7 +15,7 @@ defmodule LofiPlay.Preview.Faker do
   @doc """
   Enter password #password
   """
-  defp preview(%Lofi.Element{tags: %{"password" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+  defp generate(%Lofi.Element{tags: %{"password" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
     {
       Enum.join(texts, ""),
       ""
@@ -25,7 +25,7 @@ defmodule LofiPlay.Preview.Faker do
   @doc """
   Favorite number #number
   """
-  defp preview(%Lofi.Element{tags: %{"number" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+  defp generate(%Lofi.Element{tags: %{"number" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
     value =
       with {:ok, string} <- fetch_content_tag(tags, "default"),
         {number, _remainder} <- Integer.parse(string)
@@ -44,7 +44,7 @@ defmodule LofiPlay.Preview.Faker do
   @doc """
   Date of birth #date
   """
-  defp preview(%Lofi.Element{tags: %{"date" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+  defp generate(%Lofi.Element{tags: %{"date" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
     value = Faker.Date.date_of_birth
 
     {
@@ -56,7 +56,7 @@ defmodule LofiPlay.Preview.Faker do
   # @doc """
   # Last signed in #time
   # """
-  defp preview(%Lofi.Element{tags: %{"time" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+  defp generate(%Lofi.Element{tags: %{"time" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
     value = cond do
       has_flag_tag(tags, "now") ->
         DateTime.utc_now
@@ -77,7 +77,7 @@ defmodule LofiPlay.Preview.Faker do
   # @doc """
   # Enter message #text #lines: 6
   # """
-  # defp preview(%Lofi.Element{tags: %{"text" => {:flag, true}, "lines" => {:content, lines_element}}}, %Lofi.Element{texts: texts, tags: tags}) do
+  # defp generate(%Lofi.Element{tags: %{"text" => {:flag, true}, "lines" => {:content, lines_element}}}, %Lofi.Element{texts: texts, tags: tags}) do
   #   %{texts: [lines_string]} = lines_element
   #   textarea(texts, lines_string)
   # end
@@ -85,14 +85,14 @@ defmodule LofiPlay.Preview.Faker do
   # @doc """
   # Enter message #text
   # """
-  # defp preview(%Lofi.Element{tags: %{"text" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+  # defp generate(%Lofi.Element{tags: %{"text" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
   #   input("text", texts, get_content_tag(tags, "default"))
   # end
 
   @doc """
   Accept terms #choice
   """
-  defp preview(%Lofi.Element{children: [], tags: %{"choice" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+  defp generate(%Lofi.Element{children: [], tags: %{"choice" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
     value = if :crypto.rand_uniform(0, 2) == 1 do
       true
     else
@@ -111,7 +111,7 @@ defmodule LofiPlay.Preview.Faker do
   - India
   - New Zealand
   """
-  defp preview(%Lofi.Element{tags: %{"choice" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags, children: children}) do
+  defp generate(%Lofi.Element{tags: %{"choice" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags, children: children}) do
     index = :crypto.rand_uniform(0, Enum.count(children))
     %Lofi.Element{texts: child_texts} = Enum.at(children, index)
     value = Enum.join(child_texts, "")
@@ -125,7 +125,7 @@ defmodule LofiPlay.Preview.Faker do
   @doc """
       Hello #text
   """
-  defp preview(%Lofi.Element{children: []}, %Lofi.Element{texts: texts, tags: tags}) do
+  defp generate(%Lofi.Element{children: []}, %Lofi.Element{texts: texts, tags: tags}) do
     {
       Enum.join(texts, ""),
       Faker.Lorem.sentence(1..3)
@@ -137,30 +137,33 @@ defmodule LofiPlay.Preview.Faker do
   - India
   - New Zealand
   """
-  defp preview(%Lofi.Element{texts: texts, tags: %{}}, %Lofi.Element{children: children, tags: tags}) do
+  defp generate(%Lofi.Element{texts: texts, tags: %{}}, %Lofi.Element{children: children, tags: tags}) do
     {
       Enum.join(texts, ""),
       nil
     }
   end
 
-  defp preview_element(element, map) do
-    {key, value} = preview(element, element)
+  defp generate_for_element(element, map) do
+    {key, value} = generate(element, element)
     Map.put(map, key, value)
   end
 
-  defp preview_section(lines) do
-    #map = Enum.map(lines, &preview_element/1)
-    map = List.foldl(lines, %{}, &preview_element/2)
+  defp generate_for_section(lines) do
+    map = List.foldl(lines, %{}, &generate_for_element/2)
 
     json_string = Poison.encode!(map, pretty: true)
 
     Tag.content_tag(:pre, json_string)
   end
 
+  defp preview_section(lines) do
+    Tag.content_tag(:pre, generate_for_section(lines))
+  end
+
   def preview_text(text) do
     sections = Lofi.Parse.parse_sections(text)
 
-    Enum.map(sections, &preview_section/1)
+    Enum.map(sections, &generate_for_section/1)
   end
 end
