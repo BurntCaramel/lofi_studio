@@ -6,4 +6,5 @@ body {
 
 pre {
   white-space: pre-wrap;
+  word-wrap: normal;
 }
