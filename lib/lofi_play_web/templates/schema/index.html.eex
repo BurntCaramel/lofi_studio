@@ -16,7 +16,7 @@
           <pre><%= schema.body %></pre>
         </div>
         <div class="col col-xs-12 col-sm-6 col-md-8">
-          <%= preview_body schema.body %>
+          <%= preview_body_form schema.body %>
         </div>
       </div>
     </article>

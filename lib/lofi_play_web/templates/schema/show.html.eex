@@ -9,18 +9,19 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col col-xs-12 col-sm-4 col-md-4">
+        <nav>
+        <%= link "Edit", to: schema_path(@conn, :edit, @schema), class: "btn btn-primary" %>
+        </nav>
         <pre><%= @schema.body %></pre>
       </div>
       <div class="col col-xs-12 col-sm-4 col-md-4">
-        <%= preview_body @schema.body %>
+        <h2>Form preview</h2>
+        <%= preview_body_form @schema.body %>
       </div>
       <div class="col col-xs-12 col-sm-4 col-md-4">
-        <%= preview_body @schema.body %>
+        <h2>Fake data</h2>
+        <%= preview_body_faker @schema.body %>
       </div>
     </div>
   </div>
 </section>
-
-<nav>
-<%= link "Edit", to: schema_path(@conn, :edit, @schema) %>
-</nav>

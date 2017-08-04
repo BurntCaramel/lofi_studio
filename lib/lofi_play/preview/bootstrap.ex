@@ -1,21 +1,6 @@
 defmodule LofiPlay.Preview.Bootstrap do
+  import LofiPlay.Preview.Lofi
   alias Phoenix.HTML.Tag
-
-  defp has_flag_tag(tags, name) do
-    case tags do
-      %{^name => {:flag, true}} -> true
-      _ -> false
-    end
-  end
-
-  defp get_content_tag(tags, name) do
-    case tags do
-      %{^name => {:content, %{texts: texts}}} ->
-        Enum.join(texts, "")
-      _ ->
-        nil
-    end
-  end
 
   @doc """
   Flattens a list of class name / boolean tuples into a single class string

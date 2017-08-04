@@ -20,7 +20,7 @@ defmodule LofiPlay.Mixfile do
   def application do
     [
       mod: {LofiPlay.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :faker]
     ]
   end
 
@@ -42,6 +42,7 @@ defmodule LofiPlay.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:lofi, "~> 0.1.0"},
+      {:faker, "~> 0.8"},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
     ]
   end
