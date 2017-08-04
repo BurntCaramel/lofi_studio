@@ -9,11 +9,14 @@ config :lofi_play, LofiPlayWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-# Configure your database
-config :lofi_play, LofiPlay.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "lofi_play_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+import_config "test.secret.exs"
+# Example test.secret.exs:
+#
+# # Configure your database
+# config :lofi_play, LofiPlay.Repo,
+#   adapter: Ecto.Adapters.Postgres,
+#   username: "username",
+#   password: "",
+#   database: "lofi_play_test",
+#   hostname: "localhost",
+#   pool: Ecto.Adapters.SQL.Sandbox

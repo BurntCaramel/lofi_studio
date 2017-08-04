@@ -49,3 +49,13 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 import_config "dev.secret.exs"
+# Example test.secret.exs:
+#
+# # Configure your database
+# config :lofi_play, LofiPlay.Repo,
+#   adapter: Ecto.Adapters.Postgres,
+#   username: "username",
+#   password: "",
+#   database: "lofi_play_dev",
+#   hostname: "localhost",
+#   pool_size: 10
