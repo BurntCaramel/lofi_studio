@@ -1,4 +1,8 @@
-<h2>Listing Screens</h2>
+<h1>Screens</h1>
+
+<nav>
+<%= link "New Screen", to: screen_path(@conn, :new) %>
+</nav>
 
 <table class="table">
   <thead>
@@ -24,5 +28,3 @@
 <% end %>
   </tbody>
 </table>
-
-<span><%= link "New Screen", to: screen_path(@conn, :new) %></span>
