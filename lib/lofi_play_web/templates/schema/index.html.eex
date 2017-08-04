@@ -1,0 +1,28 @@
+<h2>Listing Schemas</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for schema <- @schemas do %>
+    <tr>
+      <td><%= schema.name %></td>
+      <td><%= schema.body %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: schema_path(@conn, :show, schema), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: schema_path(@conn, :edit, schema), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: schema_path(@conn, :delete, schema), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Schema", to: schema_path(@conn, :new) %></span>

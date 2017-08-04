@@ -8,6 +8,15 @@ defmodule LofiPlay.Preview.Bootstrap do
     end
   end
 
+  defp get_content_tag(tags, name) do
+    case tags do
+      %{^name => {:content, %{texts: texts}}} ->
+        Enum.join(texts, "")
+      _ ->
+        nil
+    end
+  end
+
   @doc """
   Flattens a list of class name / boolean tuples into a single class string
 
@@ -76,12 +85,12 @@ defmodule LofiPlay.Preview.Bootstrap do
     Tag.content_tag(:button, Enum.join(texts, ""), class: class)
   end
 
-  defp input(type, texts) do
+  defp input(type, texts, value \\ nil) do
     Tag.content_tag(:div, class: "form-group") do
       Tag.content_tag(:label, [
         Enum.join(texts, ""),
         " ",
-        Tag.tag(:input, type: type, class: "form-control")
+        Tag.tag(:input, type: type, class: "form-control", value: value)
       ])
     end
   end
@@ -111,6 +120,34 @@ defmodule LofiPlay.Preview.Bootstrap do
   end
 
   @doc """
+  Favorite number #number
+  """
+  defp preview(%Lofi.Element{tags: %{"number" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+    input("number", texts, get_content_tag(tags, "default"))
+  end
+
+  @doc """
+  Date of birth #date
+  """
+  defp preview(%Lofi.Element{tags: %{"date" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+    input("date", texts)
+  end
+
+  @doc """
+  Last signed in #time
+  """
+  defp preview(%Lofi.Element{tags: %{"time" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+    value = cond do
+      has_flag_tag(tags, "now") ->
+        Time.utc_now
+        |> Map.put(:microsecond, {0, 0}) # Remove extra precision that <input type="time"> does not like
+      true ->
+        nil
+    end
+    input("time", texts, value)
+  end
+
+  @doc """
   Enter message #text #lines: 6
   """
   defp preview(%Lofi.Element{tags: %{"text" => {:flag, true}, "lines" => {:content, lines_element}}}, %Lofi.Element{texts: texts, tags: tags}) do
@@ -122,7 +159,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   Enter message #text
   """
   defp preview(%Lofi.Element{tags: %{"text" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
-    input("text", texts)
+    input("text", texts, get_content_tag(tags, "default"))
   end
 
   @doc """
@@ -140,7 +177,7 @@ defmodule LofiPlay.Preview.Bootstrap do
         "text"
     end
 
-    input(type, texts)
+    input(type, texts, get_content_tag(tags, "default"))
   end
 
   @doc """

@@ -22,7 +22,10 @@ label {
 }
 
 
-.screen-body {
+.screen-body,
+.schema-body
+{
+  padding: 1rem 0;
   border-top: 1px solid #777;
   border-bottom: 1px solid #777;
 }

@@ -18,6 +18,7 @@ defmodule LofiPlayWeb.Router do
 
     get "/", PageController, :index
     resources "/screens", ScreenController
+    resources "/schemas", SchemaController
   end
 
   # Other scopes may use custom stacks.

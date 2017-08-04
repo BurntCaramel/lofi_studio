@@ -1,0 +1,26 @@
+<%= container do %>
+  <h1>
+    <%= @schema.name %>
+    <small><%= link "#schema", to: schema_path(@conn, :index) %></small>
+  </h1>
+<% end %>
+
+<section class="schema-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col col-xs-12 col-sm-4 col-md-4">
+        <pre><%= @schema.body %></pre>
+      </div>
+      <div class="col col-xs-12 col-sm-4 col-md-4">
+        <%= preview_body @schema.body %>
+      </div>
+      <div class="col col-xs-12 col-sm-4 col-md-4">
+        <%= preview_body @schema.body %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav>
+<%= link "Edit", to: schema_path(@conn, :edit, @schema) %>
+</nav>
