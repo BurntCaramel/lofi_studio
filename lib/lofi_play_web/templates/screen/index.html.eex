@@ -1,21 +1,25 @@
-<h1>Screens</h1>
+<%= container do %>
+  <h1>Screens</h1>
 
-<nav>
-<%= link "New Screen", to: screen_path(@conn, :new), class: "btn btn-primary" %>
-</nav>
-
-<section>
-<%= for screen <- @screens do %>
-  <article>
-    <h2><%= link screen.name, to: screen_path(@conn, :show, screen) %></h2>
-    <div class="row">
-      <div class="col col-xs-12 col-sm-6 col-md-4">
-        <pre><%= screen.body %></pre>
-      </div>
-      <div class="col col-xs-12 col-sm-6 col-md-8">
-        <%= preview_body screen.body %>
-      </div>
-    </div>
-  </article>
+  <nav>
+  <%= link "New Screen", to: screen_path(@conn, :new), class: "btn btn-primary" %>
+  </nav>
 <% end %>
-</section>
+
+<%= container do %>
+  <section>
+  <%= for screen <- @screens do %>
+    <article>
+      <h2><%= link screen.name, to: screen_path(@conn, :show, screen) %></h2>
+      <div class="row">
+        <div class="col col-xs-12 col-sm-6 col-md-4">
+          <pre><%= screen.body %></pre>
+        </div>
+        <div class="col col-xs-12 col-sm-6 col-md-8">
+          <%= preview_body screen.body %>
+        </div>
+      </div>
+    </article>
+  <% end %>
+  </section>
+<% end %>

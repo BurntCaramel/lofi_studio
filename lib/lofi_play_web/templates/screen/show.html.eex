@@ -1,14 +1,20 @@
-<nav>
-<%= link "Screens", to: screen_path(@conn, :index) %>
-</nav>
+<%= container do %>
+  <h1>
+    <%= @screen.name %>
+    <small><%= link "#screen", to: screen_path(@conn, :index) %></small>
+  </h1>
+<% end %>
 
-<h2><%= @screen.name %></h2>
-
-<pre>
-  <%= @screen.body %>
-</pre>
-
-<%= preview_body @screen.body %>
+<section class="screen-body">
+  <div class="row">
+    <div class="col col-xs-12 col-sm-6 col-md-4">
+      <pre><%= @screen.body %></pre>
+    </div>
+    <div class="col col-xs-12 col-sm-6 col-md-8">
+      <%= preview_body @screen.body %>
+    </div>
+  </div>
+</section>
 
 <nav>
 <%= link "Edit", to: screen_path(@conn, :edit, @screen) %>
