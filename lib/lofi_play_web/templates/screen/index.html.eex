@@ -1,30 +1,21 @@
 <h1>Screens</h1>
 
 <nav>
-<%= link "New Screen", to: screen_path(@conn, :new) %>
+<%= link "New Screen", to: screen_path(@conn, :new), class: "btn btn-primary" %>
 </nav>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Body</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
+<section>
 <%= for screen <- @screens do %>
-    <tr>
-      <td><strong><%= screen.name %></strong></td>
-      <td><pre><%= screen.body %></pre></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: screen_path(@conn, :show, screen), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: screen_path(@conn, :edit, screen), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: screen_path(@conn, :delete, screen), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
+  <article>
+    <h2><%= link screen.name, to: screen_path(@conn, :show, screen) %></h2>
+    <div class="row">
+      <div class="col col-xs-12 col-sm-6 col-md-4">
+        <pre><%= screen.body %></pre>
+      </div>
+      <div class="col col-xs-12 col-sm-6 col-md-8">
+        <%= preview_body screen.body %>
+      </div>
+    </div>
+  </article>
 <% end %>
-  </tbody>
-</table>
+</section>
