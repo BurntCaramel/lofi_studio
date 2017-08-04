@@ -3,6 +3,7 @@ defmodule LofiPlay.Content.Screen do
   import Ecto.Changeset
   alias LofiPlay.Content.Screen
 
+  @derive {Poison.Encoder, only: [:id, :name, :body]}
 
   schema "screens" do
     field :body, :string
