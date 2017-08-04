@@ -9,6 +9,12 @@ defmodule LofiPlay.Preview.Bootstrap do
     end
   end
 
+  @doc """
+  Flattens a list of class name / boolean tuples into a single class string
+
+      iex> flatten_classes [{"btn", true}, {"active", false}, {"btn-primary", true}]
+      "btn btn-primary"
+  """
   defp flatten_classes(classes) do
     classes
     |> Enum.filter(&(Kernel.elem(&1, 1)))
@@ -26,7 +32,7 @@ defmodule LofiPlay.Preview.Bootstrap do
     <button>Second</button>
   </div>
   """
-  defp preview_line_element(%Lofi.Element{texts: [""], tags: %{"button" => {:flag, true}}}, %Lofi.Element{children: children, tags: tags}) do
+  defp preview(%Lofi.Element{texts: [""], tags: %{"button" => {:flag, true}}}, %Lofi.Element{children: children, tags: tags}) do
     class = flatten_classes [
       {"btn", true},
       {
@@ -41,11 +47,11 @@ defmodule LofiPlay.Preview.Bootstrap do
     #Tag.content_tag(:button, Enum.join([""], ""), class: class)
     Tag.content_tag(:div, class: "btn-group") do
       children
-      #|> Enum.map(&preview_line/1)
+      #|> Enum.map(&preview_element/1)
       |> Enum.map(fn (element) ->
         element = Map.update!(element, :tags, fn (child_tags) -> Map.merge(tags, child_tags) end)
         #|> &Map.update!(&1, :tags, &Map.merge(tags, &1))
-        preview_line(element)
+        preview_element(element)
       end)
     end
   end
@@ -55,7 +61,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   
   <button>Click me</button>
   """
-  defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"button" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
+  defp preview(%Lofi.Element{texts: texts, tags: %{"button" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
     class = flatten_classes [
       {"btn", true},
       {"active", has_flag_tag(tags, "active")},
@@ -74,7 +80,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   @doc """
   #field -> <input>
   """
-  defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"field" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
+  defp preview(%Lofi.Element{texts: texts, tags: %{"field" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
     type = cond do
       has_flag_tag(tags, "password") ->
         "password"
@@ -94,7 +100,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   
   <label><input type="checkbox"> Accept terms</label>
   """
-  defp preview_line_element(%Lofi.Element{texts: texts, children: [], tags: %{"choice" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
+  defp preview(%Lofi.Element{texts: texts, children: [], tags: %{"choice" => {:flag, true}}}, %Lofi.Element{tags: tags}) do
     Tag.content_tag(:label, [
       Tag.tag(:input, type: "checkbox"),
       " ",
@@ -110,7 +116,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   
   <label>Multiple choice <select><option>Australia</option><option>India</option><option>New Zealand</option></select></label>
   """
-  defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"choice" => {:flag, true}}}, %Lofi.Element{children: children, tags: tags}) do
+  defp preview(%Lofi.Element{texts: texts, tags: %{"choice" => {:flag, true}}}, %Lofi.Element{children: children, tags: tags}) do
     Tag.content_tag(:label, [
       Enum.join(texts, ""),
       " ",
@@ -125,30 +131,30 @@ defmodule LofiPlay.Preview.Bootstrap do
   @doc """
   #primary -> <h1>
   """
-  defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"primary" => {:flag, true}}}, element) do
+  defp preview(%Lofi.Element{texts: texts, tags: %{"primary" => {:flag, true}}}, element) do
     Tag.content_tag(:h1, Enum.join(texts, ""))
   end
 
-  defp preview_line_element(%Lofi.Element{texts: texts, tags: %{"secondary" => {:flag, true}}}, element) do
+  defp preview(%Lofi.Element{texts: texts, tags: %{"secondary" => {:flag, true}}}, element) do
     Tag.content_tag(:h2, Enum.join(texts, ""))
   end
 
-  defp preview_line_element(%Lofi.Element{texts: texts}, element) do
+  defp preview(%Lofi.Element{texts: texts}, element) do
     Tag.content_tag(:p, Enum.join(texts, ""))
   end
 
-  defp preview_line(element) do
-    preview_line_element(element, element)
+  defp preview_element(element) do
+    preview(element, element)
   end
 
   defp preview_section(lines) do
-    html_lines = Enum.map(lines, &preview_line/1)
+    html_lines = Enum.map(lines, &preview_element/1)
 
     Tag.content_tag(:div, html_lines)
   end
 
-  def preview_text(body) do
-    sections = Lofi.Parse.parse_sections(body)
+  def preview_text(text) do
+    sections = Lofi.Parse.parse_sections(text)
 
     Enum.map(sections, &preview_section/1)
   end
