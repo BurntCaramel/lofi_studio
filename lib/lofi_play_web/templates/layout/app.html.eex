@@ -8,22 +8,20 @@
     <meta name="author" content="">
 
     <title>Hello Lofi Play</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
     <main>
       <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills">
-            <li><%= link "Journeys", to: screen_path(@conn, :index) %></li>
-            <li><%= link "Screens", to: screen_path(@conn, :index) %></li>
-            <li><%= link "Schemas", to: schema_path(@conn, :index) %></li>
-            <li><%= link "Promos", to: '#' %></li>
-            <li><%= link "Chatter (Convos)", to: '#' %></li>
-            <li><%= link "Ingredients (Components)", to: '#' %></li>
-          </ul>
+        <nav role="navigation" class="nav nav-pills">
+          <%= link "Journeys", to: screen_path(@conn, :index), class: "nav-link nav-item" %>
+          <%= link "Screens", to: screen_path(@conn, :index), class: "nav-link nav-item" %>
+          <%= link "Schemas", to: schema_path(@conn, :index), class: "nav-link nav-item" %>
+          <%= link "Promos", to: '#', class: "nav-link nav-item" %>
+          <%= link "Chatter (Convos)", to: '#', class: "nav-link nav-item" %>
+          <%= link "Ingredients (Components)", to: '#', class: "nav-link nav-item" %>
         </nav>
       </header>
       

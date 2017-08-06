@@ -49,7 +49,9 @@ pre {
   word-wrap: normal;
   word-break: normal;
   background: #fff0ff;
-  border: 1px dotted #c70086;
+  padding: 1rem;
+  border: 1px solid #c70086;
+  border-radius: 0.333rem;
 }
 
 label {
