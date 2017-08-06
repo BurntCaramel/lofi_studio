@@ -16,6 +16,27 @@ defmodule LofiPlay.Preview.Bootstrap do
   end
 
   @doc """
+  Click me #button
+  
+  <button>Click me</button>
+  """
+  defp preview(%Lofi.Element{children: [], tags: %{"button" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+    class = flatten_classes [
+      {"btn", true},
+      {"active", has_flag_tag(tags, "active")},
+      {
+        cond do
+          has_flag_tag(tags, "primary") -> "btn-primary"
+          true -> "btn-secondary"
+        end,
+        true
+      }
+    ]
+
+    Tag.content_tag(:button, Enum.join(texts, ""), class: class)
+  end
+
+  @doc """
   #button
   - First
   - Second
@@ -25,13 +46,13 @@ defmodule LofiPlay.Preview.Bootstrap do
     <button>Second</button>
   </div>
   """
-  defp preview(%Lofi.Element{texts: [""], tags: %{"button" => {:flag, true}}}, %Lofi.Element{children: children, tags: tags}) do
+  defp preview(%Lofi.Element{tags: %{"button" => {:flag, true}}}, %Lofi.Element{children: children, tags: tags}) do
     class = flatten_classes [
       {"btn", true},
       {
         cond do
           has_flag_tag(tags, "primary") -> "btn-primary"
-          true -> "btn-default"
+          true -> "btn-secondary"
         end,
         true
       }
@@ -47,27 +68,6 @@ defmodule LofiPlay.Preview.Bootstrap do
         preview_element(element)
       end)
     end
-  end
-
-  @doc """
-  Click me #button
-  
-  <button>Click me</button>
-  """
-  defp preview(%Lofi.Element{tags: %{"button" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
-    class = flatten_classes [
-      {"btn", true},
-      {"active", has_flag_tag(tags, "active")},
-      {
-        cond do
-          has_flag_tag(tags, "primary") -> "btn-primary"
-          true -> "btn-default"
-        end,
-        true
-      }
-    ]
-
-    Tag.content_tag(:button, Enum.join(texts, ""), class: class)
   end
 
   defp input(type, texts, value \\ nil) do
@@ -283,6 +283,10 @@ defmodule LofiPlay.Preview.Bootstrap do
 
   defp preview_element(element) do
     preview(element, element)
+  end
+
+  defp preview_section([ line | [] ]) do
+    preview_element(line)
   end
 
   defp preview_section(lines) do

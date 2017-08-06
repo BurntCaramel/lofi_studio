@@ -1,3 +1,8 @@
+<% preview_html = preview_body @screen.body %>
+
 <div class="container-fluid">
-  <%= preview_body @screen.body %>
+  <%= preview_html %>
 </div>
+
+<%= content_tag :pre, safe_to_string(html_escape(preview_html)), style: "white-space: pre-wrap; word-wrap: normal; word-break: normal;" %>
+
