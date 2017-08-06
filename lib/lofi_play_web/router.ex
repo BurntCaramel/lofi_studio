@@ -17,7 +17,9 @@ defmodule LofiPlayWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/screens", ScreenController
+    resources "/screens", ScreenController do
+      resources "/preview", ScreenPreviewController, only: [:show], singleton: true, as: :preview
+    end
     resources "/schemas", SchemaController
   end
 

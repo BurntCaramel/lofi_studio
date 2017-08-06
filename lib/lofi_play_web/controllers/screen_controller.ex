@@ -58,3 +58,26 @@ defmodule LofiPlayWeb.ScreenController do
     |> redirect(to: screen_path(conn, :index))
   end
 end
+
+defmodule LofiPlayWeb.ScreenPreviewController do
+  use LofiPlayWeb, :controller
+
+  alias LofiPlay.Content
+  alias LofiPlay.Content.Screen
+  alias LofiPlay.Preview
+
+  plug :put_view, LofiPlayWeb.ScreenView
+
+  def show(conn, %{"screen_id" => id, "layout" => layout}) do
+    screen = Content.get_screen!(id)
+
+    conn
+    |> put_layout({LofiPlayWeb. LayoutView, "#{layout}.html"})
+    |> render("show_preview.html", screen: screen)
+  end
+
+  # Default to Bootstrap 3
+  def show(conn, %{"screen_id" => id}) do
+    show(conn, %{"screen_id" => id, "layout" => "bootstrap3"})
+  end
+end

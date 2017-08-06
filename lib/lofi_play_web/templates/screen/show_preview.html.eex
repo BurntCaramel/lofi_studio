@@ -1,0 +1,3 @@
+<div class="container-fluid">
+  <%= preview_body @screen.body %>
+</div>
