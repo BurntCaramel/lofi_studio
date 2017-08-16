@@ -21,6 +21,7 @@ defmodule LofiPlayWeb.Router do
       resources "/preview", ScreenPreviewController, only: [:show], singleton: true, as: :preview
     end
     resources "/schemas", SchemaController
+    resources "/components", ComponentController
   end
 
   # Other scopes may use custom stacks.

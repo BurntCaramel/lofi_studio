@@ -70,10 +70,11 @@ defmodule LofiPlayWeb.ScreenPreviewController do
 
   def show(conn, %{"screen_id" => id, "layout" => layout}) do
     screen = Content.get_screen!(id)
+    components = Content.list_components()
 
     conn
     |> put_layout({LofiPlayWeb. LayoutView, "#{layout}.html"})
-    |> render("show_preview.html", screen: screen)
+    |> render("show_preview.html", screen: screen, components: components)
   end
 
   # Default to Bootstrap 3

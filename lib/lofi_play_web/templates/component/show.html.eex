@@ -1,0 +1,28 @@
+<h2>Show Component</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @component.name %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @component.type %>
+  </li>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @component.body %>
+  </li>
+
+  <li>
+    <strong>Tags:</strong>
+    <%= @component.tags %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: component_path(@conn, :edit, @component) %></span>
+<span><%= link "Back", to: component_path(@conn, :index) %></span>

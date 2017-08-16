@@ -1,6 +1,8 @@
 defmodule LofiPlay.Preview.Bootstrap do
   import LofiPlay.Preview.Lofi
+  alias Phoenix.HTML
   alias Phoenix.HTML.Tag
+  alias LofiPlay.Content.Component # TODO: use simpler struct
 
   @doc """
   Flattens a list of class name / boolean tuples into a single class string
@@ -65,7 +67,7 @@ defmodule LofiPlay.Preview.Bootstrap do
       |> Enum.map(fn (element) ->
         element = Map.update!(element, :tags, fn (child_tags) -> Map.merge(tags, child_tags) end)
         #|> &Map.update!(&1, :tags, &Map.merge(tags, &1))
-        preview_element(element)
+        preview_element(element, [])
       end)
     end
   end
@@ -275,29 +277,51 @@ defmodule LofiPlay.Preview.Bootstrap do
       " ",
       Tag.content_tag(tag) do
         Enum.map(children, fn (element) ->
-          Tag.content_tag(:li, preview_element(element))
+          Tag.content_tag(:li, preview_element(element, []))
         end)
       end
     ])
   end
 
-  defp preview_element(element) do
-    preview(element, element)
+
+
+  defp preview_element(element, components) do
+    tags = Map.get(element, :tags)
+
+    matching_component = components
+    |> Enum.find(fn ({component_tags, _type, _body}) -> component_tags == tags end)
+
+    case matching_component do
+      {_tags, :svg, body} ->
+        HTML.raw(body)
+      _ ->
+        preview(element, element)
+    end
+
   end
 
-  defp preview_section([ line | [] ]) do
-    preview_element(line)
+  defp preview_section([ line | [] ], components) do
+    # Handle single so no wrapper <div>
+    preview_element(line, components)
   end
 
-  defp preview_section(lines) do
-    html_lines = Enum.map(lines, &preview_element/1)
+  defp preview_section(lines, components) do
+    html_lines = Enum.map(lines, &preview_element(&1, components))
 
     Tag.content_tag(:div, html_lines)
   end
 
-  def preview_text(text) do
+  defp parse_component_entry(%Component{tags: tags_s, body: body}) do
+    %Lofi.Element{tags: tags} = Lofi.Parse.parse_element(tags_s)
+    {tags, :svg, body}
+  end
+
+  def preview_text(text, component_entries \\ []) do
     sections = Lofi.Parse.parse_sections(text)
 
-    Enum.map(sections, &preview_section/1)
+    components = component_entries
+    |> Enum.map(&parse_component_entry/1)
+
+    Enum.map(sections, &preview_section(&1, components))
   end
 end

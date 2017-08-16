@@ -3,8 +3,8 @@ defmodule LofiPlayWeb.ScreenView do
   import LofiPlayWeb.LayoutHelpers
   alias LofiPlay.Preview.Bootstrap
   
-  def preview_body(body) do
-    Bootstrap.preview_text(body)
+  def preview_body(body, components: components) do
+    Bootstrap.preview_text(body, components)
   end
 
   def preview_in_iframe(conn, screen, layout) do

@@ -1,0 +1,10 @@
+<%= container do %>
+  <h1>
+    New
+    <small><%= link "#component", to: component_path(@conn, :index) %></small>
+  </h1>
+
+  <%= render "form.html", Map.put(assigns, :action, component_path(@conn, :create)) %>
+
+  <span><%= link "Back", to: component_path(@conn, :index) %></span>
+<% end %>

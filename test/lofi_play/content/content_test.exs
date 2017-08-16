@@ -126,4 +126,70 @@ defmodule LofiPlay.ContentTest do
       assert %Ecto.Changeset{} = Content.change_schema(schema)
     end
   end
+
+  describe "components" do
+    alias LofiPlay.Content.Component
+
+    @valid_attrs %{body: "some body", name: "some name", tags: "some tags", type: 42}
+    @update_attrs %{body: "some updated body", name: "some updated name", tags: "some updated tags", type: 43}
+    @invalid_attrs %{body: nil, name: nil, tags: nil, type: nil}
+
+    def component_fixture(attrs \\ %{}) do
+      {:ok, component} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Content.create_component()
+
+      component
+    end
+
+    test "list_components/0 returns all components" do
+      component = component_fixture()
+      assert Content.list_components() == [component]
+    end
+
+    test "get_component!/1 returns the component with given id" do
+      component = component_fixture()
+      assert Content.get_component!(component.id) == component
+    end
+
+    test "create_component/1 with valid data creates a component" do
+      assert {:ok, %Component{} = component} = Content.create_component(@valid_attrs)
+      assert component.body == "some body"
+      assert component.name == "some name"
+      assert component.tags == "some tags"
+      assert component.type == 42
+    end
+
+    test "create_component/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Content.create_component(@invalid_attrs)
+    end
+
+    test "update_component/2 with valid data updates the component" do
+      component = component_fixture()
+      assert {:ok, component} = Content.update_component(component, @update_attrs)
+      assert %Component{} = component
+      assert component.body == "some updated body"
+      assert component.name == "some updated name"
+      assert component.tags == "some updated tags"
+      assert component.type == 43
+    end
+
+    test "update_component/2 with invalid data returns error changeset" do
+      component = component_fixture()
+      assert {:error, %Ecto.Changeset{}} = Content.update_component(component, @invalid_attrs)
+      assert component == Content.get_component!(component.id)
+    end
+
+    test "delete_component/1 deletes the component" do
+      component = component_fixture()
+      assert {:ok, %Component{}} = Content.delete_component(component)
+      assert_raise Ecto.NoResultsError, fn -> Content.get_component!(component.id) end
+    end
+
+    test "change_component/1 returns a component changeset" do
+      component = component_fixture()
+      assert %Ecto.Changeset{} = Content.change_component(component)
+    end
+  end
 end

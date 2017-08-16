@@ -20,8 +20,8 @@
           <%= link "Screens", to: screen_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "Schemas", to: schema_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "Promos", to: '#', class: "nav-link nav-item" %>
+          <%= link "Ingredients (Components)", to: component_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "Chatter (Convos)", to: '#', class: "nav-link nav-item" %>
-          <%= link "Ingredients (Components)", to: '#', class: "nav-link nav-item" %>
         </nav>
       </header>
       
