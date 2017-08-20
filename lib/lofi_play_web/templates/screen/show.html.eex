@@ -17,12 +17,12 @@
         <pre><%= @screen.body %></pre>
       </div>
       <div class="col col-xs-12 col-sm-6 col-md-4">
-        <h2>Bootstrap 3</h2>
-        <%= preview_in_iframe(@conn, @screen, "bootstrap3") %>
-      </div>
-      <div class="col col-xs-12 col-sm-6 col-md-4">
         <h2>Bootstrap 4</h2>
         <%= preview_in_iframe(@conn, @screen, "bootstrap4") %>
+      </div>
+      <div class="col col-xs-12 col-sm-6 col-md-4">
+        <h2>Bootstrap 3</h2>
+        <%= preview_in_iframe(@conn, @screen, "bootstrap3") %>
       </div>
     </div>
   </div>

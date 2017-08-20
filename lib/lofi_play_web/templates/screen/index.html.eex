@@ -16,7 +16,7 @@
           <pre><%= screen.body %></pre>
         </div>
         <div class="col col-xs-12 col-sm-6 col-md-8">
-          <%= preview_in_iframe(@conn, screen, "bootstrap3") %>
+          <%= preview_in_iframe(@conn, screen, "bootstrap4") %>
         </div>
       </div>
     </article>
