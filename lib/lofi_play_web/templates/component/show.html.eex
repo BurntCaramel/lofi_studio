@@ -1,28 +1,28 @@
-<h2>Show Component</h2>
-
-<ul>
-
-  <li>
-    <strong>Name:</strong>
+<%= container do %>
+  <h1>
     <%= @component.name %>
-  </li>
+    <small><%= link "#component", to: component_path(@conn, :index) %></small>
+  </h1>
+<% end %>
 
-  <li>
-    <strong>Type:</strong>
-    <%= @component.type %>
-  </li>
-
-  <li>
-    <strong>Body:</strong>
-    <%= @component.body %>
-  </li>
-
-  <li>
-    <strong>Tags:</strong>
-    <%= @component.tags %>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: component_path(@conn, :edit, @component) %></span>
-<span><%= link "Back", to: component_path(@conn, :index) %></span>
+<section class="screen-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col col-12 col-sm-5 col-md-4">
+        <h2>Type: <%= @component.type %></h2>
+        <h3>Tags: <%= @component.tags %></h3>
+        <h3>Ingredients</h3>
+        <pre><%= @component.ingredients %></pre>
+        <nav>
+          <%= link "Edit", to: component_path(@conn, :edit, @component), class: "btn btn-primary" %>
+          <%= link "Back", to: component_path(@conn, :index), class: "btn btn-secondary" %>
+        </nav>
+      </div>
+      <div class="col col-12 col-sm-7 col-md-8">
+        <pre>
+          <%= @component.body %>
+        </pre>
+      </div>
+    </div>
+  </div>
+</section>

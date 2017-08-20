@@ -7,32 +7,22 @@
 <% end %>
 
 <%= container do %>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Body</th>
-        <th>Tags</th>
-
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
+  <section>
   <%= for component <- @components do %>
-      <tr>
-        <td><%= component.name %></td>
-        <td><%= component.type %></td>
-        <td><%= component.body %></td>
-        <td><%= component.tags %></td>
-
-        <td class="text-right">
-          <span><%= link "Show", to: component_path(@conn, :show, component), class: "btn btn-default btn-xs" %></span>
-          <span><%= link "Edit", to: component_path(@conn, :edit, component), class: "btn btn-default btn-xs" %></span>
-          <span><%= link "Delete", to: component_path(@conn, :delete, component), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-        </td>
-      </tr>
+      <article>
+        <h2><%= link component.name, to: component_path(@conn, :show, component) %></h2>
+        <div class="row">
+          <div class="col col-xs-12 col-sm-6">
+            <h3><%= component.type %></h3>
+            <h4><%= component.tags %></h4>
+            <span><%= link "Edit", to: component_path(@conn, :edit, component), class: "btn btn-default btn-xs" %></span>
+            <span><%= link "Delete", to: component_path(@conn, :delete, component), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+          </div>
+          <div class="col col-xs-12 col-sm-6">
+            <pre><%= component.body %></pre>
+          </div>
+        </div>
+      </article>
   <% end %>
-    </tbody>
-  </table>
+  </section>
 <% end %>

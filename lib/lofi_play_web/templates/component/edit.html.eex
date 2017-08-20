@@ -2,11 +2,9 @@
   <h1>
     Editing
     <%= link to: component_path(@conn, :show, @component) do %>
-      <%= @component.name %> <small>Cancel</small>
+      <%= @component.name %>
     <% end %>
   </h1>
 
   <%= render "form.html", Map.put(assigns, :action, component_path(@conn, :update, @component)) %>
-
-  <span><%= link "Back", to: component_path(@conn, :index) %></span>
 <% end %>

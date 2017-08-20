@@ -12,15 +12,9 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :type, class: "control-label" %>
-    <%= number_input f, :type, class: "form-control" %>
-    <%= error_tag f, :type %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :body, class: "control-label" %>
-    <%= textarea f, :body, class: "form-control" %>
-    <%= error_tag f, :body %>
+    <%= label f, :description, class: "control-label" %>
+    <%= textarea f, :description, class: "form-control" %>
+    <%= error_tag f, :description %>
   </div>
 
   <div class="form-group">
@@ -30,6 +24,25 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :type, class: "control-label" %>
+    <%= select f, :type, ["SVG": 1, "HTML": 2], class: "form-control" %>
+    <%= error_tag f, :type %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :body, class: "control-label" %>
+    <%= textarea f, :body, class: "form-control", rows: 10 %>
+    <%= error_tag f, :body %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :ingredients, class: "control-label" %>
+    <%= textarea f, :ingredients, class: "form-control" %>
+    <%= error_tag f, :ingredients %>
+  </div>
+
+  <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
+    <%= link "Cancel", to: component_path(@conn, :index), class: "btn btn-secondary" %>
   </div>
 <% end %>

@@ -284,16 +284,50 @@ defmodule LofiPlay.Preview.Bootstrap do
   end
 
 
+  defp render_html_component(body, ingredients, %Lofi.Element{tags: tags, texts: texts}) do
+    ingredient_infos = parse_ingredients(ingredients)
 
+    adjusted = body
+
+    adjusted = ingredient_infos
+    |> Enum.reduce(adjusted, fn({key, {type, default}}, html) ->
+      IO.puts("key: #{key}")
+      replacement = case key do
+        "texts" ->
+          Enum.join(texts)
+        _ ->
+          case fetch_content_tag(tags, key) do
+            {:ok, content} ->
+              content
+            {:error, :missing} ->
+              default
+            _ ->
+              default
+          end
+      end
+      String.replace(html, "@#{key}", replacement)
+    end)
+
+    HTML.raw(adjusted)
+  end
+
+  defp component_tags_match(component_tags, tags) do
+    matching_tags = Map.take(tags, Map.keys(component_tags))
+    Kernel.map_size(component_tags) == Kernel.map_size(matching_tags)
+  end
+
+  # Check for custom component
   defp preview_element(element, components) do
     tags = Map.get(element, :tags)
 
     matching_component = components
-    |> Enum.find(fn ({component_tags, _type, _body}) -> component_tags == tags end)
+    |> Enum.find(fn ({component_tags, _type, _body, _ingredients}) -> component_tags_match(component_tags, tags) end)
 
     case matching_component do
-      {_tags, :svg, body} ->
-        HTML.raw(body)
+      {_tags, :svg, body, ingredients} ->
+        render_html_component(body, ingredients, element)
+      {_tags, :html, body, ingredients} ->
+        render_html_component(body, ingredients, element)
       _ ->
         preview(element, element)
     end
@@ -311,9 +345,14 @@ defmodule LofiPlay.Preview.Bootstrap do
     Tag.content_tag(:div, html_lines)
   end
 
-  defp parse_component_entry(%Component{tags: tags_s, body: body}) do
+  defp parse_component_entry(%Component{tags: tags_s, type: type_n, body: body, ingredients: ingredients}) do
     %Lofi.Element{tags: tags} = Lofi.Parse.parse_element(tags_s)
-    {tags, :svg, body}
+    type = case type_n do
+      1 -> :svg
+      2 -> :html
+      _ -> nil
+    end
+    {tags, type, body, ingredients}
   end
 
   def preview_text(text, component_entries \\ []) do
