@@ -1,4 +1,4 @@
-defmodule LofiPlay.Preview.Ads do
+defmodule LofiPlay.Preview.Promotion do
   import LofiPlay.Preview.Lofi
   alias Phoenix.HTML
   alias Phoenix.HTML.Tag
