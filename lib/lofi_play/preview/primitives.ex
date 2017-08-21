@@ -36,6 +36,6 @@ defmodule LofiPlay.Preview.Primitives do
   end
 
   def preview(_element, _element) do
-    HTML.html_escape("")
+    nil
   end
 end

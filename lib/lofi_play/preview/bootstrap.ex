@@ -4,6 +4,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   alias Phoenix.HTML
   alias Phoenix.HTML.Tag
   alias LofiPlay.Preview.Primitives
+  alias LofiPlay.Preview.Ads
   alias LofiPlay.Content.Component
 
   @doc """
@@ -234,7 +235,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   Fallback to Primitive
   """
   defp preview(%Lofi.Element{children: []}, element) do
-    Primitives.preview(element, element)
+    Ads.preview(element, element) || Primitives.preview(element, element) || HTML.html_escape("")
   end
 
   @doc """
