@@ -2,6 +2,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   import LofiPlay.Preview.Lofi
   alias Phoenix.HTML
   alias Phoenix.HTML.Tag
+  alias LofiPlay.Preview.Primitives
   alias LofiPlay.Content.Component # TODO: use simpler struct
 
   @doc """
@@ -212,10 +213,6 @@ defmodule LofiPlay.Preview.Bootstrap do
     end
   end
 
-  defp nav(items) do
-
-  end
-
   @doc """
   #nav
   - Australia
@@ -233,26 +230,10 @@ defmodule LofiPlay.Preview.Bootstrap do
   end
 
   @doc """
-      Hello #primary
-      <h1>Hello</h1>
-
-      Hello #secondary
-      <h2>Hello</h2>
-
-      Hello
-      <p>Hello</p>
+  Fallback to Primitive
   """
-  defp preview(%Lofi.Element{children: []}, %Lofi.Element{texts: texts, tags: tags}) do
-    tag = cond do
-      has_flag_tag(tags, "primary") ->
-        :h1
-      has_flag_tag(tags, "secondary") ->
-        :h2
-      true ->
-        :p
-    end
-    
-    Tag.content_tag(tag, Enum.join(texts, ""))
+  defp preview(%Lofi.Element{children: []}, element) do
+    Primitives.preview(element, element)
   end
 
   @doc """
