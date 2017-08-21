@@ -12,6 +12,13 @@ defmodule LofiPlay.Preview.Primitives do
     Tag.tag(:img, src: source_url, alt: description)
   end
 
+  def preview(%Lofi.Element{tags: %{"note" => {:flag, true}}}, %Lofi.Element{texts: texts}) do
+    Tag.content_tag(:details, [
+      Tag.content_tag(:summary, "Note"),
+      Tag.content_tag(:span, Enum.join(texts))
+    ])
+  end
+
   @doc """
       Hello #primary
       <h1>Hello</h1>
@@ -32,7 +39,7 @@ defmodule LofiPlay.Preview.Primitives do
         :p
     end
     
-    Tag.content_tag(tag, Enum.join(texts, ""))
+    Tag.content_tag(tag, Enum.join(texts))
   end
 
   def preview(_element, _element) do
