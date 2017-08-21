@@ -222,7 +222,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   - India
   - New Zealand
   """
-  defp preview(%Lofi.Element{tags: %{"nav" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags, children: children}) do
+  defp preview(%Lofi.Element{tags: %{"nav" => {:flag, true}}}, %Lofi.Element{texts: texts, children: children}) do
     Tag.content_tag(:nav, [
       Enum.join(texts, ""),
       " ",
@@ -287,23 +287,13 @@ defmodule LofiPlay.Preview.Bootstrap do
   defp render_html_component(body, ingredients, %Lofi.Element{tags: tags, texts: texts}) do
     ingredient_infos = parse_ingredients(ingredients)
 
-    adjusted = body
-
     adjusted = ingredient_infos
-    |> Enum.reduce(adjusted, fn({key, {type, default}}, html) ->
-      IO.puts("key: #{key}")
+    |> Enum.reduce(body, fn({key, {_type, default}}, html) ->
       replacement = case key do
         "texts" ->
           Enum.join(texts)
         _ ->
-          case fetch_content_tag(tags, key) do
-            {:ok, content} ->
-              content
-            {:error, :missing} ->
-              default
-            _ ->
-              default
-          end
+          get_content_tag(tags, key, default)
       end
       String.replace(html, "@#{key}", replacement)
     end)
@@ -334,7 +324,7 @@ defmodule LofiPlay.Preview.Bootstrap do
 
   end
 
-  defp preview_section([ line | [] ], components) do
+  defp preview_section([line | []], components) do
     # Handle single so no wrapper <div>
     preview_element(line, components)
   end

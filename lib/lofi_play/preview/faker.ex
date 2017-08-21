@@ -170,7 +170,7 @@ defmodule LofiPlay.Preview.Faker do
 
     case Enum.map(sections, &generate_for_section/1) do
       # Extract single section
-      [ single | [] ] ->
+      [single | []] ->
         single
       
       # Array of sections
