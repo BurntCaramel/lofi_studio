@@ -4,8 +4,8 @@ defmodule LofiPlayWeb.ComponentView do
 
   def display_component_type(type) do
     case type do
-      1 -> "HTML"
-      2 -> "SVG"
+      1 -> "SVG"
+      2 -> "HTML"
       3 -> "Primitives"
       _ -> "Unknown"
     end
