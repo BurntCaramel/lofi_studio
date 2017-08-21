@@ -9,8 +9,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col col-12 col-sm-5 col-md-4">
-        <h2>Type: <%= @component.type %></h2>
-        <h3>Tags: <%= @component.tags %></h3>
+        <h2><%= display_component_type(@component.type) %> / <%= @component.tags %></h2>
         <h3>Ingredients</h3>
         <pre><%= @component.ingredients %></pre>
         <nav>
