@@ -69,7 +69,7 @@ config :lofi_play, LofiPlayWeb.Endpoint,
 # Configure your database
 config :lofi_play, LofiPlay.Repo,
   adapter: Ecto.Adapters.Postgres,
-  hostname: System.get_env("POSTGRESQL_ADDRESS"),
+  hostname: System.get_env("POSTGRESQL_ADDRESS_INT"),
   username: System.get_env("POSTGRESQL_USERNAME"),
   password: System.get_env("POSTGRESQL_PASSWORD"),
   database: System.get_env("POSTGRESQL_DATABASE"),
