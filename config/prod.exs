@@ -69,7 +69,8 @@ config :lofi_play, LofiPlayWeb.Endpoint,
 # Configure your database
 config :lofi_play, LofiPlay.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: System.get_env("DATABASE_USERNAME"),
-  password: System.get_env("DATABASE_PASSWORD"),
-  database: System.get_env("DATABASE_NAME"),
+  hostname: System.get_env("POSTGRESQL_ADDRESS"),
+  username: System.get_env("POSTGRESQL_USERNAME"),
+  password: System.get_env("POSTGRESQL_PASSWORD"),
+  database: System.get_env("POSTGRESQL_DATABASE"),
   pool_size: 15
