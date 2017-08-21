@@ -25,6 +25,7 @@ RUN cd /app/assets && npm install && npm run deploy
 
 FROM elixir:alpine as elixir2
 ENV MIX_ENV=prod
+ENV PORT=4000
 WORKDIR /app
 
 COPY --from=node /app ./
