@@ -5,22 +5,26 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :name, class: "control-label" %>
-    <%= text_input f, :name, class: "form-control" %>
-    <%= error_tag f, :name %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :description, class: "control-label" %>
-    <%= textarea f, :description, class: "form-control" %>
-    <%= error_tag f, :description %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :tags, class: "control-label" %>
-    <%= text_input f, :tags, class: "form-control" %>
-    <%= error_tag f, :tags %>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <%= label f, :name, class: "control-label" %>
+        <%= text_input f, :name, class: "form-control" %>
+        <%= error_tag f, :name %>
+      </div>
+      <div class="form-group">
+        <%= label f, :tags, class: "control-label" %>
+        <%= text_input f, :tags, class: "form-control" %>
+        <%= error_tag f, :tags %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <%= label f, :description, class: "control-label" %>
+        <%= textarea f, :description, class: "form-control", rows: 5 %>
+        <%= error_tag f, :description %>
+      </div>
+    </div>
   </div>
 
   <div class="form-group">
@@ -30,15 +34,15 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :body, class: "control-label" %>
-    <%= textarea f, :body, class: "form-control", rows: 10 %>
-    <%= error_tag f, :body %>
+    <%= label f, :ingredients, class: "control-label" %>
+    <%= textarea f, :ingredients, class: "form-control", rows: 5 %>
+    <%= error_tag f, :ingredients %>
   </div>
 
   <div class="form-group">
-    <%= label f, :ingredients, class: "control-label" %>
-    <%= textarea f, :ingredients, class: "form-control" %>
-    <%= error_tag f, :ingredients %>
+    <%= label f, :body, class: "control-label" %>
+    <%= textarea f, :body, class: "form-control", rows: 10 %>
+    <%= error_tag f, :body %>
   </div>
 
   <div class="form-group">
