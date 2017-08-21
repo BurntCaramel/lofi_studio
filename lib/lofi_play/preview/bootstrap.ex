@@ -1,9 +1,10 @@
 defmodule LofiPlay.Preview.Bootstrap do
   import LofiPlay.Preview.Lofi
+  import LofiPlay.Preview.Components
   alias Phoenix.HTML
   alias Phoenix.HTML.Tag
   alias LofiPlay.Preview.Primitives
-  alias LofiPlay.Content.Component # TODO: use simpler struct
+  alias LofiPlay.Content.Component
 
   @doc """
   Flattens a list of class name / boolean tuples into a single class string
@@ -264,23 +265,6 @@ defmodule LofiPlay.Preview.Bootstrap do
     ])
   end
 
-
-  defp render_html_component(body, ingredients, %Lofi.Element{tags: tags, texts: texts}) do
-    ingredient_infos = parse_ingredients(ingredients)
-
-    adjusted = ingredient_infos
-    |> Enum.reduce(body, fn({key, {_type, default}}, html) ->
-      replacement = case key do
-        "texts" ->
-          Enum.join(texts)
-        _ ->
-          get_content_tag(tags, key, default)
-      end
-      String.replace(html, "@#{key}", replacement)
-    end)
-
-    HTML.raw(adjusted)
-  end
 
   defp component_tags_match(component_tags, tags) do
     matching_tags = Map.take(tags, Map.keys(component_tags))
