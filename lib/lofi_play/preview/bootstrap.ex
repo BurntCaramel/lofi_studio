@@ -98,14 +98,21 @@ defmodule LofiPlay.Preview.Bootstrap do
   @doc """
   Enter email #email
   """
-  defp preview(%Lofi.Element{tags: %{"email" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+  defp preview(%Lofi.Element{tags: %{"email" => {:flag, true}}}, %Lofi.Element{texts: texts}) do
     input("email", texts)
+  end
+
+  @doc """
+  Phone number #phone
+  """
+  defp preview(%Lofi.Element{tags: %{"phone" => {:flag, true}}}, %Lofi.Element{texts: texts}) do
+    input("tel", texts)
   end
 
   @doc """
   Enter password #password
   """
-  defp preview(%Lofi.Element{tags: %{"password" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
+  defp preview(%Lofi.Element{tags: %{"password" => {:flag, true}}}, %Lofi.Element{texts: texts}) do
     input("password", texts)
   end
 
