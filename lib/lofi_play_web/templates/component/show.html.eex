@@ -22,6 +22,9 @@
         <pre>
           <%= @component.body %>
         </pre>
+        <div>
+          <%= preview(@component) %>
+        </div>
       </div>
     </div>
   </div>
