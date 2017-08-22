@@ -290,10 +290,10 @@ defmodule LofiPlay.Preview.Bootstrap do
 
   end
 
-  defp preview_section([line | []], components) do
-    # Handle single so no wrapper <div>
-    preview_element(line, components)
-  end
+  # defp preview_section([line | []], components) do
+  #   # Handle single so no wrapper <div>
+  #   preview_element(line, components)
+  # end
 
   defp preview_section(lines, components) do
     html_lines = Enum.map(lines, &preview_element(&1, components))

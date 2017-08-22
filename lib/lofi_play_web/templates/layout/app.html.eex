@@ -16,13 +16,13 @@
     <main>
       <header class="header">
         <nav role="navigation" class="nav nav-pills">
-          <%= link "Journeys", to: screen_path(@conn, :index), class: "nav-link nav-item" %>
+          <%#= link "Journeys", to: screen_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "Screens", to: screen_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "Schemas", to: schema_path(@conn, :index), class: "nav-link nav-item" %>
-          <%= link "Promos", to: '#', class: "nav-link nav-item" %>
+          <%#= link "Promos", to: '#', class: "nav-link nav-item" %>
           <%= link "Components", to: component_path(@conn, :index), class: "nav-link nav-item" %>
-          <%= link "Content", to: '#', class: "nav-link nav-item" %>
-          <%= link "Chatter (Convos)", to: '#', class: "nav-link nav-item" %>
+          <%#= link "Content", to: '#', class: "nav-link nav-item" %>
+          <%#= link "Chatter (Convos)", to: '#', class: "nav-link nav-item" %>
         </nav>
       </header>
       

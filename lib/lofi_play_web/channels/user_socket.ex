@@ -3,6 +3,7 @@ defmodule LofiPlayWeb.UserSocket do
 
   ## Channels
   # channel "room:*", LofiPlayWeb.RoomChannel
+  channel "lofi-preview", LofiPlayWeb.PreviewChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
