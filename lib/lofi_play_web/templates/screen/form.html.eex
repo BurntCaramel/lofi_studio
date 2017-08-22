@@ -18,7 +18,7 @@
         <%= textarea f, :body, class: "form-control", rows: 12 %>
       </div>
       <div class="col-12 col-sm-6">
-        <div id="screen_body--preview"></div>
+        <div id="screen_body-preview"></div>
       </div>
       <%= error_tag f, :body %>
     </div>
