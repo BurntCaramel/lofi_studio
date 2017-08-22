@@ -1,6 +1,5 @@
 defmodule LofiPlayWeb.SchemaView do
   use LofiPlayWeb, :view
-  import LofiPlayWeb.LayoutHelpers
   alias LofiPlay.Preview.Bootstrap
   alias LofiPlay.Preview.Faker
 

@@ -3,6 +3,11 @@
 
   <nav>
   <%= link "New Component", to: component_path(@conn, :new), class: "btn btn-primary" %>
+
+  <div class="btn-group">
+    <%= active_link @conn, "Details", "btn btn-secondary", "btn btn-outline-secondary", to: component_path(@conn, :index) %>
+    <%= active_link @conn, "Preview", "btn btn-secondary", "btn btn-outline-secondary", to: component_path(@conn, :index, preview: "1") %>
+  </div>
   </nav>
 <% end %>
 
@@ -10,6 +15,14 @@
   <section>
   <%= for component <- @components do %>
       <article>
+        <%= if @preview do %>
+          <h2 class="h4"><%= link component.name, to: component_path(@conn, :show, component) %></h2>
+          <div class="row">
+            <div class="col col-11 ml-auto">
+              <%= preview(component) %>
+            </div>
+          </div>
+        <%= else %>
         <h2><%= link component.name, to: component_path(@conn, :show, component) %></h2>
         <div class="row">
           <div class="col col-12 col-sm-6">
@@ -21,7 +34,11 @@
           <div class="col col-12 col-sm-6">
             <pre><%= component.body %></pre>
           </div>
+          <div class="col col-12 col-sm-6">
+            <%= preview(component) %>
+          </div>
         </div>
+        <% end %>
       </article>
   <% end %>
   </section>

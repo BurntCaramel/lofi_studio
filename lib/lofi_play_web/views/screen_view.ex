@@ -1,6 +1,5 @@
 defmodule LofiPlayWeb.ScreenView do
   use LofiPlayWeb, :view
-  import LofiPlayWeb.LayoutHelpers
   alias LofiPlay.Preview.Bootstrap
   
   def preview_body(body, components: components) do

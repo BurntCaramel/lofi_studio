@@ -39,6 +39,8 @@ defmodule LofiPlayWeb do
 
       import LofiPlayWeb.Router.Helpers
       import LofiPlayWeb.ErrorHelpers
+      import LofiPlayWeb.LayoutHelpers
+      import LofiPlayWeb.ElementHelpers
       import LofiPlayWeb.Gettext
     end
   end
