@@ -160,9 +160,9 @@ defmodule LofiPlay.Preview.Faker do
   end
 
   def preview_text(text) do
-    sections = Lofi.Parse.parse_sections(text)
-
-    Enum.map(sections, &html_for_section/1)
+    text
+    |> Lofi.Parse.parse_sections
+    |> Enum.map(&html_for_section/1)
   end
 
   def json_for_text(text) do
@@ -172,7 +172,6 @@ defmodule LofiPlay.Preview.Faker do
       # Extract single section
       [single | []] ->
         single
-      
       # Array of sections
       multiple ->
         multiple
