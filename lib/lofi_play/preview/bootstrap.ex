@@ -29,6 +29,9 @@ defmodule LofiPlay.Preview.Bootstrap do
     class = flatten_classes [
       {"btn", true},
       {"active", has_flag_tag(tags, "active")},
+      {"btn-lg", has_flag_tag(tags, "large")},
+      {"btn-sm", has_flag_tag(tags, "small")},
+      {"btn-block", has_flag_tag(tags, "block")},
       {
         cond do
           has_flag_tag(tags, "primary") -> "btn-primary"
