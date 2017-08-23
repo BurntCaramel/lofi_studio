@@ -11,7 +11,7 @@ defmodule LofiPlayWeb.ComponentController do
 
   def index(conn, _params) do
     components = Content.list_components()
-    render(conn, "index.html", components: components, preview: false)
+    render(conn, "index.html", components: components, preview: true)
   end
 
   def new(conn, _params) do
