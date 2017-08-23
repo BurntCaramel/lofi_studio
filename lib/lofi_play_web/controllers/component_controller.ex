@@ -4,9 +4,9 @@ defmodule LofiPlayWeb.ComponentController do
   alias LofiPlay.Content
   alias LofiPlay.Content.Component
 
-  def index(conn, %{"preview" => "1"}) do
+  def index(conn, %{"details" => "1"}) do
     components = Content.list_components()
-    render(conn, "index.html", components: components, preview: true)
+    render(conn, "index.html", components: components, preview: false)
   end
 
   def index(conn, _params) do

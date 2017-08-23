@@ -3,7 +3,8 @@
 
 // To use Phoenix channels, the first step is to import Socket
 // and connect at the socket path in "lib/web/endpoint.ex":
-import { Socket } from "phoenix"
+import { Socket } from 'phoenix'
+import debounce from 'lodash/debounce'
 
 let socket = new Socket("/socket", {params: {token: window.userToken}})
 
@@ -54,15 +55,16 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-const channel = socket.channel('lofi-preview', {})
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+  const previewChannel = socket.channel('lofi-preview', {})
+  previewChannel.join()
+    .receive("ok", resp => { console.log("Joined successfully", resp) })
+    .receive("error", resp => { console.log("Unable to join", resp) })
 
-const $screenBodyField = document.querySelector('#screen_body')
+const $screenBodyField = document.getElementById('screen_body')
 if ($screenBodyField) {
+
   const requestPreview = () => {
-    channel.push('preview', { body: $screenBodyField.value })
+    previewChannel.push('preview', { body: $screenBodyField.value })
   }
 
   $screenBodyField.addEventListener('keyup', event => {
@@ -70,11 +72,38 @@ if ($screenBodyField) {
   })
 
   const $preview = document.getElementById('screen_body-preview')
-  channel.on('previewed', ({ html }) => {
+  previewChannel.on('previewed', ({ html }) => {
     $preview.innerHTML = html
   })
 
   requestPreview()
+}
+
+const $componentIngredientsPreviewForm = document.getElementById('component-ingredients-preview-form')
+if ($componentIngredientsPreviewForm) {
+  const $preview = document.getElementById('component-ingredients-preview-out')
+  const formElements = $componentIngredientsPreviewForm.elements
+  const componentID = $componentIngredientsPreviewForm.dataset.componentId
+
+  // const channel = socket.channel(`component:preview:${componentID}`, {})
+  // channel.join()
+  //   .receive("ok", resp => { console.log("Joined successfully", resp) })
+  //   .receive("error", resp => { console.log("Unable to join", resp) })
+
+  const requestPreview = debounce(() => {
+    let values = {}
+    for (let i = 0; i < formElements.length; i += 1) {
+      let field = formElements[i]
+      values[field.name] = field.value
+    }
+    previewChannel.push(`component:preview:${componentID}`, { values })
+      .receive('ok', ({ html }) => {
+        $preview.innerHTML = html
+      })
+  }, 400)
+
+  $componentIngredientsPreviewForm.addEventListener('input', requestPreview)
+  $componentIngredientsPreviewForm.addEventListener('blur', requestPreview)
 }
 
 export default socket

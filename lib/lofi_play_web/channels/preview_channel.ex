@@ -17,4 +17,14 @@ defmodule LofiPlayWeb.PreviewChannel do
     #{:reply, :ok, socket}
     {:noreply, socket}
   end
+
+  def handle_in("component:preview:" <> component_id, %{"values" => values}, socket) do
+    component = LofiPlay.Content.get_component!(component_id)
+    body = component.body
+    html = component
+    |> LofiPlayWeb.ComponentView.preview(values)
+    |> HTML.safe_to_string
+
+    {:reply, {:ok, %{"html" => html, "body" => body}}, socket}
+  end
 end

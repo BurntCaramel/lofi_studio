@@ -23,7 +23,10 @@
     </div>
     <div>
       <h2>Preview:</h2>
-      <%= preview(@component) %>
+      <%= ingredients_preview_form(@conn, @component) %>
+      <div id="component-ingredients-preview-out">
+        <%= preview(@component) %>
+      </div>
     </div>
   </div>
 </section>

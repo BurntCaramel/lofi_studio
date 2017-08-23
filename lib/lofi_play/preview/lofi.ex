@@ -43,4 +43,19 @@ defmodule LofiPlay.Preview.Lofi do
     |> Enum.map(&parse_ingredient_into_pair/1)
     #|> Enum.into(%{})
   end
+
+  defp transform_introductions_for_element(element) do
+    element
+    |> Map.put("texts", [element.introducing])
+  end
+
+  defp transform_introductions_for_elements(elements) do
+    elements
+    |> Enum.map(&transform_introductions_for_element/1)
+  end
+
+  def transform_introductions_to_text(sections) do
+    sections
+    |> Enum.map(&transform_introductions_for_elements/1)
+  end
 end

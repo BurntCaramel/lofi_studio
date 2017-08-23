@@ -5,8 +5,8 @@
     <%= link "New Component", to: component_path(@conn, :new), class: "btn btn-primary" %>
 
     <div class="btn-group">
-      <%= active_link @conn, "Details", "btn btn-secondary", "btn btn-outline-secondary", to: component_path(@conn, :index) %>
-      <%= active_link @conn, "Preview", "btn btn-secondary", "btn btn-outline-secondary", to: component_path(@conn, :index, preview: "1") %>
+      <%= active_link @conn, "Preview", "btn btn-secondary", "btn btn-outline-secondary", to: component_path(@conn, :index) %>
+      <%= active_link @conn, "Details", "btn btn-secondary", "btn btn-outline-secondary", to: component_path(@conn, :index, details: "1") %>
     </div>
   </nav>
 <% end %>

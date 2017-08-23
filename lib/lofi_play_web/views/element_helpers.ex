@@ -20,4 +20,17 @@ defmodule LofiPlayWeb.ElementHelpers do
     class = if active?, do: active_class, else: inactive_class
     link text, to: to, class: class
   end
+
+  def input(type, label, opts) do
+    value = Keyword.get(opts, :value)
+    name = Keyword.get(opts, :name)
+
+    content_tag(:div, class: "form-group") do
+      content_tag(:label, [
+        label,
+        " ",
+        tag(:input, type: type, value: value, name: name, class: "form-control")
+      ])
+    end
+  end
 end
