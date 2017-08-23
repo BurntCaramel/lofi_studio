@@ -31,22 +31,22 @@
               <%= preview(component) %>
             </div>
           </div>
-        <%= else %>
-        <h2><%= link component.name, to: component_path(@conn, :show, component) %></h2>
-        <div class="row">
-          <div class="col col-12 col-sm-6">
-            <h4><%= component.tags %></h4>
-            <h3><%= display_component_type(component.type) %></h3>
-            <span><%= link "Edit", to: component_path(@conn, :edit, component), class: "btn btn-default btn-xs" %></span>
-            <span><%= link "Delete", to: component_path(@conn, :delete, component), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <% else %>
+          <h2><%= link component.name, to: component_path(@conn, :show, component) %></h2>
+          <div class="row">
+            <div class="col col-12 col-sm-6">
+              <h4><%= component.tags %></h4>
+              <h3><%= display_component_type(component.type) %></h3>
+              <span><%= link "Edit", to: component_path(@conn, :edit, component), class: "btn btn-default btn-xs" %></span>
+              <span><%= link "Delete", to: component_path(@conn, :delete, component), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+            </div>
+            <div class="col col-12 col-sm-6">
+              <pre><%= component.body %></pre>
+            </div>
+            <div class="col col-12 col-sm-6">
+              <%= preview(component) %>
+            </div>
           </div>
-          <div class="col col-12 col-sm-6">
-            <pre><%= component.body %></pre>
-          </div>
-          <div class="col col-12 col-sm-6">
-            <%= preview(component) %>
-          </div>
-        </div>
         <% end %>
       </article>
   <% end %>
