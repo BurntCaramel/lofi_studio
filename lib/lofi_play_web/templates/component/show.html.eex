@@ -13,18 +13,17 @@
     <div class="row">
       <div class="col col-12 col-sm-5 col-md-4">
         <h2>Tags: <%= @component.tags %></h2>
-        <h3>Ingredients:</h3>
-        <pre><%= @component.ingredients %></pre>
+        <h2>Ingredients:</h2>
+        <pre><code><%= @component.ingredients %></code></pre>
       </div>
       <div class="col col-12 col-sm-7 col-md-8">
         <h2>Type: <%= display_component_type(@component.type) %></h2>
-        <pre>
-          <%= @component.body %>
-        </pre>
-        <div>
-          <%= preview(@component) %>
-        </div>
+        <pre><code><%= @component.body %></code></pre>
       </div>
+    </div>
+    <div>
+      <h2>Preview:</h2>
+      <%= preview(@component) %>
     </div>
   </div>
 </section>
