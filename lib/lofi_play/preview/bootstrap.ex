@@ -305,7 +305,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   defp preview_section(lines, components) do
     html_lines = Enum.map(lines, &preview_element(&1, components))
 
-    Tag.content_tag(:div, html_lines)
+    Tag.content_tag(:div, html_lines, class: "mb-3")
   end
 
   defp parse_component_entry(%Component{tags: tags_s, type: type_n, body: body, ingredients: ingredients}) do
