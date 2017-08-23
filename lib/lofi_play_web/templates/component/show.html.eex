@@ -1,8 +1,11 @@
-<%= container do %>
+<%= container mb: 3 do %>
   <h1>
     <%= @component.name %>
     <small><%= link "#component", to: component_path(@conn, :index) %></small>
   </h1>
+  <nav>
+    <%= link "Edit", to: component_path(@conn, :edit, @component), class: "btn btn-primary" %>
+  </nav>
 <% end %>
 
 <section class="screen-body">
@@ -12,10 +15,6 @@
         <h2>Tags: <%= @component.tags %></h2>
         <h3>Ingredients:</h3>
         <pre><%= @component.ingredients %></pre>
-        <nav>
-          <%= link "Edit", to: component_path(@conn, :edit, @component), class: "btn btn-primary" %>
-          <%= link "Back", to: component_path(@conn, :index), class: "btn btn-secondary" %>
-        </nav>
       </div>
       <div class="col col-12 col-sm-7 col-md-8">
         <h2>Type: <%= display_component_type(@component.type) %></h2>
