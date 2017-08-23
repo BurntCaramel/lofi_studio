@@ -1,5 +1,6 @@
 defmodule LofiPlayWeb.PreviewChannel do
   use Phoenix.Channel
+  alias LofiPlay.Content
   alias LofiPlay.Preview.Bootstrap
   alias Phoenix.HTML
 
@@ -8,8 +9,10 @@ defmodule LofiPlayWeb.PreviewChannel do
   end
 
   def handle_in("preview", %{"body" => body}, socket) do
+    components = Content.list_components() # TODO: cache
+
     html = body
-    |> Bootstrap.preview_text
+    |> Bootstrap.preview_text(components)
     |> Enum.map(&HTML.safe_to_string/1)
     |> Enum.join
 
