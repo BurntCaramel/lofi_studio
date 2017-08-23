@@ -2,7 +2,6 @@ defmodule LofiPlayWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :lofi_play
 
   socket "/socket", LofiPlayWeb.UserSocket
-  socket "/socket/preview", LofiPlayWeb.PreviewSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
