@@ -318,12 +318,21 @@ defmodule LofiPlay.Preview.Bootstrap do
     {tags, type, body, ingredients}
   end
 
-  def preview_text(text, component_entries \\ []) do
-    sections = Lofi.Parse.parse_sections(text)
-
-    components = component_entries
+  def parse_components(component_entries) do
+    component_entries
     |> Enum.map(&parse_component_entry/1)
+  end
 
-    Enum.map(sections, &preview_section(&1, components))
+  def preview_sections(sections, component_entries \\ []) do
+    components = component_entries
+    |> parse_components
+
+    sections
+    |> Enum.map(&preview_section(&1, components))
+  end
+
+  def preview_text(text, component_entries \\ []) do
+    Lofi.Parse.parse_sections(text)
+    |> preview_sections(component_entries)
   end
 end
