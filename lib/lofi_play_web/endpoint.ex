@@ -11,6 +11,9 @@ defmodule LofiPlayWeb.Endpoint do
   plug Plug.Static,
     at: "/", from: :lofi_play, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
+  
+  plug Plug.Static,
+    at: "/", from: {:lofi_play, "priv/static/favicon"}, gzip: false
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
