@@ -4,14 +4,13 @@ defmodule LofiPlayWeb.LayoutHelpers do
   Conveniences for layouts.
   """
 
-  alias Phoenix.HTML.Tag
   use Phoenix.HTML
 
   @doc """
   Make a div.container-fluid
   """
   def container([do: block]) do
-    Tag.content_tag(:div, block, class: "container-fluid")
+    content_tag(:div, block, class: "container-fluid")
   end
 
   @doc """
@@ -28,6 +27,27 @@ defmodule LofiPlayWeb.LayoutHelpers do
       "mb-#{mb}"
     ] |> Enum.join(" ")
 
-    Tag.content_tag(:div, block, class: class)
+    content_tag(:div, block, class: class)
+  end
+
+  @doc """
+  Make a div.card
+  """
+  def card([do: block]) do
+    content_tag(:div, [
+      content_tag(:div, block, class: "card-body")
+    ], class: "card")
+  end
+
+  @doc """
+  Make a div.card
+  """
+  def card(opts, [do: block]) do
+    header = Keyword.get(opts, :header)
+
+    content_tag(:div, [
+      content_tag(:div, header, class: "card-header"),
+      content_tag(:div, block, class: "card-body p-0")
+    ], class: "card")
   end
 end
