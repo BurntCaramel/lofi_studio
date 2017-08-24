@@ -5,6 +5,7 @@
 // and connect at the socket path in "lib/web/endpoint.ex":
 import { Socket } from 'phoenix'
 import debounce from 'lodash/debounce'
+import { whenFormElementsChange } from './forms'
 
 let socket = new Socket("/socket", {params: {token: window.userToken}})
 
@@ -63,7 +64,7 @@ socket.connect()
 const $screenBodyField = document.getElementById('screen_body')
 if ($screenBodyField) {
   const $preview = document.getElementById('screen_body-preview')
-  
+
   const requestPreview = () => {
     previewChannel.push('preview', { body: $screenBodyField.value })
       .receive('ok', ({ html }) => {
@@ -81,23 +82,31 @@ if ($screenBodyField) {
 const $componentIngredientsPreviewForm = document.getElementById('component-ingredients-preview-form')
 if ($componentIngredientsPreviewForm) {
   const $preview = document.getElementById('component-ingredients-preview-out')
-  const formElements = $componentIngredientsPreviewForm.elements
-  const componentID = $componentIngredientsPreviewForm.dataset.componentId
 
-  const requestPreview = debounce(() => {
-    let values = {}
-    for (let i = 0; i < formElements.length; i += 1) {
-      let field = formElements[i]
-      values[field.name] = field.value
-    }
-    previewChannel.push(`component:preview:${componentID}`, { values })
+  whenFormElementsChange($componentIngredientsPreviewForm, { debounceBy: 400 }, (values, { dataset: { componentId } }) => {
+    previewChannel.push(`component:preview:${componentId}`, { values })
       .receive('ok', ({ html }) => {
         $preview.innerHTML = html
       })
-  }, 400)
+  })
 
-  $componentIngredientsPreviewForm.addEventListener('input', requestPreview)
-  $componentIngredientsPreviewForm.addEventListener('blur', requestPreview)
+  // const formElements = $componentIngredientsPreviewForm.elements
+  // const componentID = $componentIngredientsPreviewForm.dataset.componentId
+
+  // const requestPreview = debounce(() => {
+  //   let values = {}
+  //   for (let i = 0; i < formElements.length; i += 1) {
+  //     let field = formElements[i]
+  //     values[field.name] = field.value
+  //   }
+  //   previewChannel.push(`component:preview:${componentID}`, { values })
+  //     .receive('ok', ({ html }) => {
+  //       $preview.innerHTML = html
+  //     })
+  // }, 400)
+
+  // $componentIngredientsPreviewForm.addEventListener('input', requestPreview)
+  // $componentIngredientsPreviewForm.addEventListener('blur', requestPreview)
 }
 
 export default socket
