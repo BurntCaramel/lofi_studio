@@ -6,10 +6,12 @@ defmodule LofiPlay.Preview.Primitives do
   @doc """
   Textual description #image #source: https://via.placeholder.com/@widthx@height
   """
-  def preview(%Lofi.Element{tags: %{"image" => {:flag, true}, "source" => {:content, source_content}}}, %Lofi.Element{texts: texts}) do
+  def preview(%Lofi.Element{tags: %{"image" => {:flag, true}, "source" => {:content, source_content}}}, %Lofi.Element{texts: texts, tags: tags}) do
     source_url = Enum.join(source_content.texts)
     description = Enum.join(texts)
-    Tag.tag(:img, src: source_url, alt: description)
+    width = get_content_tag(tags, "width")
+    height = get_content_tag(tags, "height")
+    Tag.tag(:img, src: source_url, alt: description, width: width, height: height)
   end
 
   def preview(%Lofi.Element{tags: %{"note" => {:flag, true}}}, %Lofi.Element{texts: texts}) do
