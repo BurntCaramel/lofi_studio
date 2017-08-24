@@ -79,12 +79,12 @@ if ($screenBodyField) {
   requestPreview()
 }
 
-const $componentIngredientsPreviewForm = document.getElementById('component-ingredients-preview-form')
-if ($componentIngredientsPreviewForm) {
-  const $preview = document.getElementById('component-ingredients-preview-out')
+const $ingredientsPreviewForm = document.getElementById('ingredients-preview-form')
+if ($ingredientsPreviewForm) {
+  const $preview = document.getElementById('ingredients-preview-out')
 
-  const update = whenFormElementsChange($componentIngredientsPreviewForm, { debounceBy: 400 }, (values, { dataset: { componentId } }) => {
-    previewChannel.push(`component:preview:${componentId}`, { values })
+  const update = whenFormElementsChange($ingredientsPreviewForm, { debounceBy: 400 }, (values, { dataset: { type, componentId } }) => {
+    previewChannel.push(`${ type }:preview:${componentId}`, { values })
       .receive('ok', ({ html }) => {
         $preview.innerHTML = html
       })
@@ -92,5 +92,19 @@ if ($componentIngredientsPreviewForm) {
 
   update()
 }
+
+// const $componentIngredientsPreviewForm = document.getElementById('component-ingredients-preview-form')
+// if ($componentIngredientsPreviewForm) {
+//   const $preview = document.getElementById('component-ingredients-preview-out')
+
+//   const update = whenFormElementsChange($componentIngredientsPreviewForm, { debounceBy: 400 }, (values, { dataset: { componentId } }) => {
+//     previewChannel.push(`component:preview:${componentId}`, { values })
+//       .receive('ok', ({ html }) => {
+//         $preview.innerHTML = html
+//       })
+//   })
+
+//   update()
+// }
 
 export default socket

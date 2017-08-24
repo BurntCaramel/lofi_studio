@@ -48,7 +48,7 @@ defmodule LofiPlayWeb.ComponentView do
   end
 
   def ingredients_preview_form(conn, component) do
-    form_tag("", method: "get", id: "component-ingredients-preview-form", data: [component_id: component.id]) do
+    form_tag("", method: "get", id: "ingredients-preview-form", data: [type: "component", component_id: component.id]) do
       (component.ingredients || "")
       |> Preview.Lofi.parse_ingredients
       |> Enum.map(&ingredients_preview_form_item/1)
