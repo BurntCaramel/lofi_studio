@@ -83,30 +83,14 @@ const $componentIngredientsPreviewForm = document.getElementById('component-ingr
 if ($componentIngredientsPreviewForm) {
   const $preview = document.getElementById('component-ingredients-preview-out')
 
-  whenFormElementsChange($componentIngredientsPreviewForm, { debounceBy: 400 }, (values, { dataset: { componentId } }) => {
+  const update = whenFormElementsChange($componentIngredientsPreviewForm, { debounceBy: 400 }, (values, { dataset: { componentId } }) => {
     previewChannel.push(`component:preview:${componentId}`, { values })
       .receive('ok', ({ html }) => {
         $preview.innerHTML = html
       })
   })
 
-  // const formElements = $componentIngredientsPreviewForm.elements
-  // const componentID = $componentIngredientsPreviewForm.dataset.componentId
-
-  // const requestPreview = debounce(() => {
-  //   let values = {}
-  //   for (let i = 0; i < formElements.length; i += 1) {
-  //     let field = formElements[i]
-  //     values[field.name] = field.value
-  //   }
-  //   previewChannel.push(`component:preview:${componentID}`, { values })
-  //     .receive('ok', ({ html }) => {
-  //       $preview.innerHTML = html
-  //     })
-  // }, 400)
-
-  // $componentIngredientsPreviewForm.addEventListener('input', requestPreview)
-  // $componentIngredientsPreviewForm.addEventListener('blur', requestPreview)
+  update()
 }
 
 export default socket
