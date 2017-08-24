@@ -93,18 +93,4 @@ if ($ingredientsPreviewForm) {
   update()
 }
 
-// const $componentIngredientsPreviewForm = document.getElementById('component-ingredients-preview-form')
-// if ($componentIngredientsPreviewForm) {
-//   const $preview = document.getElementById('component-ingredients-preview-out')
-
-//   const update = whenFormElementsChange($componentIngredientsPreviewForm, { debounceBy: 400 }, (values, { dataset: { componentId } }) => {
-//     previewChannel.push(`component:preview:${componentId}`, { values })
-//       .receive('ok', ({ html }) => {
-//         $preview.innerHTML = html
-//       })
-//   })
-
-//   update()
-// }
-
 export default socket
