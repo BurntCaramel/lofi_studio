@@ -62,18 +62,17 @@ socket.connect()
 
 const $screenBodyField = document.getElementById('screen_body')
 if ($screenBodyField) {
-
+  const $preview = document.getElementById('screen_body-preview')
+  
   const requestPreview = () => {
     previewChannel.push('preview', { body: $screenBodyField.value })
+      .receive('ok', ({ html }) => {
+        $preview.innerHTML = html
+      })
   }
 
   $screenBodyField.addEventListener('keyup', event => {
     requestPreview()
-  })
-
-  const $preview = document.getElementById('screen_body-preview')
-  previewChannel.on('previewed', ({ html }) => {
-    $preview.innerHTML = html
   })
 
   requestPreview()
@@ -84,11 +83,6 @@ if ($componentIngredientsPreviewForm) {
   const $preview = document.getElementById('component-ingredients-preview-out')
   const formElements = $componentIngredientsPreviewForm.elements
   const componentID = $componentIngredientsPreviewForm.dataset.componentId
-
-  // const channel = socket.channel(`component:preview:${componentID}`, {})
-  // channel.join()
-  //   .receive("ok", resp => { console.log("Joined successfully", resp) })
-  //   .receive("error", resp => { console.log("Unable to join", resp) })
 
   const requestPreview = debounce(() => {
     let values = {}

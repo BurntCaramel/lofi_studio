@@ -16,9 +16,8 @@ defmodule LofiPlayWeb.PreviewChannel do
     |> Enum.map(&HTML.safe_to_string/1)
     |> Enum.join
 
-    push socket, "previewed", %{"html" => html}
-    #{:reply, :ok, socket}
-    {:noreply, socket}
+    msg = %{"html" => html}
+    {:reply, {:ok, msg}, socket}
   end
 
   def handle_in("component:preview:" <> component_id, %{"values" => values}, socket) do
@@ -28,6 +27,7 @@ defmodule LofiPlayWeb.PreviewChannel do
     |> LofiPlayWeb.ComponentView.preview(values)
     |> HTML.safe_to_string
 
-    {:reply, {:ok, %{"html" => html, "body" => body}}, socket}
+    msg = %{"html" => html, "body" => body}
+    {:reply, {:ok, msg}, socket}
   end
 end
