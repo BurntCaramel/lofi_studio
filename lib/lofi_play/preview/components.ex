@@ -9,6 +9,7 @@ defmodule LofiPlay.Preview.Components do
     |> Enum.reduce(body, fn({key, {_type, default, _choices}}, html) ->
       replacement = case key do
         # @texts uses texts of element
+        # TODO: rename to @content
         "texts" ->
           Enum.join(texts)
         # Otherwise look up tag

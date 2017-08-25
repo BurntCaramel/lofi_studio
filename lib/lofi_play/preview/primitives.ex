@@ -1,23 +1,22 @@
 defmodule LofiPlay.Preview.Primitives do
   import LofiPlay.Preview.Lofi
-  alias Phoenix.HTML
-  alias Phoenix.HTML.Tag
+  use Phoenix.HTML
 
   @doc """
   Textual description #image #source: https://via.placeholder.com/@widthx@height
   """
-  def preview(%Lofi.Element{tags: %{"image" => {:flag, true}, "source" => {:content, source_content}}}, %Lofi.Element{texts: texts, tags: tags}) do
-    source_url = Enum.join(source_content.texts)
+  def preview(%Lofi.Element{tags: %{"image" => {:flag, true}, "source" => {:content, source_content}}}, %Lofi.Element{texts: texts, tags: tags}, resolve_content) do
+    source_url = resolve_content.(source_content.texts, source_content.mentions)
     description = Enum.join(texts)
     width = get_content_tag(tags, "width")
     height = get_content_tag(tags, "height")
-    Tag.tag(:img, src: source_url, alt: description, width: width, height: height)
+    tag(:img, src: source_url, alt: description, width: width, height: height)
   end
 
-  def preview(%Lofi.Element{tags: %{"note" => {:flag, true}}}, %Lofi.Element{texts: texts}) do
-    Tag.content_tag(:details, [
-      Tag.content_tag(:summary, "Note"),
-      Tag.content_tag(:span, Enum.join(texts))
+  def preview(%Lofi.Element{tags: %{"note" => {:flag, true}}}, %Lofi.Element{texts: texts, mentions: mentions}, resolve_content) do
+    content_tag(:details, [
+      content_tag(:summary, "Note"),
+      content_tag(:span, resolve_content.(texts, mentions))
     ])
   end
 
@@ -31,20 +30,20 @@ defmodule LofiPlay.Preview.Primitives do
       Hello
       <p>Hello</p>
   """
-  def preview(%Lofi.Element{children: []}, %Lofi.Element{texts: texts, tags: tags}) do
+  def preview(%Lofi.Element{children: []}, %Lofi.Element{texts: texts, mentions: mentions, tags: tags}, resolve_content) do
     tag = cond do
-      has_flag_tag(tags, "primary") ->
+      Lofi.Tags.has_flag(tags, "primary") ->
         :h1
-      has_flag_tag(tags, "secondary") ->
+      Lofi.Tags.has_flag(tags, "secondary") ->
         :h2
       true ->
         :p
     end
     
-    Tag.content_tag(tag, Enum.join(texts))
+    content_tag(tag, resolve_content.(texts, mentions))
   end
 
-  def preview(_element, _element) do
+  def preview(_element, _element, _resolve_content) do
     nil
   end
 end

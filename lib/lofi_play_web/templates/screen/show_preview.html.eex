@@ -1,4 +1,4 @@
-<% preview_html = preview_body @screen.body, components: @components %>
+<% preview_html = preview @screen, components: @components %>
 
 <div class="container-fluid">
   <%= preview_html %>

@@ -1,11 +1,4 @@
 defmodule LofiPlay.Preview.Lofi do
-  def has_flag_tag(tags, name) do
-    case tags do
-      %{^name => {:flag, true}} -> true
-      _ -> false
-    end
-  end
-
   def get_content_tag(tags, name, default \\ nil) do
     case tags do
       %{^name => {:content, %{texts: texts}}} ->
@@ -32,10 +25,10 @@ defmodule LofiPlay.Preview.Lofi do
         default = get_content_tag(tags, "default", get_content_tag(tags, "min", "0"))
         {:number, default, children}
       %{"choice" => {:flag, true}} ->
-        default = get_content_tag(tags, "default", nil)
+        default = get_content_tag(tags, "default")
         {:choice, default, children}
       _ ->
-        default = get_content_tag(tags, "default", "")
+        default = get_content_tag(tags, "default")
         {:text, default, children}
     end
     {introducing, info}

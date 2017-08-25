@@ -58,7 +58,7 @@ defmodule LofiPlay.Preview.Faker do
   # """
   defp generate(%Lofi.Element{tags: %{"time" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}) do
     value = cond do
-      has_flag_tag(tags, "now") ->
+      Lofi.Tags.has_flag(tags, "now") ->
         DateTime.utc_now
         |> Map.put(:microsecond, {0, 0}) # Remove extra precision that <input type="time"> does not like
         |> DateTime.to_unix
