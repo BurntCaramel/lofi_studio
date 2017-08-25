@@ -42,7 +42,7 @@
     <div class="col-12 col-sm-6">
       <div class="form-group">
         <%= label f, :type, class: "control-label" %>
-        <%= select f, :type, ["SVG": 1, "HTML": 2], class: "form-control" %>
+        <%= select f, :type, ["SVG": 1, "HTML": 2, "Primitives": 3], class: "form-control" %>
         <%= error_tag f, :type %>
       </div>
 
