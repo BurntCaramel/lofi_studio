@@ -4,7 +4,7 @@ defmodule LofiPlayWeb.SchemaView do
   alias LofiPlay.Preview.Faker
 
   def preview_body_form(body) do
-    Bootstrap.preview_text(body)
+    Bootstrap.preview_text(body, "")
   end
 
   def preview_body_faker(body) do
