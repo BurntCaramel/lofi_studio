@@ -28,6 +28,7 @@
           <%= link "#component", to: component_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "#message", to: '#', class: "nav-link nav-item" %>
           <%= link "#schema", to: schema_path(@conn, :index), class: "nav-link nav-item" %>
+          <%= link "#persona", to: "#", class: "nav-link nav-item" %>
           <%#= link "#content", to: '#', class: "nav-link nav-item" %>
           <%#= link "Chatter (Convos)", to: '#', class: "nav-link nav-item" %>
         </nav>
