@@ -37,8 +37,6 @@ RUN mix deps.get --only prod
 RUN mix compile
 RUN mix phx.digest
 
-RUN which mix
-
 EXPOSE 4000
 CMD ["mix", "phx.server"]
 # CMD ["sh", "-c", "mix deps.get && mix phoenix.server"]
