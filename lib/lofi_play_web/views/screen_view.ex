@@ -4,11 +4,11 @@ defmodule LofiPlayWeb.ScreenView do
   alias LofiPlay.Preview.Bootstrap
   
   def preview(screen, components: components, values: values) do
-    Bootstrap.preview_text(screen.body, screen.ingredients, components, values)
+    Bootstrap.preview_text(screen.body, screen.ingredients || "", components, values)
   end
 
   def preview(screen, components: components) do
-    Bootstrap.preview_text(screen.body, screen.ingredients, components)
+    Bootstrap.preview_text(screen.body, screen.ingredients || "", components)
   end
 
   def preview_in_iframe(conn, screen, layout) do
