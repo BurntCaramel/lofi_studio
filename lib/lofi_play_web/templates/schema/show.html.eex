@@ -3,15 +3,15 @@
     <%= @schema.name %>
     <small><%= link "#schema", to: schema_path(@conn, :index) %></small>
   </h1>
+  <nav>
+    <%= link "Edit", to: schema_path(@conn, :edit, @schema), class: "btn btn-primary" %>
+  </nav>
 <% end %>
 
 <section class="schema-body">
   <div class="container-fluid">
     <div class="row">
       <div class="col col-xs-12 col-sm-4 col-md-4">
-        <nav>
-          <%= link "Edit", to: schema_path(@conn, :edit, @schema), class: "btn btn-primary" %>
-        </nav>
         <pre><%= @schema.body %></pre>
       </div>
       <div class="col col-xs-12 col-sm-4 col-md-4">

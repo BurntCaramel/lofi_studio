@@ -29,11 +29,14 @@ defmodule LofiPlay.Preview.Lofi do
   defp parse_ingredient_into_pair(%Lofi.Element{introducing: introducing, tags: tags, children: children}) do
     info = case tags do
       %{"number" => {:flag, true}} ->
-        default_s = get_content_tag(tags, "default", get_content_tag(tags, "min", "0"))
-        {:number, default_s, children}
+        default = get_content_tag(tags, "default", get_content_tag(tags, "min", "0"))
+        {:number, default, children}
+      %{"choice" => {:flag, true}} ->
+        default = get_content_tag(tags, "default", nil)
+        {:choice, default, children}
       _ ->
-        default_s = get_content_tag(tags, "default", "")
-        {:text, default_s, children}
+        default = get_content_tag(tags, "default", "")
+        {:text, default, children}
     end
     {introducing, info}
   end

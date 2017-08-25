@@ -3,17 +3,16 @@
     <%= @screen.name %>
     <small><%= link "#screen", to: screen_path(@conn, :index) %></small>
   </h1>
-
-  <h5>Used in journeys: …</h5>
+  <nav class="mb-2 d-flex flex-row justify-content-between align-items-baseline">
+    <%= link "Edit", to: screen_path(@conn, :edit, @screen), class: "btn btn-primary" %>
+    <h5>Used in journeys: …</h5>
+  </nav>
 <% end %>
 
 <section class="screen-body">
   <div class="container-fluid">
     <div class="row">
-      <div class="col col-12 col-sm-6 col-md-4">
-        <nav>
-          <%= link "Edit", to: screen_path(@conn, :edit, @screen), class: "btn btn-primary" %>
-        </nav>
+      <div class="col col-12 col-sm-12 col-md-4">
         <pre><%= @screen.body %></pre>
       </div>
       <div class="col col-12 col-sm-6 col-md-4">
