@@ -7,7 +7,7 @@ defmodule LofiPlayWeb.ElementHelpers do
   use Phoenix.HTML
 
   @doc """
-  Render a link, with different classes dependending whether current page or not
+  Render a link, with different classes depending whether current page or not
   """
   def active_link(conn, text, active_class, inactive_class, opts) do
     to = Keyword.fetch!(opts, :to)
@@ -32,5 +32,24 @@ defmodule LofiPlayWeb.ElementHelpers do
         tag(:input, type: type, value: value, name: name, class: "form-control")
       ])
     end
+  end
+
+  defp select_option({value, title}) do
+    content_tag(:option, title, value: value)
+  end
+
+  defp select_option(value) when is_bitstring(value) do
+    content_tag(:option, value, value: value)
+  end
+
+  def select(choices, label, opts) do
+    name = Keyword.get(opts, :name)
+    content_tag(:label, [
+      label,
+      " ",
+      content_tag(:select, name: name, class: "form-control") do
+        Enum.map(choices, &select_option/1)
+      end
+    ])
   end
 end
