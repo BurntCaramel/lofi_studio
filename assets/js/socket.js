@@ -83,8 +83,8 @@ const $ingredientsPreviewForm = document.getElementById('ingredients-preview-for
 if ($ingredientsPreviewForm) {
   const $preview = document.getElementById('ingredients-preview-out')
 
-  const update = whenFormElementsChange($ingredientsPreviewForm, { debounceBy: 400 }, (values, { dataset: { type, componentId } }) => {
-    previewChannel.push(`${ type }:preview:${componentId}`, { values })
+  const update = whenFormElementsChange($ingredientsPreviewForm, { debounceBy: 400 }, (values, { dataset: { type, itemId } }) => {
+    previewChannel.push(`${ type }:preview:${itemId}`, { values })
       .receive('ok', ({ html }) => {
         $preview.innerHTML = html
       })

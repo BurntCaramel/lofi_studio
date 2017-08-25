@@ -2,13 +2,14 @@ defmodule LofiPlayWeb.ComponentView do
   use LofiPlayWeb, :view
   use Phoenix.HTML
   alias LofiPlayWeb.ElementHelpers
+  alias LofiPlayWeb.IngredientsHelpers
   alias LofiPlay.Preview
 
   def display_component_type(type) do
     case type do
       1 -> "SVG"
       2 -> "HTML"
-      3 -> "Primitives"
+      3 -> "Lofi"
       _ -> "Unknown"
     end
   end
@@ -31,35 +32,7 @@ defmodule LofiPlayWeb.ComponentView do
     end
   end
 
-  def ingredients_preview_form_item({key, {type, default, choices}}) do
-    value = if Enum.empty?(choices) do
-      default
-    else
-      Enum.random(choices).texts
-      |> Enum.join
-    end
-
-    input_type = case type do
-      :text -> "text"
-      :number -> "number"
-    end
-
-    ElementHelpers.input(input_type, key, value: value, name: key)
-  end
-
   def ingredients_preview_form(conn, component) do
-    form_tag("", method: "get", id: "ingredients-preview-form", data: [type: "component", component_id: component.id]) do
-      (component.ingredients || "")
-      |> Preview.Lofi.parse_ingredients
-      |> Enum.map(&ingredients_preview_form_item/1)
-    end
-
-    # ingredients = component.ingredients
-    # |> Preview.Lofi.parse_ingredients
-
-    # form_for conn, :show, [as: :previewed_ingredients, method: "get"], fn(f) ->
-    #   ingredients
-    #   |> Enum.map(&ingredients_preview_form_item(&1, f))
-    # end
+    IngredientsHelpers.ingredients_preview_form(conn, component.ingredients, [type: "component", item_id: component.id])
   end
 end
