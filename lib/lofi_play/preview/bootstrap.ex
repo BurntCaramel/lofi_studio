@@ -270,6 +270,7 @@ defmodule LofiPlay.Preview.Bootstrap do
       " ",
       Tag.content_tag(tag) do
         Enum.map(children, fn (element) ->
+          # TODO: pass components
           Tag.content_tag(:li, preview_element(element, [], resolve_content))
         end)
       end
