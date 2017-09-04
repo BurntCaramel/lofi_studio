@@ -4,31 +4,27 @@ defmodule LofiPlayWeb.ComponentView do
   alias LofiPlayWeb.ElementHelpers
   alias LofiPlayWeb.IngredientsHelpers
   alias LofiPlay.Preview
+  alias LofiPlay.Content.Component
 
   def display_component_type(type) do
-    case type do
-      1 -> "SVG"
-      2 -> "HTML"
-      3 -> "Lofi"
-      _ -> "Unknown"
-    end
+    Component.Type.display(type) || "Unknown"
   end
 
   def preview(component, values) do
     ingredients = component.ingredients || ""
-    if is_nil(ingredients) do
-      "No preview"
-    else
-      Preview.Components.render_html_component_preview(component.body, ingredients, values)
+    type = component.type |> Component.Type.to_atom
+    case type do
+      :lofi -> Preview.Components.render_lofi_component(component.body, ingredients, values)
+      _ -> Preview.Components.render_html_component_preview(component.body, ingredients, values)
     end
   end
 
   def preview(component) do
     ingredients = component.ingredients || ""
-    if is_nil(ingredients) do
-      "No preview"
-    else
-      Preview.Components.render_html_component_preview(component.body, ingredients)
+    type = component.type |> Component.Type.to_atom
+    case type do
+      :lofi -> Preview.Components.render_lofi_component(component.body, ingredients)
+      _ -> Preview.Components.render_html_component_preview(component.body, ingredients)
     end
   end
 

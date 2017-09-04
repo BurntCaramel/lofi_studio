@@ -28,6 +28,18 @@ defmodule LofiPlay.Preview.Components do
     HTML.raw(adjusted)
   end
 
+  def render_lofi_component(body, ingredients_s, values) do
+    # ingredient_infos = Preview.Lofi.parse_ingredients(ingredients_s)
+
+    Preview.Bootstrap.preview_text(body, ingredients_s)
+  end
+
+  def render_lofi_component(body, ingredients_s) do
+    # ingredient_infos = Preview.Lofi.parse_ingredients(ingredients_s)
+
+    Preview.Bootstrap.preview_text(body, ingredients_s)
+  end
+
   def render_html_component_preview(body, ingredients, values) do
     ingredient_infos = Preview.Lofi.parse_ingredients(ingredients)
 
