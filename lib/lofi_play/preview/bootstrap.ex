@@ -15,8 +15,8 @@ defmodule LofiPlay.Preview.Bootstrap do
   """
   defp flatten_classes(classes) do
     classes
-    |> Enum.filter(&(Kernel.elem(&1, 1)))
-    |> Enum.map(&(Kernel.elem(&1, 0)))
+    |> Enum.filter(&(Kernel.elem(&1, 1))) # Keep where .1 is true
+    |> Enum.map(&(Kernel.elem(&1, 0))) # Extract class name strings
     |> Enum.join(" ")
   end
 

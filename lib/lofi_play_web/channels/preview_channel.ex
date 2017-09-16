@@ -8,6 +8,7 @@ defmodule LofiPlayWeb.PreviewChannel do
     {:ok, socket}
   end
 
+  # Previews Lofi with Bootstrap 4
   def handle_in("preview", %{"body" => body}, socket) do
     components = Content.list_components() # TODO: cache
 
@@ -20,14 +21,14 @@ defmodule LofiPlayWeb.PreviewChannel do
     {:reply, {:ok, msg}, socket}
   end
 
+  # Renders a saved component with supplied values
   def handle_in("component:preview:" <> component_id, %{"values" => values}, socket) do
     component = LofiPlay.Content.get_component!(component_id)
-    body = component.body
     html = component
     |> LofiPlayWeb.ComponentView.preview(values)
     |> HTML.safe_to_string
 
-    msg = %{"html" => html, "body" => body}
+    msg = %{"html" => html, "body" => component.body}
     {:reply, {:ok, msg}, socket}
   end
 end
