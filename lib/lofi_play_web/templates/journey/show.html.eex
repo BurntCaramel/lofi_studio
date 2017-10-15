@@ -1,0 +1,18 @@
+<h2>Show Journey</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @journey.name %>
+  </li>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @journey.body %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: journey_path(@conn, :edit, @journey) %></span>
+<span><%= link "Back", to: journey_path(@conn, :index) %></span>

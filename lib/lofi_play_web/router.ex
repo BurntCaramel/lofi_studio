@@ -22,6 +22,7 @@ defmodule LofiPlayWeb.Router do
     end
     resources "/schemas", SchemaController
     resources "/components", ComponentController
+    resources "/journeys", JourneyController
   end
 
   # Other scopes may use custom stacks.

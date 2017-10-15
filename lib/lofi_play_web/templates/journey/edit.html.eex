@@ -1,0 +1,5 @@
+<h2>Edit Journey</h2>
+
+<%= render "form.html", Map.put(assigns, :action, journey_path(@conn, :update, @journey)) %>
+
+<span><%= link "Back", to: journey_path(@conn, :index) %></span>

@@ -192,4 +192,66 @@ defmodule LofiPlay.ContentTest do
       assert %Ecto.Changeset{} = Content.change_component(component)
     end
   end
+
+  describe "journeys" do
+    alias LofiPlay.Content.Journey
+
+    @valid_attrs %{body: "some body", name: "some name"}
+    @update_attrs %{body: "some updated body", name: "some updated name"}
+    @invalid_attrs %{body: nil, name: nil}
+
+    def journey_fixture(attrs \\ %{}) do
+      {:ok, journey} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Content.create_journey()
+
+      journey
+    end
+
+    test "list_journeys/0 returns all journeys" do
+      journey = journey_fixture()
+      assert Content.list_journeys() == [journey]
+    end
+
+    test "get_journey!/1 returns the journey with given id" do
+      journey = journey_fixture()
+      assert Content.get_journey!(journey.id) == journey
+    end
+
+    test "create_journey/1 with valid data creates a journey" do
+      assert {:ok, %Journey{} = journey} = Content.create_journey(@valid_attrs)
+      assert journey.body == "some body"
+      assert journey.name == "some name"
+    end
+
+    test "create_journey/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Content.create_journey(@invalid_attrs)
+    end
+
+    test "update_journey/2 with valid data updates the journey" do
+      journey = journey_fixture()
+      assert {:ok, journey} = Content.update_journey(journey, @update_attrs)
+      assert %Journey{} = journey
+      assert journey.body == "some updated body"
+      assert journey.name == "some updated name"
+    end
+
+    test "update_journey/2 with invalid data returns error changeset" do
+      journey = journey_fixture()
+      assert {:error, %Ecto.Changeset{}} = Content.update_journey(journey, @invalid_attrs)
+      assert journey == Content.get_journey!(journey.id)
+    end
+
+    test "delete_journey/1 deletes the journey" do
+      journey = journey_fixture()
+      assert {:ok, %Journey{}} = Content.delete_journey(journey)
+      assert_raise Ecto.NoResultsError, fn -> Content.get_journey!(journey.id) end
+    end
+
+    test "change_journey/1 returns a journey changeset" do
+      journey = journey_fixture()
+      assert %Ecto.Changeset{} = Content.change_journey(journey)
+    end
+  end
 end
