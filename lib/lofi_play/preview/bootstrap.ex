@@ -315,12 +315,7 @@ defmodule LofiPlay.Preview.Bootstrap do
 
   defp parse_component_entry(%Component{tags: tags_s, type: type_n, body: body, ingredients: ingredients}) do
     %Lofi.Element{tags: tags} = Lofi.Parse.parse_element(tags_s)
-    type = case type_n do
-      1 -> :svg
-      2 -> :html
-      3 -> :lofi
-      _ -> nil
-    end
+    type = LofiPlay.Content.Component.Type.to_atom(type_n)
     {tags, type, body, ingredients}
   end
 
