@@ -3,7 +3,7 @@
     <%= @schema.name %>
     <small><%= link "#schema", to: schema_path(@conn, :index) %></small>
   </h1>
-  <nav>
+  <nav class="mb-3">
     <%= link "Edit", to: schema_path(@conn, :edit, @schema), class: "btn btn-primary" %>
   </nav>
 <% end %>

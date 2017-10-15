@@ -4,5 +4,8 @@
     <%= link @schema.name, to: schema_path(@conn, :show, @schema) %>
   </h1>
 
-  <%= render "form.html", Map.put(assigns, :action, schema_path(@conn, :update, @schema)) %>
+  <%= render "form.html", Map.merge(assigns, %{
+    action: schema_path(@conn, :update, @schema),
+    cancel_url: schema_path(@conn, :show, @schema)
+  }) %>
 <% end %>
