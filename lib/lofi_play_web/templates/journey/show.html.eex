@@ -1,18 +1,15 @@
-<h2>Show Journey</h2>
-
-<ul>
-
-  <li>
-    <strong>Name:</strong>
+<%= container do %>
+  <h1>
     <%= @journey.name %>
-  </li>
+    <small><%= link "#journey", to: journey_path(@conn, :index) %></small>
+  </h1>
+  <nav class="mb-2 d-flex flex-row justify-content-between align-items-baseline">
+    <%= link "Edit", to: journey_path(@conn, :edit, @journey), class: "btn btn-primary" %>
+  </nav>
+<% end %>
 
-  <li>
-    <strong>Body:</strong>
-    <%= @journey.body %>
-  </li>
+<%= container do %>
 
-</ul>
+  <pre><code><%= @journey.body %></code></pre>
 
-<span><%= link "Edit", to: journey_path(@conn, :edit, @journey) %></span>
-<span><%= link "Back", to: journey_path(@conn, :index) %></span>
+<% end %>

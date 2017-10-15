@@ -1,4 +1,10 @@
-<h2>Listing Journeys</h2>
+<%= container do %>
+  <h1>Journeys</h1>
+
+  <nav class="mb-3">
+    <span><%= link "New Journey", to: journey_path(@conn, :new), class: "btn btn-primary" %></span>
+  </nav>
+<% end %>
 
 <table class="table">
   <thead>
@@ -25,4 +31,3 @@
   </tbody>
 </table>
 
-<span><%= link "New Journey", to: journey_path(@conn, :new) %></span>

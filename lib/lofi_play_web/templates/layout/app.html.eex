@@ -23,7 +23,7 @@
     <main>
       <header class="header">
         <nav role="navigation" class="nav nav-pills">
-          <%#= link "#journey", to: screen_path(@conn, :index), class: "nav-link nav-item" %>
+          <%= link "#journey", to: journey_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "#screen", to: screen_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "#component", to: component_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "#message", to: '#', class: "nav-link nav-item" %>

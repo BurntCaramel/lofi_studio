@@ -1,6 +1,6 @@
 <%= form_for @changeset, @action, fn f -> %>
   <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
+    <%= submit "Save", class: "btn btn-primary" %>
     <%= link "Cancel", to: component_path(@conn, :index), class: "btn btn-secondary" %>
   </div>
   
