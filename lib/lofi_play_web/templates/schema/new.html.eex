@@ -5,8 +5,4 @@
   </h1>
 
   <%= render "form.html", Map.put(assigns, :action, schema_path(@conn, :create)) %>
-  
-  <nav>
-    <%= link "Back", to: schema_path(@conn, :index) %>
-  </nav>
 <% end %>

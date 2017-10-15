@@ -1,8 +1,5 @@
 <%= form_for @changeset, @action, fn f -> %>
-  <div class="form-group">
-    <%= submit "Save", class: "btn btn-primary" %>
-    <%= link "Cancel", to: component_path(@conn, :index), class: "btn btn-secondary" %>
-  </div>
+  <%= save_cancel cancel_url: component_path(@conn, :index) %>
   
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
@@ -59,4 +56,6 @@
       </div>
     </div>
   </div>
+
+  <%= save_cancel cancel_url: component_path(@conn, :index) %>
 <% end %>

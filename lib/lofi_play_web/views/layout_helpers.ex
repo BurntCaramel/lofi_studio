@@ -50,4 +50,17 @@ defmodule LofiPlayWeb.LayoutHelpers do
       content_tag(:div, block, class: "card-body p-0")
     ], class: "card")
   end
+
+  @doc """
+  Save / cancel buttons for forms
+  """
+  def save_cancel(opts) do
+    cancel_url = Keyword.get(opts, :cancel_url)
+
+    content_tag(:div, [
+      submit("Save", class: "btn btn-primary"),
+      " ",
+      link("Cancel", to: cancel_url, class: "btn btn-secondary")
+    ], class: "form-group")
+  end
 end

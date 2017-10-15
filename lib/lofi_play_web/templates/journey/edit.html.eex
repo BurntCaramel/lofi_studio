@@ -1,5 +1,8 @@
-<h2>Edit Journey</h2>
+<%= container do %>
+  <h1>
+    Editing
+    <%= link @journey.name, to: journey_path(@conn, :show, @journey) %>
+  </h1>
 
-<%= render "form.html", Map.put(assigns, :action, journey_path(@conn, :update, @journey)) %>
-
-<span><%= link "Back", to: journey_path(@conn, :index) %></span>
+  <%= render "form.html", Map.put(assigns, :action, journey_path(@conn, :update, @journey)) %>
+<% end %>

@@ -1,9 +1,7 @@
 <%= container do %>
   <h1>
     Editing
-    <%= link to: component_path(@conn, :show, @component) do %>
-      <%= @component.name %>
-    <% end %>
+    <%= link @component.name, to: component_path(@conn, :show, @component) %>
   </h1>
 
   <%= render "form.html", Map.put(assigns, :action, component_path(@conn, :update, @component)) %>
