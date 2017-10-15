@@ -1,5 +1,5 @@
 <%= container do %>
-  <h1>Components</h1>
+  <h1>#component</h1>
 
   <nav class="mb-3">
     <%= link "New Component", to: component_path(@conn, :new), class: "btn btn-primary" %>

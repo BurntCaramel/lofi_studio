@@ -1,5 +1,5 @@
 <%= container do %>
-  <h1>Schemas</h1>
+  <h1>#schema</h1>
 
   <nav>
   <%= link "New Schema", to: schema_path(@conn, :new), class: "btn btn-primary" %>

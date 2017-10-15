@@ -1,5 +1,5 @@
 <%= container do %>
-  <h1>Screens</h1>
+  <h1>#screen</h1>
 
   <nav>
   <%= link "New Screen", to: screen_path(@conn, :new), class: "btn btn-primary" %>
