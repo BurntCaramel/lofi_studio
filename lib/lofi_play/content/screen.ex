@@ -18,6 +18,8 @@ defmodule LofiPlay.Content.Screen do
   def changeset(%Screen{} = screen, attrs) do
     screen
     |> cast(attrs, [:name, :body, :tags, :ingredients])
+    |> update_change(:tags, &String.trim/1) # Trim tags
+    |> unique_constraint(:tags) # Tags are unique
     |> validate_required([:name, :body])
   end
 end
