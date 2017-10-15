@@ -215,13 +215,14 @@ defmodule LofiPlay.Preview.Bootstrap do
 
   defp nav_item(%Lofi.Element{texts: texts, tags: tags}) do
     class = flatten_classes [
+      {"nav-item", true},
       {"active", Lofi.Tags.has_flag(tags, "active")}
     ]
 
     href = get_content_tag(tags, "link")
     
     Tag.content_tag(:li, class: class) do
-      Tag.content_tag(:a, Enum.join(texts, ""), href: href)
+      Tag.content_tag(:a, Enum.join(texts, ""), href: href, class: "nav-link")
     end
   end
 
