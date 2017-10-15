@@ -27,6 +27,11 @@ a:hover {
   border-color: #ad0070;
 }
 
+.nav-pills .nav-link.active,
+.show>.nav-pills .nav-link {
+  background-color: #c70086;
+}
+
 main {
   padding-bottom: 1rem;
 }
