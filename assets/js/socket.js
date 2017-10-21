@@ -66,7 +66,7 @@ if ($screenBodyField) {
   const $preview = document.getElementById('screen_body-preview')
 
   const requestPreview = () => {
-    previewChannel.push('preview', { body: $screenBodyField.value })
+    previewChannel.push('screen:preview', { body: $screenBodyField.value })
       .receive('ok', ({ html }) => {
         $preview.innerHTML = html
       })

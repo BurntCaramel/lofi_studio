@@ -9,11 +9,24 @@ defmodule LofiPlayWeb.PreviewChannel do
   end
 
   # Previews Lofi with Bootstrap 4
-  def handle_in("preview", %{"body" => body}, socket) do
+  def handle_in("screen:preview", %{"body" => body}, socket) do
     components = Content.list_components() # TODO: cache
 
     html = body
-    |> Bootstrap.preview_text(components)
+    |> Bootstrap.preview_text("", components)
+    |> Enum.map(&HTML.safe_to_string/1)
+    |> Enum.join
+
+    msg = %{"html" => html}
+    {:reply, {:ok, msg}, socket}
+  end
+
+  # Previews Lofi with Bootstrap 4
+  def handle_in("journey:preview", %{"body" => body}, socket) do
+    screens = Content.list_screens() # TODO: cache
+
+    html = body
+    |> Bootstrap.preview_text("", screens)
     |> Enum.map(&HTML.safe_to_string/1)
     |> Enum.join
 

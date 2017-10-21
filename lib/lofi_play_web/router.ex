@@ -17,12 +17,14 @@ defmodule LofiPlayWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    resources "/journeys", JourneyController do
+      resources "/preview", JourneyPreviewController, only: [:show], singleton: true, as: :preview
+    end
     resources "/screens", ScreenController do
       resources "/preview", ScreenPreviewController, only: [:show], singleton: true, as: :preview
     end
     resources "/schemas", SchemaController
     resources "/components", ComponentController
-    resources "/journeys", JourneyController
   end
 
   # Other scopes may use custom stacks.
