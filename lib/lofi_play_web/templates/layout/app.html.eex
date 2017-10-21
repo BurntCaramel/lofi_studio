@@ -20,9 +20,13 @@
   </head>
 
   <body>
-    <main>
+    <div>
       <header class="header">
         <nav role="navigation" class="nav nav-pills">
+          <%= form_tag("/", method: "get") do %>
+            <%= text_input(:search, :query, placeholder: "Search Collected", aria: [label: "Search Collected"], class: "form-control") %>
+          <% end %>
+
           <%= link "#journey", to: journey_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "#screen", to: screen_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "#component", to: component_path(@conn, :index), class: "nav-link nav-item" %>
@@ -47,5 +51,5 @@
 
     </main>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-  </body>
+  </div>
 </html>
