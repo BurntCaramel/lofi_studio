@@ -8,14 +8,13 @@ body {
   line-height: 1.3;
   /* color: #8b0054; */
 }
-a {
+a,
+a:hover,
+a:visited {
   color: #c70086;
-  /* background: #fff0ff; */
 }
 a:hover {
-  color: currentColor;
-  background: #ffe7ff;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .btn-primary {
@@ -39,11 +38,6 @@ main {
 h2 {
   line-height: 1.3;
 }
-h2 > a:only-child {
-  display: block;
-  padding-left: 1rem;
-  margin-left: -1rem;
-}
 
 a small {
   color: inherit;
@@ -55,9 +49,16 @@ pre {
   word-break: normal;
   background: #fff0ff;
   padding: 1rem;
-  border: 1px solid #c70086;
+  /*border: 1px solid #c70086;
+  border-left: none;
+  border-right: none;*/
   border-radius: 0.333rem;
 }
+/*article > pre {
+  display: block;
+  padding-left: 15px;
+  margin-left: -15px;
+}*/
 
 label {
   display: block !important;
