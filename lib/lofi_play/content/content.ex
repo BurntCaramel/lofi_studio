@@ -42,6 +42,13 @@ defmodule LofiPlay.Content do
   def get_screen!(id), do: Repo.get!(Screen, id)
 
   @doc """
+  Find the screen with particular tags
+  """
+  def get_screen_by_tag(tags_string) when is_binary(tags_string) do
+    Repo.get_by(Screen, tags: tags_string)
+  end
+
+  @doc """
   Creates a screen.
 
   ## Examples

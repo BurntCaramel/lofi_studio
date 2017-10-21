@@ -9,7 +9,13 @@
 <% end %>
 
 <%= container do %>
+  <div class="row">
+    <div class="col col-12 col-sm-6 col-md-4">
+      <pre><code><%= @journey.body %></code></pre>
+    </div>
 
-  <pre><code><%= @journey.body %></code></pre>
-
+    <div class="col col-12 col-sm-6 col-md-8">
+      <%= preview_in_iframe(@conn, @journey, "bootstrap4") %>
+    </div>
+  </div>
 <% end %>

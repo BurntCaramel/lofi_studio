@@ -54,4 +54,8 @@ defmodule LofiPlay.Preview.Lofi do
     sections
     |> Enum.map(&transform_introductions_for_elements/1)
   end
+
+  def preview_with(prefix, resolver) do
+    
+  end
 end

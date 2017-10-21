@@ -58,3 +58,27 @@ defmodule LofiPlayWeb.JourneyController do
     |> redirect(to: journey_path(conn, :index))
   end
 end
+
+defmodule LofiPlayWeb.JourneyPreviewController do
+  use LofiPlayWeb, :controller
+
+  alias LofiPlay.Content
+  alias LofiPlay.Content.Journey
+  alias LofiPlay.Preview
+
+  plug :put_view, LofiPlayWeb.JourneyView
+
+  def show(conn, %{"journey_id" => id, "layout" => layout}) do
+    journey = Content.get_journey!(id)
+    components = Content.list_components()
+
+    conn
+    |> put_layout({LofiPlayWeb. LayoutView, "#{layout}.html"})
+    |> render("show_preview.html", journey: journey, components: components)
+  end
+
+  # Default to Bootstrap 3
+  def show(conn, %{"journey_id" => id}) do
+    show(conn, %{"journey_id" => id, "layout" => "bootstrap4"})
+  end
+end

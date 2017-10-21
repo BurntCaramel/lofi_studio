@@ -6,28 +6,13 @@
   </nav>
 <% end %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Body</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for journey <- @journeys do %>
-    <tr>
-      <td><%= journey.name %></td>
-      <td><%= journey.body %></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: journey_path(@conn, :show, journey), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: journey_path(@conn, :edit, journey), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: journey_path(@conn, :delete, journey), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
+<%= container do %>
+  <section>
+  <%= for journey <- @journeys do %>
+    <article>
+      <h2><%= link journey.name, to: journey_path(@conn, :show, journey) %></h2>
+      <pre><%= journey.body %></pre>
+    </article>
+  <% end %>
+  </section>
 <% end %>
-  </tbody>
-</table>
-

@@ -1,0 +1,11 @@
+<% preview_html = preview @journey, components: @components %>
+
+<div class="container-fluid">
+  <%= preview_html %>
+</div>
+
+<details style="margin-top: 3rem;">
+<summary>Code</summary>
+<%= content_tag :pre, safe_to_string(html_escape(preview_html)), style: "white-space: pre-wrap; word-wrap: normal; word-break: normal;" %>
+</details>
+

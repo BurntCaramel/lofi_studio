@@ -1,4 +1,5 @@
 defmodule LofiPlay.Preview.Bootstrap do
+  import LofiPlay.Preview.Utilities
   import LofiPlay.Preview.Lofi
   import LofiPlay.Preview.Components
   alias Phoenix.HTML
@@ -13,18 +14,19 @@ defmodule LofiPlay.Preview.Bootstrap do
       iex> flatten_classes [{"btn", true}, {"active", false}, {"btn-primary", true}]
       "btn btn-primary"
   """
-  defp flatten_classes(classes) do
-    classes
-    |> Enum.filter(&(Kernel.elem(&1, 1))) # Keep where .1 is true
-    |> Enum.map(&(Kernel.elem(&1, 0))) # Extract class name strings
-    |> Enum.join(" ")
-  end
+  # defp flatten_classes(classes) do
+  #   classes
+  #   |> Enum.filter(&(Kernel.elem(&1, 1))) # Keep where .1 is true
+  #   |> Enum.map(&(Kernel.elem(&1, 0))) # Extract class name strings
+  #   |> Enum.join(" ")
+  # end
 
   @doc """
   Click me #button
   
   <button>Click me</button>
   """
+  #defp preview(%Lofi.Element{children: [], texts, tags_list: ["button"]}, resolve_content) do
   defp preview(%Lofi.Element{children: [], tags: %{"button" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}, resolve_content) do
     class = flatten_classes [
       {"btn", true},
@@ -313,13 +315,14 @@ defmodule LofiPlay.Preview.Bootstrap do
     Tag.content_tag(:div, html_lines, class: "mb-3")
   end
 
+  # FIXME: move references to Component: parse beforehand
   defp parse_component_entry(%Component{tags: tags_s, type: type_n, body: body, ingredients: ingredients}) do
     %Lofi.Element{tags: tags} = Lofi.Parse.parse_element(tags_s)
     type = LofiPlay.Content.Component.Type.to_atom(type_n)
     {tags, type, body, ingredients}
   end
 
-  defp parse_components(component_entries) do
+  defp parse_components_entries(component_entries) do
     component_entries
     |> Enum.map(&parse_component_entry/1)
   end
@@ -337,7 +340,7 @@ defmodule LofiPlay.Preview.Bootstrap do
     end
   end
 
-  def preview_sections(sections, ingredients, component_entries, values) do
+  def preview_sections(sections, ingredients, components, values) do
     resolve_mention = fn(key_path) ->
       case Map.fetch(values, key_path) do
         {:ok, value} -> value
@@ -349,18 +352,18 @@ defmodule LofiPlay.Preview.Bootstrap do
       Lofi.Resolve.resolve_content(texts, mentions, resolve_mention)
     end
 
-    components = component_entries
-    |> parse_components
-
     sections
     |> Enum.map(&preview_section(&1, components, resolve_content))
   end
 
-  def preview_text(text, ingredients_s, component_entries \\ [], values \\ %{}) do
+  def preview_text(text, ingredients_s, component_entries \\ [], values \\ %{}) when is_binary(text) do
     ingredients = ingredients_s
     |> LofiPlay.Preview.Lofi.parse_ingredients
 
+    components = component_entries
+    |> parse_components_entries
+
     Lofi.Parse.parse_sections(text)
-    |> preview_sections(ingredients, component_entries, values)
+    |> preview_sections(ingredients, components, values)
   end
 end
