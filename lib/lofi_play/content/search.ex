@@ -5,7 +5,7 @@ defmodule LofiPlay.Content.Search do
 
 
   schema "search" do
-    field :query, :string
+    field :query, :string, default: ""
 
     timestamps()
   end

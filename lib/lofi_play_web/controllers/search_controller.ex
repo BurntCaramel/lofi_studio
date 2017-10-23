@@ -20,8 +20,9 @@ defmodule LofiPlayWeb.SearchController do
   def index(conn, _params) do
     changeset = Search.changeset(%Search{}, %{})
 
-    screen_count = -2
+    screens = []
+    components = []
 
-    render(conn, "index.html", search_changeset: changeset, screen_count: screen_count)
+    render(conn, "index.html", search_changeset: changeset, screens: screens, components: components)
   end
 end

@@ -1,19 +1,25 @@
 <h2>Search</h2>
 
-<section>
-  <h2 class="h4">#screen</h2>
-  <%= for screen <- @screens do %>
-    <div>
-      <h3><%= link screen.name, to: screen_path(@conn, :show, screen) %></h3>
-    </div>
-  <% end %>
-</section>
+<%= if @search_changeset.valid? == false do %>
+  <p>Search screens, components, and more</p>
+<% else %>
 
-<section>
-  <h2 class="h4">#component</h2>
-  <%= for component <- @components do %>
-    <div>
-      <h3><%= link component.name, to: component_path(@conn, :show, component) %></h3>
-    </div>
-  <% end %>
-</section>
+  <section>
+    <h2 class="h4">#screen</h2>
+    <%= for screen <- @screens do %>
+      <div>
+        <h3><%= link screen.name, to: screen_path(@conn, :show, screen) %></h3>
+      </div>
+    <% end %>
+  </section>
+
+  <section>
+    <h2 class="h4">#component</h2>
+    <%= for component <- @components do %>
+      <div>
+        <h3><%= link component.name, to: component_path(@conn, :show, component) %></h3>
+      </div>
+    <% end %>
+  </section>
+
+<% end %>
