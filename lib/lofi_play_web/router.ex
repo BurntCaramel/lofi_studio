@@ -25,6 +25,8 @@ defmodule LofiPlayWeb.Router do
     end
     resources "/schemas", SchemaController
     resources "/components", ComponentController
+
+    get "/search", SearchController, :index
   end
 
   # Other scopes may use custom stacks.

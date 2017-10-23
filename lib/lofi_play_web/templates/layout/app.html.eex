@@ -23,9 +23,10 @@
     <div>
       <header class="header">
         <nav role="navigation" class="nav nav-pills">
-          <%= form_tag("/", method: "get") do %>
-            <%= text_input(:search, :query, placeholder: "Search Collected", aria: [label: "Search Collected"], class: "form-control") %>
-          <% end %>
+          <%= search_form(@conn) %>
+          <%#= form_for assigns.fetch(:search_changeset, Search.changeset(%Search{}, %{})), search_path(@conn, :index), [method: "get"], fn f -> %>
+            <%#= text_input(f, :query, placeholder: "Search Collected", aria: [label: "Search Collected"], class: "form-control") %>
+          <%# end %>
 
           <%= link "#journey", to: journey_path(@conn, :index), class: "nav-link nav-item" %>
           <%= link "#screen", to: screen_path(@conn, :index), class: "nav-link nav-item" %>

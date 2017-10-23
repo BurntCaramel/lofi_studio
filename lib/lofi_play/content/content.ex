@@ -48,6 +48,23 @@ defmodule LofiPlay.Content do
     Repo.get_by(Screen, tags: tags_string)
   end
 
+  defp search_screens_query(query) do
+    from s in Screen,
+      where: ilike(s.name, ^"%#{query}%")
+  end
+
+  def search_screens(query_string) when is_binary(query_string) do
+    query_string
+    |> search_screens_query
+    |> Repo.all
+  end
+
+  def search_screens_count(query_string) when is_binary(query_string) do
+    query_string
+    |> search_screens_query
+    |> Repo.aggregate(:count, :id)
+  end
+
   @doc """
   Creates a screen.
 
@@ -239,6 +256,17 @@ defmodule LofiPlay.Content do
 
   """
   def get_component!(id), do: Repo.get!(Component, id)
+
+  defp search_components_query(query) do
+    from c in Component,
+      where: ilike(c.name, ^"%#{query}%")
+  end
+
+  def search_components(query_string) when is_binary(query_string) do
+    query_string
+    |> search_components_query
+    |> Repo.all
+  end
 
   @doc """
   Creates a component.

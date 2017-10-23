@@ -254,4 +254,64 @@ defmodule LofiPlay.ContentTest do
       assert %Ecto.Changeset{} = Content.change_journey(journey)
     end
   end
+
+  describe "search" do
+    alias LofiPlay.Content.Search
+
+    @valid_attrs %{query: "some query"}
+    @update_attrs %{query: "some updated query"}
+    @invalid_attrs %{query: nil}
+
+    def search_fixture(attrs \\ %{}) do
+      {:ok, search} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Content.create_search()
+
+      search
+    end
+
+    test "list_search/0 returns all search" do
+      search = search_fixture()
+      assert Content.list_search() == [search]
+    end
+
+    test "get_search!/1 returns the search with given id" do
+      search = search_fixture()
+      assert Content.get_search!(search.id) == search
+    end
+
+    test "create_search/1 with valid data creates a search" do
+      assert {:ok, %Search{} = search} = Content.create_search(@valid_attrs)
+      assert search.query == "some query"
+    end
+
+    test "create_search/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Content.create_search(@invalid_attrs)
+    end
+
+    test "update_search/2 with valid data updates the search" do
+      search = search_fixture()
+      assert {:ok, search} = Content.update_search(search, @update_attrs)
+      assert %Search{} = search
+      assert search.query == "some updated query"
+    end
+
+    test "update_search/2 with invalid data returns error changeset" do
+      search = search_fixture()
+      assert {:error, %Ecto.Changeset{}} = Content.update_search(search, @invalid_attrs)
+      assert search == Content.get_search!(search.id)
+    end
+
+    test "delete_search/1 deletes the search" do
+      search = search_fixture()
+      assert {:ok, %Search{}} = Content.delete_search(search)
+      assert_raise Ecto.NoResultsError, fn -> Content.get_search!(search.id) end
+    end
+
+    test "change_search/1 returns a search changeset" do
+      search = search_fixture()
+      assert %Ecto.Changeset{} = Content.change_search(search)
+    end
+  end
 end
