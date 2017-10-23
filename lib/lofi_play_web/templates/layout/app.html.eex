@@ -22,20 +22,7 @@
   <body>
     <div>
       <header class="header">
-        <nav role="navigation" class="navbar navbar-expand-lg">
-          <a href="/" class="navbar-brand">Lofi Studio</a>
-          <%= search_form(@conn) %>
-          <div class="navbar-nav mr-auto">
-            <%= nav_link "#journey", to: journey_path(@conn, :index) %>
-            <%= nav_link "#screen", to: screen_path(@conn, :index) %>
-            <%= nav_link "#component", to: component_path(@conn, :index) %>
-            <%= nav_link "#message", to: '#' %>
-            <%= nav_link "#schema", to: schema_path(@conn, :index) %>
-            <%= nav_link "#persona", to: "#" %>
-            <%#= nav_link "#content", to: '#' %>
-            <%#= nav_link "Chatter (Convos)", to: '#' %>
-          </div>
-        </nav>
+        <%= render LofiPlayWeb.NavigationView, "primary_nav.html", assigns %>
       </header>
       
       <% if get_flash(@conn, :info) != "" do %>
