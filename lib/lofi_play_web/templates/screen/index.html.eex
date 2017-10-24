@@ -1,8 +1,13 @@
 <%= container do %>
-  <h1>#screen</h1>
+  <h1 class="sr-only">#screen</h1>
 
-  <nav>
-  <%= link "New Screen", to: screen_path(@conn, :new), class: "btn btn-primary" %>
+  <nav class="form-row mb-3">
+    <div class="col-auto">
+      <%= link "New Screen", to: screen_path(@conn, :new), class: "btn btn-primary" %>
+    </div>
+    <div class="col">
+      <%= search_form(@conn, screen_path(@conn, :index), label: "Search screens…") %>
+    </div>
   </nav>
 <% end %>
 

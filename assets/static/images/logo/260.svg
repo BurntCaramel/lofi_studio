@@ -1,0 +1,29 @@
+<svg width="260" height="260" viewBox="0 0 260 260" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>260</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(37 286)">
+<clipPath id="clip-0" clip-rule="evenodd">
+<path d="M -37 -286L 223 -286L 223 -26L -37 -26L -37 -286Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="260" clip-path="url(#clip-0)">
+<g id="Group">
+<g id="Line">
+<use xlink:href="#path0_stroke" transform="matrix(0.259973 -0.965616 0.965616 0.259973 14 -65.5931)" fill="#F70897"/>
+</g>
+<g id="Line">
+<use xlink:href="#path0_stroke" transform="matrix(0.259973 -0.965616 0.965616 0.259973 98 -65.5931)" fill="#F70897"/>
+</g>
+<g id="Line 2">
+<use xlink:href="#path1_stroke" transform="translate(-3 -169.593)" fill="#F70897"/>
+</g>
+<g id="Line 2">
+<use xlink:href="#path1_stroke" transform="translate(-31 -102.593)" fill="#F70897"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_stroke" d="M 2.15375 -19.8837C -8.82772 -21.0732 -18.6942 -13.1352 -19.8837 -2.15375C -21.0732 8.82772 -13.1352 18.6942 -2.15375 19.8837L 2.15375 -19.8837ZM 189.855 40.6816C 200.837 41.8711 210.703 33.9331 211.893 22.9516C 213.082 11.9702 205.144 2.10366 194.163 0.91418L 189.855 40.6816ZM -2.15375 19.8837L 189.855 40.6816L 194.163 0.91418L 2.15375 -19.8837L -2.15375 19.8837Z"/>
+<path id="path1_stroke" d="M 20 -40C 8.95431 -40 0 -31.0457 0 -20C 0 -8.95431 8.95431 0 20 0L 20 -40ZM 200 0C 211.046 0 220 -8.95431 220 -20C 220 -31.0457 211.046 -40 200 -40L 200 0ZM 20 0L 200 0L 200 -40L 20 -40L 20 0Z"/>
+</defs>
+</svg>

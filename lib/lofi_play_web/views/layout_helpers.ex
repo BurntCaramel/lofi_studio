@@ -10,7 +10,7 @@ defmodule LofiPlayWeb.LayoutHelpers do
   Make a div.container-fluid
   """
   def container([do: block]) do
-    content_tag(:div, block, class: "container-fluid")
+    content_tag(:div, block, class: "container")
   end
 
   @doc """
@@ -22,7 +22,7 @@ defmodule LofiPlayWeb.LayoutHelpers do
     mb = Keyword.get(opts, :mb, 0)
 
     class = [
-      "container-fluid",
+      "container",
       "mt-#{mt}",
       "mb-#{mb}"
     ] |> Enum.join(" ")

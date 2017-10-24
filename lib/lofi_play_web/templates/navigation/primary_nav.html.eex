@@ -1,14 +1,19 @@
-<nav role="navigation" class="navbar navbar-expand-lg">
-  <a href="/" class="navbar-brand">Lofi Studio</a>
-  <%= search_form(@conn) %>
-  <div class="navbar-nav mr-auto">
-    <%= nav_link "#journey", to: journey_path(@conn, :index) %>
-    <%= nav_link "#screen", to: screen_path(@conn, :index) %>
-    <%= nav_link "#component", to: component_path(@conn, :index) %>
-    <%= nav_link "#message", to: '#' %>
-    <%= nav_link "#schema", to: schema_path(@conn, :index) %>
-    <%= nav_link "#persona", to: "#" %>
-    <%#= nav_link "#content", to: '#' %>
-    <%#= nav_link "Chatter (Convos)", to: '#' %>
+<nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+  <div class="container">
+    <a href="/" class="navbar-brand">
+      <%= img_tag(LofiPlayWeb.Endpoint.static_path("/images/logo/260.png"), width: 28, height: 28) %>
+    </a>
+    <%= site_search_form(@conn) %>
+    <ul class="navbar-nav mr-auto">
+      <%= nav_link @conn, "#journey", to: journey_path(@conn, :index) %>
+      <%= nav_link @conn, "#screen", to: screen_path(@conn, :index) %>
+      <%= nav_link @conn, "#component", to: component_path(@conn, :index) %>
+      <%= nav_link @conn, "#message", to: "#" %>
+      <%= nav_link @conn, "#schema", to: schema_path(@conn, :index) %>
+      <%= nav_link @conn, "#persona", to: "#" %>
+      <%#= nav_link "#navigation", to: '#' %>
+      <%#= nav_link "#content", to: '#' %>
+      <%#= nav_link "Chatter (Convos)", to: '#' %>
+    </ul>
   </div>
 </nav>
