@@ -31,4 +31,8 @@ defmodule LofiPlayWeb.ComponentView do
   def ingredients_preview_form(conn, component) do
     IngredientsHelpers.ingredients_preview_form(conn, component.ingredients, [type: "component", item_id: component.id])
   end
+
+  def render("title.html", _assigns) do
+    "Components · Lofi Studio"
+  end
 end

@@ -57,4 +57,8 @@ defmodule LofiPlayWeb.JourneyView do
   def preview_in_iframe(conn, journey, layout) do
     content_tag(:iframe, "", class: "journey-preview-iframe", src: journey_preview_path(conn, :show, journey, layout: layout), style: "width: 100%; border: none;")
   end
+
+  def render("title.html", _assigns) do
+    "Journeys · Lofi Studio"
+  end
 end

@@ -20,4 +20,8 @@ defmodule LofiPlayWeb.ScreenView do
   def ingredients_preview_form(conn, screen) do
     IngredientsHelpers.ingredients_preview_form(conn, screen.ingredients, [type: "screen", item_id: screen.id])
   end
+
+  def render("title.html", _assigns) do
+    "Screens · Lofi Studio"
+  end
 end

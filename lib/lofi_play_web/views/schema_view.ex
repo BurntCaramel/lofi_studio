@@ -10,4 +10,8 @@ defmodule LofiPlayWeb.SchemaView do
   def preview_body_faker(body) do
     Faker.preview_text(body)
   end
+
+  def render("title.html", _assigns) do
+    "Schemas · Lofi Studio"
+  end
 end
