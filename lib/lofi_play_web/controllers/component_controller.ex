@@ -15,6 +15,14 @@ defmodule LofiPlayWeb.ComponentController do
     Search.changeset(%Search{}, %{"q" => query})
   end
 
+  @doc """
+  Blank searches are redirected to #index
+  """
+  def index(conn, %{"q" => ""}), do: redirect(conn, to: component_path(conn, :index))
+
+  @doc """
+  Search for a particular query
+  """
   def index(conn, %{"q" => query}) do
     query = clean_query(query)
     components = case query do
@@ -33,6 +41,9 @@ defmodule LofiPlayWeb.ComponentController do
     render(conn, "index.html", components: components, search_changeset: search_changeset, preview: false)
   end
 
+  @doc """
+  List all the components
+  """
   def index(conn, _params) do
     components = Content.list_components()
     search_changeset = search_changeset_for_query("")
