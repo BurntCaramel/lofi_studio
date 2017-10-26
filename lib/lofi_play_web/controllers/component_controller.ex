@@ -3,15 +3,40 @@ defmodule LofiPlayWeb.ComponentController do
 
   alias LofiPlay.Content
   alias LofiPlay.Content.Component
+  alias LofiPlay.Content.Search
+
+  defp clean_query(query), do: String.trim(query)
+  
+  defp search_changeset_for_query("") do
+    Search.changeset(%Search{}, %{})
+  end
+
+  defp search_changeset_for_query(query) do
+    Search.changeset(%Search{}, %{"q" => query})
+  end
+
+  def index(conn, %{"q" => query}) do
+    query = clean_query(query)
+    components = case query do
+      "" ->
+        Content.list_components()
+      query ->
+        Content.search_components(query)
+    end
+    search_changeset = search_changeset_for_query(query)
+    render(conn, "index.html", components: components, search_changeset: search_changeset, preview: false)
+  end
 
   def index(conn, %{"details" => "1"}) do
     components = Content.list_components()
-    render(conn, "index.html", components: components, preview: false)
+    search_changeset = search_changeset_for_query("")
+    render(conn, "index.html", components: components, search_changeset: search_changeset, preview: false)
   end
 
   def index(conn, _params) do
     components = Content.list_components()
-    render(conn, "index.html", components: components, preview: true)
+    search_changeset = search_changeset_for_query("")
+    render(conn, "index.html", components: components, search_changeset: search_changeset, preview: true)
   end
 
   def new(conn, _params) do

@@ -1,12 +1,18 @@
 <%= container do %>
-  <h1>#component</h1>
+  <h1 class="sr-only">#component</h1>
 
-  <nav class="mb-3">
-    <%= link "New Component", to: component_path(@conn, :new), class: "btn btn-primary" %>
-
-    <div class="btn-group">
-      <%= active_link @conn, "Preview", "btn btn-secondary", "btn btn-outline-secondary", to: component_path(@conn, :index) %>
-      <%= active_link @conn, "Details", "btn btn-secondary", "btn btn-outline-secondary", to: component_path(@conn, :index, details: "1") %>
+  <nav class="form-row mb-3">
+    <div class="col-auto">
+      <%= link "New Component", to: component_path(@conn, :new), class: "btn btn-primary" %>
+    </div>
+    <div class="col">
+      <%= search_form(@search_changeset, component_path(@conn, :index), label: "Search components…") %>
+    </div>
+    <div class="col-auto">
+      <div class="btn-group">
+        <%= active_link @conn, "Preview", "btn btn-secondary", "btn btn-outline-secondary", to: component_path(@conn, :index) %>
+        <%= active_link @conn, "Details", "btn btn-secondary", "btn btn-outline-secondary", to: component_path(@conn, :index, details: "1") %>
+      </div>
     </div>
   </nav>
 <% end %>
