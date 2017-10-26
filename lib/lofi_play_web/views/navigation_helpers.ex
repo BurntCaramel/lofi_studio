@@ -9,13 +9,11 @@ defmodule LofiPlayWeb.NavigationHelpers do
   alias LofiPlay.Content.Search
 
 
-  def search_form(conn, path, opts) do
+  def search_form(form_data, path, opts) do
     label = Keyword.fetch!(opts, :label)
 
-    changeset = Map.get(conn.assigns, :search_changeset, Search.changeset(%Search{}, %{}))
-
-    form_for changeset, path, [method: "get"], fn f ->
-      text_input(f, :query, placeholder: label, aria: [label: label], class: "form-control")
+    form_for form_data, path, [method: "get", as: :search], fn f ->
+      text_input(f, :q, name: "q", placeholder: label, aria: [label: label], class: "form-control")
     end
   end
 

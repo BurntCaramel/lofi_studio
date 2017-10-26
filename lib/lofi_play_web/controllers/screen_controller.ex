@@ -3,10 +3,34 @@ defmodule LofiPlayWeb.ScreenController do
 
   alias LofiPlay.Content
   alias LofiPlay.Content.Screen
+  alias LofiPlay.Content.Search
+
+  defp clean_query(query), do: String.trim(query)
+
+  defp search_changeset_for_query("") do
+    Search.changeset(%Search{}, %{})
+  end
+
+  defp search_changeset_for_query(query) do
+    Search.changeset(%Search{}, %{"q" => query})
+  end
+
+  def index(conn, %{"q" => query}) do
+    query = clean_query(query)
+    screens = case query do
+      "" ->
+        Content.list_screens()
+      query ->
+        Content.search_screens(query)
+    end
+    search_changeset = search_changeset_for_query(query)
+    render(conn, "index.html", screens: screens, search_changeset: search_changeset)
+  end
 
   def index(conn, _params) do
     screens = Content.list_screens()
-    render(conn, "index.html", screens: screens)
+    search_changeset = search_changeset_for_query("")
+    render(conn, "index.html", screens: screens, search_changeset: search_changeset)
   end
 
   def new(conn, _params) do

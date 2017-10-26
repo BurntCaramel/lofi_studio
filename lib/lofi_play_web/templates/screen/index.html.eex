@@ -6,7 +6,7 @@
       <%= link "New Screen", to: screen_path(@conn, :new), class: "btn btn-primary" %>
     </div>
     <div class="col">
-      <%= search_form(@conn, screen_path(@conn, :index), label: "Search screens…") %>
+      <%= search_form(@search_changeset, screen_path(@conn, :index), label: "Search screens…") %>
     </div>
   </nav>
 <% end %>
