@@ -2,6 +2,7 @@ defmodule LofiPlayWeb.ScreenView do
   use LofiPlayWeb, :view
   alias LofiPlayWeb.IngredientsHelpers
   alias LofiPlay.Preview.Bootstrap
+  alias LofiPlay.Preview
   
   # Preview with the supplied values
   def preview(screen, components: components, values: values) do
@@ -23,5 +24,10 @@ defmodule LofiPlayWeb.ScreenView do
 
   def render("title.html", _assigns) do
     "Screens · Lofi Studio"
+  end
+
+  def lofi_tree(screen) do
+    screen.body
+    |> Preview.Tree.lofi_text
   end
 end

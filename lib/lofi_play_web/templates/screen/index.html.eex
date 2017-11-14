@@ -18,6 +18,9 @@
       <h2><%= link screen.name, to: screen_path(@conn, :show, screen) %></h2>
       <div class="row">
         <div class="col col-xs-12 col-sm-6 col-md-4">
+          <div>
+            <%= lofi_tree(screen) %>
+          </div>
           <pre><%= screen.body %></pre>
         </div>
         <div class="col col-xs-12 col-sm-6 col-md-8">
