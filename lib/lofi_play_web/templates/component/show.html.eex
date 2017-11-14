@@ -10,6 +10,13 @@
 
 <section class="screen-body">
   <div class="container-fluid">
+    <div>
+      <div id="ingredients-preview-out">
+        <%#= preview(@component) %>
+      </div>
+      <h3>Preview ingredients:</h3>
+      <%= ingredients_preview_form(@conn, @component) %>
+    </div>
     <div class="row">
       <div class="col col-12 col-sm-5 col-md-4">
         <h2>Tags: <%= @component.tags %></h2>
@@ -19,13 +26,6 @@
       <div class="col col-12 col-sm-7 col-md-8">
         <h2>Type: <%= display_component_type(@component.type) %></h2>
         <pre><code><%= @component.body %></code></pre>
-      </div>
-    </div>
-    <div>
-      <h2>Preview:</h2>
-      <%= ingredients_preview_form(@conn, @component) %>
-      <div id="ingredients-preview-out">
-        <%#= preview(@component) %>
       </div>
     </div>
   </div>
