@@ -12,7 +12,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col col-xs-12 col-sm-4 col-md-4">
-        <pre><%= @schema.body %></pre>
+        <%= lofi_tree @schema.body %>
       </div>
       <div class="col col-xs-12 col-sm-4 col-md-4">
         <h2>Form preview</h2>

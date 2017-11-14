@@ -80,22 +80,28 @@ defmodule LofiPlay.Preview.Tree do
   defp lofi_element(%Lofi.Element{introducing: introducing, texts: texts, tags: tags, children: children}, depth \\ 0) do
     {type, tags_preview, texts_preview} = preview_tags_and_text(tags, texts, introducing)
 
-    el = case depth do
-      0 -> :div
-      _ -> :li
+    {col_class, outer_class, text_class} = case {type, depth} do
+      {:screen, _} -> {"col-12", "alert alert-primary", ""}
+      {:message, _} -> {"col-12", "alert alert-success", ""}
+      {:promotion, _} -> {"col", "alert alert-warning col", ""}
+      {:introducing, _} -> {"col-12", "mb-3", "font-weight-bold"}
+      {_, 0} -> {"col-12", "mb-3", ""}
+      {_, _} -> {"col-12", "", ""}
     end
 
-    {outer_class, text_class} = case {type, depth} do
-      {:screen, _} -> {"alert alert-primary", ""}
-      {:message, _} -> {"alert alert-success", ""}
-      {:promotion, _} -> {"alert alert-warning", ""}
-      {:introducing, _} -> {"mb-3", "font-italic"}
-      {_, 0} -> {"mb-3", ""}
-      {_, _} -> {"", ""}
+    render = case depth do
+      0 -> fn (elements) ->
+          content_tag(:div, [
+            content_tag(:div, elements, class: outer_class)
+          ], class: col_class)
+        end
+      _ -> fn (elements) ->
+          content_tag(:li, elements, class: outer_class)
+        end
     end
 
-    content_tag(el, [
-      content_tag(:small, html_escape(tags_preview), class: "d-block font-weight-bold"),
+    render.([
+      content_tag(:small, html_escape(tags_preview), class: "d-block font-weight-bold font-italic"),
       content_tag(:div, html_escape(texts_preview), class: text_class),
       case children do
         [] ->
@@ -103,6 +109,6 @@ defmodule LofiPlay.Preview.Tree do
         children ->
           content_tag(:ul, Enum.map(children, &lofi_element(&1, depth + 1)))
       end
-    ], class: outer_class <> " col-12")
+    ])
   end
 end

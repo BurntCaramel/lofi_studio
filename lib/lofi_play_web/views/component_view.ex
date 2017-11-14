@@ -37,7 +37,9 @@ defmodule LofiPlayWeb.ComponentView do
   end
 
   def lofi_tree(lofi_text) do
-    lofi_text
-    |> Preview.Tree.lofi_text
+    content_tag(:div,
+      lofi_text
+      |> Preview.Tree.lofi_text
+    )
   end
 end
