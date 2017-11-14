@@ -8,58 +8,54 @@ defmodule LofiPlay.Preview.Components do
     # String.replace(body, "@#{key}", replacement)
   end
 
-  defp replace_html_for_ingredient_info(ingredient_info, html, %Lofi.Element{tags: tags, texts: texts}) do
-    case ingredient_info do
-      {:ok, {key, {_type, default, _choices}}} ->
-        replacement = case key do
-          # @texts uses texts of element
-          # TODO: rename to @content
-          "texts" ->
-            Enum.join(texts)
-          "content" ->
-            Enum.join(texts)
-          # Otherwise look up tag
-          _ ->
-            Preview.Lofi.get_content_tag(tags, key, default)
-        end
-        replace_key(html, key, replacement)
-      {:error, _} ->
-        html
+  defp replace_html_for_ingredient_info({:error, _reason}, html, _) do
+    html
+  end
+
+  defp replace_html_for_ingredient_info({:ok, ingredient_info}, html, %Lofi.Element{tags: tags, texts: texts}) do
+    {key, {_type, default, choices}} = ingredient_info
+    replacement = case key do
+      # @texts uses texts of element
+      # TODO: rename to @content
+      "texts" ->
+        Enum.join(texts)
+      "content" ->
+        Enum.join(texts)
+      # Otherwise look up tag
+      _ ->
+        Preview.Lofi.get_content_tag(tags, key, default)
+    end
+    replace_key(html, key, replacement)
+  end
+
+  defp replace_html_for_ingredient_info({:ok, ingredient_info}, html, values) do
+    {key, {_type, default, choices}} = ingredient_info
+    replacement = Map.get(values, key)
+    
+    if is_nil(replacement) do
+      html
+    else
+      replace_key(html, key, replacement)
     end
   end
 
-  defp replace_html_for_ingredient_info(ingredient_info, html, values) do
-    case ingredient_info do
-      {:ok, {key, {_type, default, choices}}} ->
-        replacement = Map.get(values, key)
-        
-        if is_nil(replacement) do
-          html
-        else
-          replace_key(html, key, replacement)
-        end
-      {:error, _} ->
-        html
-    end
+  defp replace_html_for_ingredient_info({:error, _info}, html) do
+    html
   end
 
-  defp replace_html_for_ingredient_info(ingredient_info, html) do
-    case ingredient_info do
-      {:ok, {key, {_type, default, choices}}} ->
-        replacement = if Enum.empty?(choices) do
-          default
-        else
-          Enum.random(choices).texts
-          |> Enum.join
-        end
-  
-        if is_nil(replacement) do
-          html
-        else
-          replace_key(html, key, replacement)
-        end
-      {:error, _} ->
-        html
+  defp replace_html_for_ingredient_info({:ok, ingredient_info}, html) do
+    {key, {_type, default, choices}} = ingredient_info
+    replacement = if Enum.empty?(choices) do
+      default
+    else
+      Enum.random(choices).texts
+      |> Enum.join
+    end
+
+    if is_nil(replacement) do
+      html
+    else
+      replace_key(html, key, replacement)
     end
   end
 
