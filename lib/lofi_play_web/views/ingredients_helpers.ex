@@ -3,7 +3,11 @@ defmodule LofiPlayWeb.IngredientsHelpers do
   alias LofiPlayWeb.ElementHelpers
   alias LofiPlay.Preview
 
-  defp ingredients_preview_form_item({key, {type, default, choices}}) do
+  defp ingredients_preview_form_item({:error, reason}) do
+    "[error: #{reason}]"
+  end
+
+  defp ingredients_preview_form_item({:ok, {key, {type, default, choices}}}) when is_binary(key) do
     value = if Enum.empty?(choices) do
       default
     else

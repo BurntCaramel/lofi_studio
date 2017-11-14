@@ -19,7 +19,9 @@ defmodule LofiPlay.Preview.Lofi do
     end
   end
 
-  defp parse_ingredient_into_pair(%Lofi.Element{introducing: introducing, tags: tags, children: children}) do
+  defp parse_ingredient_into_pair(%Lofi.Element{introducing: nil}), do: {:error, :missing_introducing}
+
+  defp parse_ingredient_into_pair(%Lofi.Element{introducing: introducing, tags: tags, children: children}) when is_binary(introducing) do
     info = case tags do
       %{"number" => {:flag, true}} ->
         default = get_content_tag(tags, "default", get_content_tag(tags, "min", "0"))
@@ -31,7 +33,7 @@ defmodule LofiPlay.Preview.Lofi do
         default = get_content_tag(tags, "default")
         {:text, default, children}
     end
-    {introducing, info}
+    {:ok, {introducing, info}}
   end
 
   def parse_ingredients(text) do
