@@ -14,7 +14,7 @@ defmodule LofiPlay.Preview.Tree do
   defp preview_section(lines) do
     html_lines = Enum.map(lines, &lofi_element/1)
 
-    content_tag(:div, html_lines, class: "mb-3")
+    content_tag(:div, html_lines, class: "row")
   end
 
   defp preview_tags(tags) do
@@ -74,12 +74,12 @@ defmodule LofiPlay.Preview.Tree do
       :message -> "alert alert-success"
       :promotion -> "alert alert-warning"
       #_ -> "alert alert-info"
-      _ -> ""
+      _ -> "mb-3"
     end
 
     content_tag(:div, [
       content_tag(:small, html_escape(tags_preview), class: "d-block font-weight-bold"),
       content_tag(:div, html_escape(texts_preview))
-    ], class: class_name)
+    ], class: class_name <> " col")
   end
 end

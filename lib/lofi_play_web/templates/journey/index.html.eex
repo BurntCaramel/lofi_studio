@@ -11,7 +11,7 @@
   <%= for journey <- @journeys do %>
     <article>
       <h2><%= link journey.name, to: journey_path(@conn, :show, journey) %></h2>
-      <pre><%= journey.body %></pre>
+      <%= lofi_tree journey %>
     </article>
   <% end %>
   </section>

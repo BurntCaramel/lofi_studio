@@ -12,22 +12,18 @@
 
 <section class="screen-body">
   <div class="container-fluid">
-    <details class="d-flex flex-column">
-      <summary class="d-block">Details</summary>
-      <div class="row">
-        <div class="col col-12 col-sm-6 col-md-6">
-          <h2>Body:</h2>
-          <pre><code><%= @screen.body %></code></pre>
-        </div>
-        <div class="col col-12 col-sm-6 col-md-6">
-          <h2>Ingredients:</h2>
-          <pre><code><%= @screen.ingredients %></code></pre>
-        </div>
+    <div class="row">
+      <div class="col col-12 col-sm-6 col-md-6">
+        <%= lofi_tree @screen %>
       </div>
-    </details>
+      <div class="col col-12 col-sm-6 col-md-6">
+        <h2>Ingredients:</h2>
+        <pre><code><%= @screen.ingredients %></code></pre>
+      </div>
+    </div>
+    <hr>
     <div class="row">
       <div class="col col-12">
-        <h2>Preview:</h2>
         <%= ingredients_preview_form(@conn, @screen) %>
         <div id="ingredients-preview-out">
           <%#= preview(@component) %>
