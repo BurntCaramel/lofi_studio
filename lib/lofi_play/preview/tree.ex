@@ -22,10 +22,13 @@ defmodule LofiPlay.Preview.Tree do
     |> Map.keys
     |> Enum.join(" #")
 
-    ["#" | tag_names]
+    case tag_names do
+      "" -> ""
+      s -> "#" <> s
+    end
   end
 
-  defp preview_tags_and_text(tags, texts) do
+  defp preview_tags_and_text(tags, texts, nil) do
     type = cond do
       Map.has_key?(tags, "screen") -> :screen
       Map.has_key?(tags, "message") -> :message
@@ -66,20 +69,40 @@ defmodule LofiPlay.Preview.Tree do
     {type, first, second}
   end
 
-  defp lofi_element(%Lofi.Element{introducing: introducing, texts: texts, tags: tags, children: children}) do
-    {type, tags_preview, texts_preview} = preview_tags_and_text(tags, texts)
+  defp preview_tags_and_text(tags, texts, introducing) do
+    {
+      :introducing,
+      preview_tags(tags),
+      introducing <> ":"
+    }
+  end
 
-    class_name = case type do
-      :screen -> "alert alert-primary"
-      :message -> "alert alert-success"
-      :promotion -> "alert alert-warning"
-      #_ -> "alert alert-info"
-      _ -> "mb-3"
+  defp lofi_element(%Lofi.Element{introducing: introducing, texts: texts, tags: tags, children: children}, depth \\ 0) do
+    {type, tags_preview, texts_preview} = preview_tags_and_text(tags, texts, introducing)
+
+    el = case depth do
+      0 -> :div
+      _ -> :li
     end
 
-    content_tag(:div, [
+    {outer_class, text_class} = case {type, depth} do
+      {:screen, _} -> {"alert alert-primary", ""}
+      {:message, _} -> {"alert alert-success", ""}
+      {:promotion, _} -> {"alert alert-warning", ""}
+      {:introducing, _} -> {"mb-3", "font-italic"}
+      {_, 0} -> {"mb-3", ""}
+      {_, _} -> {"", ""}
+    end
+
+    content_tag(el, [
       content_tag(:small, html_escape(tags_preview), class: "d-block font-weight-bold"),
-      content_tag(:div, html_escape(texts_preview))
-    ], class: class_name <> " col")
+      content_tag(:div, html_escape(texts_preview), class: text_class),
+      case children do
+        [] ->
+          ""
+        children ->
+          content_tag(:ul, Enum.map(children, &lofi_element(&1, depth + 1)))
+      end
+    ], class: outer_class <> " col-12")
   end
 end

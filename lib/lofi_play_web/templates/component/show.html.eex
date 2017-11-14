@@ -21,7 +21,7 @@
       <div class="col col-12 col-sm-5 col-md-4">
         <h2>Tags: <%= @component.tags %></h2>
         <h2>Ingredients:</h2>
-        <pre><code><%= @component.ingredients %></code></pre>
+        <%= lofi_tree @component.ingredients %>
       </div>
       <div class="col col-12 col-sm-7 col-md-8">
         <h2>Type: <%= display_component_type(@component.type) %></h2>

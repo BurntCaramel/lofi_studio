@@ -35,4 +35,9 @@ defmodule LofiPlayWeb.ComponentView do
   def render("title.html", _assigns) do
     "Components · Lofi Studio"
   end
+
+  def lofi_tree(lofi_text) do
+    lofi_text
+    |> Preview.Tree.lofi_text
+  end
 end
