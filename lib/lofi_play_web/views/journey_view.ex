@@ -2,6 +2,7 @@ defmodule LofiPlayWeb.JourneyView do
   use LofiPlayWeb, :view
   alias LofiPlay.Preview.Bootstrap
   alias LofiPlay.Content
+  alias LofiPlay.Preview
 
   @sign_up_lofi """
   Email #email
@@ -11,7 +12,7 @@ defmodule LofiPlayWeb.JourneyView do
 
   defp preview_element({:screen, %{"screen" => {:flag, true}, "sign-up" => {:flag, true}}}, components) do
     #"sign up"
-    Bootstrap.preview_text(@sign_up_lofi, "", components)
+    Preview.Bootstrap.preview_text(@sign_up_lofi, "", components)
   end
 
   defp preview_element({:screen, tags}, components) do
@@ -30,7 +31,7 @@ defmodule LofiPlayWeb.JourneyView do
           "No #screen found"
         screen ->
           #screen.body
-          Bootstrap.preview_text(screen.body, "", components)
+          Preview.Bootstrap.preview_text(screen.body, "", components)
       end
     end
   end
@@ -49,7 +50,7 @@ defmodule LofiPlayWeb.JourneyView do
 
   # Preview with default/random values
   def preview(journey, components: components) do
-    #Bootstrap.preview_text(journey.body, "", components)
+    #Preview.Bootstrap.preview_text(journey.body, "", components)
     #""
     LofiPlay.Preview.Journeys.preview_content(journey.body, &preview_element(&1, components))
   end
@@ -60,5 +61,10 @@ defmodule LofiPlayWeb.JourneyView do
 
   def render("title.html", _assigns) do
     "Journeys · Lofi Studio"
+  end
+
+  def lofi_tree(journey) do
+    journey.body
+    |> Preview.Tree.lofi_text
   end
 end

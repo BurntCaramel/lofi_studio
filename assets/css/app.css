@@ -80,7 +80,7 @@ label {
 .screen-preview-iframe {
   display: block;
   border: none;
-  border: 1px solid #eee;
+  /* border: 1px solid #eee; */
   width: 100%;
   height: 300px;
   overflow: auto;

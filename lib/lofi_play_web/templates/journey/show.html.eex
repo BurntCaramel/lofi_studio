@@ -11,7 +11,7 @@
 <%= container do %>
   <div class="row">
     <div class="col col-12 col-sm-6 col-md-4">
-      <pre><code><%= @journey.body %></code></pre>
+      <div><%= lofi_tree @journey %></div>
     </div>
 
     <div class="col col-12 col-sm-6 col-md-8">
