@@ -27,3 +27,22 @@
 """
 }
 |> LofiPlay.Repo.insert!
+
+
+%LofiPlay.Content.Component{
+  name: "Unsplash image",
+  tags: "#image #unsplash",
+  type: 2,
+  body: """
+  <img src="https://source.unsplash.com/{{width}}x{{height}}?{{content}}" width="{{width}}" height="{{height}}">
+""",
+  ingredients: """
+@content: #text
+- beach
+- forest
+@width: #number #default: 800
+@height: #number #default: 600
+"""
+}
+|> LofiPlay.Repo.insert!
+
