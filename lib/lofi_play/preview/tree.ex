@@ -73,7 +73,8 @@ defmodule LofiPlay.Preview.Tree do
       :screen -> "alert alert-primary"
       :message -> "alert alert-success"
       :promotion -> "alert alert-warning"
-      _ -> "alert alert-info"
+      #_ -> "alert alert-info"
+      _ -> ""
     end
 
     content_tag(:div, [
