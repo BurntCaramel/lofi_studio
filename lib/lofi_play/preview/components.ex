@@ -18,6 +18,8 @@ defmodule LofiPlay.Preview.Components do
         # TODO: rename to @content
         "texts" ->
           Enum.join(texts)
+        "content" ->
+          Enum.join(texts)
         # Otherwise look up tag
         _ ->
           Preview.Lofi.get_content_tag(tags, key, default)
