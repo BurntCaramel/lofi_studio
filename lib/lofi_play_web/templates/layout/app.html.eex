@@ -38,10 +38,6 @@
 
     </main>
 
-    <footer class="footer">
-      <%= render LofiPlayWeb.NavigationView, "primary_nav.html", assigns %>
-    </footer>
-
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </div>
 </html>
