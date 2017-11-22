@@ -1,6 +1,5 @@
 defmodule LofiPlayWeb.JourneyView do
   use LofiPlayWeb, :view
-  alias LofiPlay.Preview.Bootstrap
   alias LofiPlay.Content
   alias LofiPlay.Preview
 
@@ -44,7 +43,11 @@ defmodule LofiPlayWeb.JourneyView do
     "message"
   end
 
-  defp preview_element({:text, texts}, components) do
+  defp preview_element({:ad, element}, _components) do
+    Preview.Promotion.preview(element, element)
+  end
+
+  defp preview_element({:text, texts}, _components) do
     "text"
   end
 
@@ -52,7 +55,7 @@ defmodule LofiPlayWeb.JourneyView do
   def preview(journey, components: components) do
     #Preview.Bootstrap.preview_text(journey.body, "", components)
     #""
-    LofiPlay.Preview.Journeys.preview_content(journey.body, &preview_element(&1, components))
+    Preview.Journeys.preview_content(journey.body, &preview_element(&1, components))
   end
 
   def preview_in_iframe(conn, journey, layout) do

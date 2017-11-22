@@ -14,11 +14,25 @@ defmodule LofiPlay.Preview.Journeys do
     {:story, children}
   end
 
+  defp process_element(%Lofi.Element{children: children, tags: %{"ad" => {:flag, true}}} = element) do
+    {:ad, element}
+  end
+
   defp process_element(%Lofi.Element{children: children, texts: texts, tags: tags}) do
     {:text, texts}
   end
 
   defp process_section({lines, index}, preview) do
+    html_lines = lines
+    |> Enum.map(&process_element/1)
+    |> Enum.map(preview)
+    
+    content_tag(:div, [
+      content_tag(:div, html_lines, class: "mb-3")
+    ])
+  end
+
+  defp process_carousel_section({lines, index}, preview) do
     html_lines = lines
     |> Enum.map(&process_element/1)
     |> Enum.map(preview)
@@ -53,11 +67,22 @@ defmodule LofiPlay.Preview.Journeys do
     ] |> List.flatten, class: "carousel slide")
   end
 
+  defp process_carousel_sections(sections, preview) do
+    sections
+    |> Enum.with_index
+    |> Enum.map(&process_carousel_section(&1, preview))
+    |> list
+  end
+
+  defp list(items) do
+    content_tag(:div, items)
+  end
+
   defp process_sections(sections, preview) do
     sections
     |> Enum.with_index
     |> Enum.map(&process_section(&1, preview))
-    |> carousel
+    |> list
   end
 
   def preview_content(content, preview) do
