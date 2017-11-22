@@ -16,8 +16,14 @@
       <%#= nav_link "Chatter (Convos)", to: '#' %>
       <%#= nav_link "+", to: '#' %>
       <%= link "Add…", to: add_path(@conn, :index), class: "btn btn-primary text-left" %>
+      
       <br class="mb-3">
+
       <%= nav_link @conn, "Guides", to: "#" %>
+      <%= nav_link @conn, "Lofi Studio", to: "#", class: "ml-3" %>
+      <%= nav_link @conn, "Information Architecture", to: "#", class: "ml-3" %>
+      <%= nav_link @conn, "Component Design", to: "#", class: "ml-3" %>
+      <%= nav_link @conn, "Content Modelling", to: "#", class: "ml-3" %>
     </ul>
   </div>
 </nav>
