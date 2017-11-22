@@ -19,17 +19,18 @@ defmodule LofiPlay.Preview.Promotion do
 
   @facebook_headline_style [
     "font-size: 13px",
+    "line-height: 1.28",
     "font-family: Segoe UI Historic, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
     "font-weight: 700",
     "color: #3b5998",
   ] |> Enum.join("; ")
 
-  @google_post_body_style [
+  @facebook_post_body_style [
     "font-size: 13px",
+    "line-height: 1.28",
     "font-family: Segoe UI Historic, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
     "font-weight: 400",
     "color: #929598",
-    "line-height: 1.28"
   ] |> Enum.join("; ")
 
   @doc """
