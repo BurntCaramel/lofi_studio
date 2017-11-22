@@ -1,5 +1,5 @@
 <%= form_for @changeset, @action, fn f -> %>
-  <%= save_cancel cancel_url: @cancel_url %>
+  <%= save_cancel changeset: @changeset, cancel_url: Map.get(assigns, :cancel_url) %>
 
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
@@ -19,5 +19,5 @@
     <%= error_tag f, :body %>
   </div>
 
-  <%= save_cancel cancel_url: @cancel_url %>
+  <%= save_cancel changeset: @changeset, cancel_url: Map.get(assigns, :cancel_url) %>
 <% end %>

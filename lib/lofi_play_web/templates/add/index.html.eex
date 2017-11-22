@@ -1,3 +1,16 @@
 <%= container do %>
   <h1>Add item</h1>
+
+  <div class="btn-group">
+    <%= active_link @conn, "Journey", "btn btn-secondary", "btn btn-outline-secondary", to: add_path(@conn, :index) %>
+    <%= active_link @conn, "Screen", "btn btn-secondary", "btn btn-outline-secondary", to: add_path(@conn, :index, type: "screen") %>
+    <%= active_link @conn, "Component", "btn btn-secondary", "btn btn-outline-secondary", to: add_path(@conn, :index, type: "component") %>
+    <%= active_link @conn, "Persona", "btn btn-secondary", "btn btn-outline-secondary", to: add_path(@conn, :index, type: "persona") %>
+    <%= active_link @conn, "Promotion", "btn btn-secondary", "btn btn-outline-secondary", to: add_path(@conn, :index, type: "promotion") %>
+  </div>
+  <div class="btn-group">
+    <%= active_link @conn, "Schema", "btn btn-secondary", "btn btn-outline-secondary", to: add_path(@conn, :index, type: "schema") %>
+  </div>
+
+  <%= render_form @conn, assigns %>
 <% end %>

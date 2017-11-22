@@ -57,10 +57,24 @@ defmodule LofiPlayWeb.LayoutHelpers do
   def save_cancel(opts) do
     cancel_url = Keyword.get(opts, :cancel_url)
 
+    changeset = Keyword.get(opts, :changeset)
+    persisted = case changeset do
+      nil -> false
+      changeset -> Ecto.get_meta(changeset.data, :state) == :loaded
+    end
+    submit_title = case persisted do
+      false -> "Create"
+      true -> "Update"
+    end
+
     content_tag(:div, [
-      submit("Save", class: "btn btn-primary"),
+      submit(submit_title, class: "btn btn-primary"),
       " ",
-      link("Cancel", to: cancel_url, class: "btn btn-secondary")
+      if cancel_url do
+        link("Cancel", to: cancel_url, class: "btn btn-secondary")
+      else
+        ""
+      end
     ], class: "form-group")
   end
 end
