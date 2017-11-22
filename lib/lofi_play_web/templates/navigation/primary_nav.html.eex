@@ -1,19 +1,21 @@
 <nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-  <div class="container">
-    <a href="/" class="navbar-brand">
+  <div>
+    <a href="/" class="navbar-brand mb-1">
       <%= img_tag(LofiPlayWeb.Endpoint.static_path("/images/logo/260.png"), width: 28, height: 28) %>
     </a>
     <%= site_search_form(@conn) %>
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto mt-2">
       <%= nav_link @conn, "#journey", to: journey_path(@conn, :index) %>
       <%= nav_link @conn, "#screen", to: screen_path(@conn, :index) %>
       <%= nav_link @conn, "#component", to: component_path(@conn, :index) %>
-      <%#= nav_link @conn, "#message", to: "#" %>
+      <%= nav_link @conn, "#promotion", to: "#" %>
       <%= nav_link @conn, "#schema", to: schema_path(@conn, :index) %>
       <%= nav_link @conn, "#persona", to: "#" %>
       <%#= nav_link "#navigation", to: '#' %>
       <%#= nav_link "#content", to: '#' %>
       <%#= nav_link "Chatter (Convos)", to: '#' %>
+      <%#= nav_link "+", to: '#' %>
+      <%= link "Add…", to: "#", class: "btn btn-primary text-left" %>
     </ul>
   </div>
 </nav>
