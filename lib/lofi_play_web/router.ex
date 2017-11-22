@@ -17,6 +17,9 @@ defmodule LofiPlayWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
+    resources "/add", AddController, only: [:index]
+
     resources "/journeys", JourneyController do
       resources "/preview", JourneyPreviewController, only: [:show], singleton: true, as: :preview
     end

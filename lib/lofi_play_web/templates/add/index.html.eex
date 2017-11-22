@@ -1,0 +1,3 @@
+<%= container do %>
+  <h1>Add item</h1>
+<% end %>

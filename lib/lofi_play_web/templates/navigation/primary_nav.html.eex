@@ -15,7 +15,7 @@
       <%#= nav_link "#content", to: '#' %>
       <%#= nav_link "Chatter (Convos)", to: '#' %>
       <%#= nav_link "+", to: '#' %>
-      <%= link "Add…", to: "#", class: "btn btn-primary text-left" %>
+      <%= link "Add…", to: add_path(@conn, :index), class: "btn btn-primary text-left" %>
     </ul>
   </div>
 </nav>
