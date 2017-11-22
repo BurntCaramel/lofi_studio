@@ -43,7 +43,7 @@ defmodule LofiPlayWeb.JourneyView do
     "message"
   end
 
-  defp preview_element({:ad, element}, _components) do
+  defp preview_element({:promotion, element}, _components) do
     Preview.Promotion.preview(element, element)
   end
 

@@ -14,8 +14,8 @@ defmodule LofiPlay.Preview.Journeys do
     {:story, children}
   end
 
-  defp process_element(%Lofi.Element{children: children, tags: %{"ad" => {:flag, true}}} = element) do
-    {:ad, element}
+  defp process_element(%Lofi.Element{children: children, tags: %{"promotion" => {:flag, true}}} = element) do
+    {:promotion, element}
   end
 
   defp process_element(%Lofi.Element{children: children, texts: texts, tags: tags}) do

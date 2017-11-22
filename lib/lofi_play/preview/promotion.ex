@@ -20,8 +20,8 @@ defmodule LofiPlay.Preview.Promotion do
   @doc """
   Headline #ad #google
   """
-  # def preview([:ad, :google], %Lofi.Element{texts: texts, props: props}) do
-  def preview(%Lofi.Element{tags: %{"ad" => {:flag, true}, "google" => {:flag, true}}}, %Lofi.Element{tags: tags, texts: texts}) do
+  # def preview([:promotion, :google], %Lofi.Element{texts: texts, props: props}) do
+  def preview(%Lofi.Element{tags: %{"promotion" => {:flag, true}, "google" => {:flag, true}}}, %Lofi.Element{tags: tags, texts: texts}) do
     headline = Enum.join(texts)
     description = get_content_tag(tags, "description")
     Tag.content_tag(:div, [
