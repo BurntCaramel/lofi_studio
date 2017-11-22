@@ -21,10 +21,7 @@ header.header {
   z-index: 200;
 }
 header.header nav.navbar {
-  display: flex;
   flex-direction: column;
-  justify-content: start;
-  align-items: flex-start;
   height: 100vh;
 }
 header.header nav.navbar .navbar-nav {
