@@ -1,4 +1,4 @@
-<nav role="navigation" class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+<nav role="navigation" class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
   <div>
     <a href="/" class="navbar-brand mb-1">
       <%= img_tag(LofiPlayWeb.Endpoint.static_path("/images/logo/260.png"), width: 28, height: 28) %>
@@ -16,6 +16,8 @@
       <%#= nav_link "Chatter (Convos)", to: '#' %>
       <%#= nav_link "+", to: '#' %>
       <%= link "Add…", to: add_path(@conn, :index), class: "btn btn-primary text-left" %>
+      <br class="mb-3">
+      <%= nav_link @conn, "Guides", to: "#" %>
     </ul>
   </div>
 </nav>
