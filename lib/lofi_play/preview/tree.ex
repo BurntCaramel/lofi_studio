@@ -1,5 +1,6 @@
 defmodule LofiPlay.Preview.Tree do
   use Phoenix.HTML
+  alias LofiPlay.Preview
 
   def lofi_text(text) when is_binary(text) do
     Lofi.Parse.parse_sections(text)
@@ -17,17 +18,6 @@ defmodule LofiPlay.Preview.Tree do
     content_tag(:div, html_lines, class: "row")
   end
 
-  defp preview_tags_path(tags_path) do
-    # TODO: just use Enum.map or Enum.map_join
-    tag_names = tags_path
-    |> Enum.join(" #")
-
-    case tag_names do
-      "" -> ""
-      s -> "#" <> s
-    end
-  end
-
   defp preview_tags_path_and_text(tags_path, texts, nil) do
     [first_tag | rest_tags] = tags_path
 
@@ -43,27 +33,27 @@ defmodule LofiPlay.Preview.Tree do
         :screen ->
           {
             "#screen",
-            preview_tags_path(rest_tags)
+            Preview.Lofi.preview_tags_path(rest_tags)
           }
         :message ->
           {
             "#message",
-            preview_tags_path(rest_tags)
+            Preview.Lofi.preview_tags_path(rest_tags)
           }
         :promotion ->
           {
             "#promotion",
-            preview_tags_path(rest_tags)
+            Preview.Lofi.preview_tags_path(rest_tags)
           }
         _ ->
           {
-            preview_tags_path(tags_path),
+            Preview.Lofi.preview_tags_path(tags_path),
             ""
           }
       end
     else
       {
-        preview_tags_path(tags_path),
+        Preview.Lofi.preview_tags_path(tags_path),
         Enum.join(texts)
       }
     end
@@ -74,7 +64,7 @@ defmodule LofiPlay.Preview.Tree do
   defp preview_tags_path_and_text(tags_path, texts, introducing) do
     {
       :introducing,
-      preview_tags_path(tags_path),
+      Preview.Lofi.preview_tags_path(tags_path),
       introducing <> ":"
     }
   end

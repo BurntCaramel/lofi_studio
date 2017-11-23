@@ -1,4 +1,9 @@
 defmodule LofiPlay.Preview.Lofi do
+  def preview_tags_path(tags_path) do
+    tags_path
+    |> Enum.map_join(" ", &("#" <> &1))
+  end
+
   def get_content_tag(tags_hash, name, default \\ nil) do
     case tags_hash do
       %{^name => {:content, %{texts: texts}}} ->
