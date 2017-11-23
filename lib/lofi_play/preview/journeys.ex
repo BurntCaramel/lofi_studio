@@ -2,23 +2,23 @@ defmodule LofiPlay.Preview.Journeys do
   use Phoenix.HTML
   import LofiPlay.Preview.Utilities
 
-  defp process_element(%Lofi.Element{children: [], tags_hash: %{"screen" => {:flag, true}}} = %{tags_hash: tags}) do
-    {:screen, tags}
+  defp process_element(%Lofi.Element{children: [], tags_path: ["screen" | _tags_path_rest]} = %{tags_hash: tags_hash}) do
+    {:screen, tags_hash}
   end
 
-  defp process_element(%Lofi.Element{children: [], tags_hash: %{"message" => {:flag, true}}} = %{tags_hash: tags}) do
-    {:message, tags}
+  defp process_element(%Lofi.Element{children: [], tags_path: ["message" | _tags_path_rest]} = %{tags_path: tags_hash}) do
+    {:message, tags_hash}
   end
 
-  defp process_element(%Lofi.Element{children: children, tags_hash: %{"story" => {:flag, true}}}) do
+  defp process_element(%Lofi.Element{children: children, tags_path: ["story" | _tags_path_rest]}) do
     {:story, children}
   end
 
-  defp process_element(%Lofi.Element{children: children, tags_hash: %{"promotion" => {:flag, true}}} = element) do
+  defp process_element(%Lofi.Element{children: children, tags_path: ["promotion" | _tags_path_rest]} = element) do
     {:promotion, element}
   end
 
-  defp process_element(%Lofi.Element{children: children, texts: texts, tags_hash: tags}) do
+  defp process_element(%Lofi.Element{children: children, texts: texts}) do
     {:text, texts}
   end
 

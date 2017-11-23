@@ -17,9 +17,9 @@ defmodule LofiPlay.Preview.Tree do
     content_tag(:div, html_lines, class: "row")
   end
 
-  defp preview_tags(tags) do
-    tag_names = tags
-    |> Map.keys
+  defp preview_tags_path(tags_path) do
+    # TODO: just use Enum.map or Enum.map_join
+    tag_names = tags_path
     |> Enum.join(" #")
 
     case tag_names do
@@ -28,12 +28,14 @@ defmodule LofiPlay.Preview.Tree do
     end
   end
 
-  defp preview_tags_and_text(tags, texts, nil) do
-    type = cond do
-      Map.has_key?(tags, "screen") -> :screen
-      Map.has_key?(tags, "message") -> :message
-      Map.has_key?(tags, "promotion") -> :promotion
-      true -> :unknown
+  defp preview_tags_path_and_text(tags_path, texts, nil) do
+    [first_tag | rest_tags] = tags_path
+
+    type = case first_tag do
+      "screen" -> :screen
+      "message" -> :message
+      "promotion" -> :promotion
+      _ -> :unknown
     end
 
     {first, second} = if texts == [""] do
@@ -41,27 +43,27 @@ defmodule LofiPlay.Preview.Tree do
         :screen ->
           {
             "#screen",
-            preview_tags(Map.drop(tags, ["screen"]))
+            preview_tags_path(rest_tags)
           }
         :message ->
           {
             "#message",
-            preview_tags(Map.drop(tags, ["message"]))
+            preview_tags_path(rest_tags)
           }
         :promotion ->
           {
             "#promotion",
-            preview_tags(Map.drop(tags, ["promotion"]))
+            preview_tags_path(rest_tags)
           }
         _ ->
           {
-            preview_tags(tags),
+            preview_tags_path(tags_path),
             ""
           }
       end
     else
       {
-        preview_tags(tags),
+        preview_tags_path(tags_path),
         Enum.join(texts)
       }
     end
@@ -69,16 +71,16 @@ defmodule LofiPlay.Preview.Tree do
     {type, first, second}
   end
 
-  defp preview_tags_and_text(tags, texts, introducing) do
+  defp preview_tags_path_and_text(tags_path, texts, introducing) do
     {
       :introducing,
-      preview_tags(tags),
+      preview_tags_path(tags_path),
       introducing <> ":"
     }
   end
 
-  defp lofi_element(%Lofi.Element{introducing: introducing, texts: texts, tags_hash: tags, children: children}, depth \\ 0) do
-    {type, tags_preview, texts_preview} = preview_tags_and_text(tags, texts, introducing)
+  defp lofi_element(%Lofi.Element{introducing: introducing, texts: texts, tags_path: tags_path, children: children}, depth \\ 0) do
+    {type, tags_preview, texts_preview} = preview_tags_path_and_text(tags_path, texts, introducing)
 
     {col_class, outer_class, text_class} = case {type, depth} do
       {:screen, _} -> {"col-12", "alert alert-primary", ""}
