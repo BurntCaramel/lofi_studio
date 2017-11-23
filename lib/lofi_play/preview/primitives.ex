@@ -5,7 +5,7 @@ defmodule LofiPlay.Preview.Primitives do
   @doc """
   Textual description #image #source: https://via.placeholder.com/@widthx@height
   """
-  def preview(%Lofi.Element{tags: %{"image" => {:flag, true}, "source" => {:content, source_content}}}, %Lofi.Element{texts: texts, tags: tags}, resolve_content) do
+  def preview(%Lofi.Element{tags_hash: %{"image" => {:flag, true}, "source" => {:content, source_content}}}, %Lofi.Element{texts: texts, tags_hash: tags}, resolve_content) do
     source_url = resolve_content.(source_content.texts, source_content.mentions)
     description = Enum.join(texts)
     width = get_content_tag(tags, "width")
@@ -13,7 +13,7 @@ defmodule LofiPlay.Preview.Primitives do
     tag(:img, src: source_url, alt: description, width: width, height: height)
   end
 
-  def preview(%Lofi.Element{tags: %{"note" => {:flag, true}}}, %Lofi.Element{texts: texts, mentions: mentions}, resolve_content) do
+  def preview(%Lofi.Element{tags_hash: %{"note" => {:flag, true}}}, %Lofi.Element{texts: texts, mentions: mentions}, resolve_content) do
     content_tag(:details, [
       content_tag(:summary, "Note"),
       content_tag(:span, resolve_content.(texts, mentions))
@@ -30,7 +30,7 @@ defmodule LofiPlay.Preview.Primitives do
       Hello
       <p>Hello</p>
   """
-  def preview(%Lofi.Element{children: []}, %Lofi.Element{texts: texts, mentions: mentions, tags: tags}, resolve_content) do
+  def preview(%Lofi.Element{children: []}, %Lofi.Element{texts: texts, mentions: mentions, tags_hash: tags}, resolve_content) do
     tag = cond do
       Lofi.Tags.has_flag(tags, "primary") ->
         :h1
@@ -43,7 +43,7 @@ defmodule LofiPlay.Preview.Primitives do
     content_tag(tag, resolve_content.(texts, mentions))
   end
 
-  def preview(_element, _element, _resolve_content) do
+  def preview(_element1, _element2, _resolve_content) do
     nil
   end
 end

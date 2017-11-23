@@ -27,7 +27,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   <button>Click me</button>
   """
   #defp preview(%Lofi.Element{children: [], texts, tags_list: ["button"]}, resolve_content) do
-  defp preview(%Lofi.Element{children: [], tags: %{"button" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}, resolve_content) do
+  defp preview(%Lofi.Element{children: [], tags_hash: %{"button" => {:flag, true}}}, %Lofi.Element{texts: texts, tags_hash: tags}, resolve_content) do
     class = flatten_classes [
       {"btn", true},
       {"active", Lofi.Tags.has_flag(tags, "active")},
@@ -56,7 +56,7 @@ defmodule LofiPlay.Preview.Bootstrap do
     <button>Second</button>
   </div>
   """
-  defp preview(%Lofi.Element{tags: %{"button" => {:flag, true}}}, %Lofi.Element{children: children, tags: tags}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"button" => {:flag, true}}}, %Lofi.Element{children: children, tags_hash: tags}, resolve_content) do
     class = flatten_classes [
       {"btn", true},
       {
@@ -103,42 +103,42 @@ defmodule LofiPlay.Preview.Bootstrap do
   @doc """
   Enter email #email
   """
-  defp preview(%Lofi.Element{tags: %{"email" => {:flag, true}}}, %Lofi.Element{texts: texts}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"email" => {:flag, true}}}, %Lofi.Element{texts: texts}, resolve_content) do
     input("email", texts)
   end
 
   @doc """
   Phone number #phone
   """
-  defp preview(%Lofi.Element{tags: %{"phone" => {:flag, true}}}, %Lofi.Element{texts: texts}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"phone" => {:flag, true}}}, %Lofi.Element{texts: texts}, resolve_content) do
     input("tel", texts)
   end
 
   @doc """
   Enter password #password
   """
-  defp preview(%Lofi.Element{tags: %{"password" => {:flag, true}}}, %Lofi.Element{texts: texts}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"password" => {:flag, true}}}, %Lofi.Element{texts: texts}, resolve_content) do
     input("password", texts)
   end
 
   @doc """
   Favorite number #number
   """
-  defp preview(%Lofi.Element{tags: %{"number" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"number" => {:flag, true}}}, %Lofi.Element{texts: texts, tags_hash: tags}, resolve_content) do
     input("number", texts, get_content_tag(tags, "default"))
   end
 
   @doc """
   Date of birth #date
   """
-  defp preview(%Lofi.Element{tags: %{"date" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"date" => {:flag, true}}}, %Lofi.Element{texts: texts, tags_hash: tags}, resolve_content) do
     input("date", texts)
   end
 
   @doc """
   Last signed in #time
   """
-  defp preview(%Lofi.Element{tags: %{"time" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"time" => {:flag, true}}}, %Lofi.Element{texts: texts, tags_hash: tags}, resolve_content) do
     value = cond do
       Lofi.Tags.has_flag(tags, "now") ->
         Time.utc_now
@@ -152,7 +152,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   @doc """
   Enter message #text #lines: 6
   """
-  defp preview(%Lofi.Element{tags: %{"text" => {:flag, true}, "lines" => {:content, lines_element}}}, %Lofi.Element{texts: texts, tags: tags}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"text" => {:flag, true}, "lines" => {:content, lines_element}}}, %Lofi.Element{texts: texts, tags_hash: tags}, resolve_content) do
     %{texts: [lines_string]} = lines_element
     textarea(texts, lines_string)
   end
@@ -160,7 +160,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   @doc """
   Enter message #text
   """
-  defp preview(%Lofi.Element{tags: %{"text" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"text" => {:flag, true}}}, %Lofi.Element{texts: texts, tags_hash: tags}, resolve_content) do
     input("text", texts, get_content_tag(tags, "default"))
   end
 
@@ -169,7 +169,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   
   <input>
   """
-  defp preview(%Lofi.Element{tags: %{"field" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"field" => {:flag, true}}}, %Lofi.Element{texts: texts, tags_hash: tags}, resolve_content) do
     type = cond do
       Lofi.Tags.has_flag(tags, "password") ->
         "password"
@@ -187,7 +187,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   
   <label><input type="checkbox"> Accept terms</label>
   """
-  defp preview(%Lofi.Element{children: [], tags: %{"choice" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags}, resolve_content) do
+  defp preview(%Lofi.Element{children: [], tags_hash: %{"choice" => {:flag, true}}}, %Lofi.Element{texts: texts, tags_hash: tags}, resolve_content) do
     Tag.content_tag(:label, [
       Tag.tag(:input, type: "checkbox"),
       " ",
@@ -203,7 +203,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   
   <label>Multiple choice <select><option>Australia</option><option>India</option><option>New Zealand</option></select></label>
   """
-  defp preview(%Lofi.Element{tags: %{"choice" => {:flag, true}}}, %Lofi.Element{texts: texts, tags: tags, children: children}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"choice" => {:flag, true}}}, %Lofi.Element{texts: texts, tags_hash: tags, children: children}, resolve_content) do
     Tag.content_tag(:label, [
       Enum.join(texts, ""),
       " ",
@@ -215,7 +215,7 @@ defmodule LofiPlay.Preview.Bootstrap do
     ])
   end
 
-  defp nav_item(%Lofi.Element{texts: texts, tags: tags}) do
+  defp nav_item(%Lofi.Element{texts: texts, tags_hash: tags}) do
     class = flatten_classes [
       {"nav-item", true},
       {"active", Lofi.Tags.has_flag(tags, "active")}
@@ -234,7 +234,7 @@ defmodule LofiPlay.Preview.Bootstrap do
   - India
   - New Zealand
   """
-  defp preview(%Lofi.Element{tags: %{"nav" => {:flag, true}}}, %Lofi.Element{texts: texts, children: children}, resolve_content) do
+  defp preview(%Lofi.Element{tags_hash: %{"nav" => {:flag, true}}}, %Lofi.Element{texts: texts, children: children}, resolve_content) do
     Tag.content_tag(:nav, [
       Enum.join(texts, ""),
       " ",
@@ -262,7 +262,7 @@ defmodule LofiPlay.Preview.Bootstrap do
     <li>New Zealand</li>
   </ul>
   """
-  defp preview(%Lofi.Element{texts: texts, tags: %{}}, %Lofi.Element{children: children, tags: tags}, resolve_content) do
+  defp preview(%Lofi.Element{texts: texts, tags_hash: %{}}, %Lofi.Element{children: children, tags_hash: tags}, resolve_content) do
     tag = cond do
       Map.get(tags, "ordered") == {:flag, true} -> :ol
       true -> :ul
@@ -288,10 +288,10 @@ defmodule LofiPlay.Preview.Bootstrap do
 
   # Check for custom component
   defp preview_element(element, components, resolve_content) do
-    tags = Map.get(element, :tags)
+    tags_hash = Map.get(element, :tags_hash)
 
     matching_component = components
-    |> Enum.find(fn ({component_tags, _type, _body, _ingredients}) -> component_tags_match(component_tags, tags) end)
+    |> Enum.find(fn ({component_tags, _type, _body, _ingredients}) -> component_tags_match(component_tags, tags_hash) end)
 
     case matching_component do
       {_tags, :svg, body, ingredients} ->
@@ -317,7 +317,7 @@ defmodule LofiPlay.Preview.Bootstrap do
 
   # FIXME: move references to Component: parse beforehand
   defp parse_component_entry(%Component{tags: tags_s, type: type_n, body: body, ingredients: ingredients}) do
-    %Lofi.Element{tags: tags} = Lofi.Parse.parse_element(tags_s)
+    %Lofi.Element{tags_hash: tags} = Lofi.Parse.parse_element(tags_s)
     type = LofiPlay.Content.Component.Type.to_atom(type_n)
     {tags, type, body, ingredients}
   end

@@ -12,7 +12,7 @@ defmodule LofiPlay.Preview.Components do
     html
   end
 
-  defp replace_html_for_ingredient_info({:ok, ingredient_info}, html, %Lofi.Element{tags: tags, texts: texts}) do
+  defp replace_html_for_ingredient_info({:ok, ingredient_info}, html, %Lofi.Element{tags_hash: tags, texts: texts}) do
     {key, {_type, default, choices}} = ingredient_info
     replacement = case key do
       # @texts uses texts of element

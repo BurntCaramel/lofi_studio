@@ -37,7 +37,7 @@ defmodule LofiPlay.Preview.Promotion do
   Headline #ad #google
   """
   # def preview([:promotion, :google], %Lofi.Element{texts: texts, props: props}) do
-  def preview(%Lofi.Element{tags: %{"promotion" => {:flag, true}, "google" => {:flag, true}}}, %Lofi.Element{tags: tags, texts: texts}) do
+  def preview(%Lofi.Element{tags_hash: %{"promotion" => {:flag, true}, "google" => {:flag, true}}}, %Lofi.Element{tags_hash: tags, texts: texts}) do
     headline = Enum.join(texts)
     description = get_content_tag(tags, "description")
     Tag.content_tag(:div, [
@@ -46,7 +46,7 @@ defmodule LofiPlay.Preview.Promotion do
     ] |> Enum.reject(&is_nil/1))
   end
 
-  def preview(%Lofi.Element{tags: %{"promotion" => {:flag, true}, "facebook" => {:flag, true}}}, %Lofi.Element{tags: tags, texts: texts}) do
+  def preview(%Lofi.Element{tags_hash: %{"promotion" => {:flag, true}, "facebook" => {:flag, true}}}, %Lofi.Element{tags_hash: tags, texts: texts}) do
     headline = Enum.join(texts)
     description = get_content_tag(tags, "description")
     Tag.content_tag(:div, [
@@ -58,7 +58,7 @@ defmodule LofiPlay.Preview.Promotion do
   @doc """
   I am thoughtleadering like the boss of moss #post
   """
-  def preview(%Lofi.Element{tags: %{"post" => {:flag, true}}}, %Lofi.Element{tags: tags, texts: texts}) do
+  def preview(%Lofi.Element{tags_hash: %{"post" => {:flag, true}}}, %Lofi.Element{tags_hash: tags, texts: texts}) do
     body = Enum.join(texts)
     name = get_content_tag(tags, "name")
     username = get_content_tag(tags, "username")

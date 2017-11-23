@@ -1,6 +1,6 @@
 defmodule LofiPlay.Preview.Lofi do
-  def get_content_tag(tags, name, default \\ nil) do
-    case tags do
+  def get_content_tag(tags_hash, name, default \\ nil) do
+    case tags_hash do
       %{^name => {:content, %{texts: texts}}} ->
         Enum.join(texts, "")
       _ ->
@@ -8,8 +8,8 @@ defmodule LofiPlay.Preview.Lofi do
     end
   end
 
-  def fetch_content_tag(tags, name) do
-    case tags do
+  def fetch_content_tag(tags_hash, name) do
+    case tags_hash do
       %{^name => {:content, %{texts: texts}}} ->
         {:ok, Enum.join(texts, "")}
       %{^name => _value} ->
@@ -21,16 +21,16 @@ defmodule LofiPlay.Preview.Lofi do
 
   defp parse_ingredient_into_pair(%Lofi.Element{introducing: nil}), do: {:error, :missing_introducing}
 
-  defp parse_ingredient_into_pair(%Lofi.Element{introducing: introducing, tags: tags, children: children}) when is_binary(introducing) do
-    info = case tags do
+  defp parse_ingredient_into_pair(%Lofi.Element{introducing: introducing, tags_hash: tags_hash, children: children}) when is_binary(introducing) do
+    info = case tags_hash do
       %{"number" => {:flag, true}} ->
-        default = get_content_tag(tags, "default", get_content_tag(tags, "min", "0"))
+        default = get_content_tag(tags_hash, "default", get_content_tag(tags_hash, "min", "0"))
         {:number, default, children}
       %{"choice" => {:flag, true}} ->
-        default = get_content_tag(tags, "default")
+        default = get_content_tag(tags_hash, "default")
         {:choice, default, children}
       _ ->
-        default = get_content_tag(tags, "default")
+        default = get_content_tag(tags_hash, "default")
         {:text, default, children}
     end
     {:ok, {introducing, info}}

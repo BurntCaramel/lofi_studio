@@ -77,7 +77,7 @@ defmodule LofiPlay.Preview.Tree do
     }
   end
 
-  defp lofi_element(%Lofi.Element{introducing: introducing, texts: texts, tags: tags, children: children}, depth \\ 0) do
+  defp lofi_element(%Lofi.Element{introducing: introducing, texts: texts, tags_hash: tags, children: children}, depth \\ 0) do
     {type, tags_preview, texts_preview} = preview_tags_and_text(tags, texts, introducing)
 
     {col_class, outer_class, text_class} = case {type, depth} do
