@@ -1,4 +1,4 @@
-# LofiPlay
+# Lofi Studio
 
 To start your Phoenix server:
 
